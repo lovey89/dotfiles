@@ -1,0 +1,882 @@
+! Load this file with the command 'xrdb ~/.Xresources' or
+! 'xrdb -merge ~/.Xresources' if you you want to also keep changes from a
+! previously loaded file
+! 'xrdb -query' to read out what is in xrdb
+
+! COLOR SCHEME
+!#define TANGOESQUE
+#define EMACSTHEME
+!#define MOLOKAI
+!#define SOLARIZED
+!#define SMYCK
+!#define WOMBAT
+!#define CUSTOM
+
+!http://chriskempson.github.io/base16/
+!https://github.com/chriskempson/base16
+!#define LIGHT
+!#define BASE16_3024
+!#define BASE16_ATELIER_DUNE
+!#define BASE16_ATELIER_FOREST
+!#define BASE16_ATELIER_HEALTH
+!#define BASE16_ATELIER_LAKESIDE
+!#define BASE16_ATELIER_SEASIDE
+!#define BASE16_BESPIN
+!#define BASE16_BREWER
+!#define BASE16_BRIGHT
+!#define BASE16_CHALK
+!#define BASE16_CODESCHOOL
+!#define BASE16_DEFAULT
+!#define BASE16_EIGHTIES
+!#define BASE16_EMBERS
+!#define BASE16_FLAT
+!#define BASE16_GOOGLE
+!#define BASE16_ISOTOPE
+!#define BASE16_LONDON_TUBE
+!#define BASE16_MARRAKESH
+!#define BASE16_MOCHA
+!#define BASE16_MONOKAI
+!#define BASE16_OCEAN
+!#define BASE16_PARAISO
+!#define BASE16_POP
+!#define BASE16_RAILSCASTS
+!#define BASE16_SHAPESHIFTER
+!#define BASE16_SOLARIZED
+!#define BASE16_TOMORROW
+!#define BASE16_TWILIGHT
+
+! FONT
+#define SMALLFONT
+!#define TERMINUS
+!#define DINA
+
+! terminal colors ------------------------------------------------------------
+
+#ifdef TANGOESQUE
+! tangoesque scheme
+#define T_BACKGROUND #111111
+#define T_FOREGROUND #babdb6
+#define T_FORE_H     #babdb6
+#define T_BLACK      #000000
+#define T_BLACK_H    #555753
+#define T_RED        #ff6565
+#define T_RED_H      #ff8d8d
+#define T_GREEN      #93d44f
+#define T_GREEN_H    #c8e7a8
+#define T_YELLOW     #eab93d
+#define T_YELLOW_H   #ffc123
+#define T_BLUE       #204a87
+#define T_BLUE_H     #3465a4
+#define T_MAGENTA    #ce5c00
+#define T_MAGENTA_H  #f57900
+#define T_CYAN       #89b6e2
+#define T_CYAN_H     #46a4ff
+#define T_WHITE      #cccccc
+#define T_WHITE_H    #ffffff
+
+#elif defined EMACSTHEME
+
+!wombat-bg
+#define T_BACKGROUND #242424
+!own
+#define T_FOREGROUND #d6d3ca
+!own
+#define T_FORE_H     #ffffff
+!own
+#define T_BLACK      #2d2d2d
+!own
+#define T_BLACK_H    #484848
+!own
+#define T_RED        #e53a28
+!wombat-red-1
+#define T_RED_H      #e5786d
+!wombat-green
+#define T_GREEN      #95e454
+!wombat-green+1
+#define T_GREEN_H    #cae682
+!wombat-orange+2
+#define T_YELLOW     #ffc125
+!own
+#define T_YELLOW_H   #ffe725
+!wombat-blue-1
+#define T_BLUE       #64a8d8
+!wombat-blue
+#define T_BLUE_H     #8ac6f2
+!wombat-pink-1
+#define T_MAGENTA    #f283b6
+!wombat-pink
+#define T_MAGENTA_H  #f6b3df
+!own
+#define T_CYAN       #3eb4aa
+!own
+#define T_CYAN_H     #51ddde
+!own
+#define T_WHITE      #d8d8d8
+!own
+#define T_WHITE_H    #ffffff
+
+#elif defined MOLOKAI
+! Molokai theme
+#define T_BACKGROUND #101010
+#define T_FOREGROUND #d0d0d0
+#define T_FORE_H     #d0d0d0
+#define T_BLACK      #101010
+#define T_BLACK_H    #303030
+#define T_RED        #960050
+#define T_RED_H      #ff0090
+#define T_GREEN      #66aa11
+#define T_GREEN_H    #80ff00
+#define T_YELLOW     #c47f2c
+#define T_YELLOW_H   #ffba68
+#define T_BLUE       #30309b
+#define T_BLUE_H     #5f5fee
+#define T_MAGENTA    #7e40a5
+#define T_MAGENTA_H  #bb88dd
+#define T_CYAN       #3579a8
+#define T_CYAN_H     #4eb4fa
+#define T_WHITE      #9999aa
+#define T_WHITE_H    #d0d0d0
+
+#elif defined SOLARIZED
+! Solarized theme
+#define T_BACKGROUND #002b36
+#define T_FOREGROUND #a7bdc0
+#define T_FORE_H     #ffffff
+#define T_BLACK      #073642
+#define T_BLACK_H    #002b36
+#define T_RED        #dc322f
+#define T_RED_H      #cb4b16
+#define T_GREEN      #859900
+#define T_GREEN_H    #85e600
+#define T_YELLOW     #b58900
+#define T_YELLOW_H   #ffc100
+#define T_BLUE       #2ca2f2
+#define T_BLUE_H     #2ca2f2
+#define T_MAGENTA    #d33682
+#define T_MAGENTA_H  #6c71c4
+#define T_CYAN       #2aa198
+#define T_CYAN_H     #95fff1
+#define T_WHITE      #eee8d5
+#define T_WHITE_H    #fdf6e3
+
+#elif defined SMYCK
+! Smyck theme
+!!
+#define T_BACKGROUND #242424
+!!
+#define T_FOREGROUND #b0b0b0
+!!
+#define T_FORE_H     #f7f7f7
+#define T_BLACK      #000000
+#define T_BLACK_H    #5d5d5d
+#define T_RED        #c75646
+#define T_RED_H      #e09690
+#define T_GREEN      #8eb33b
+#define T_GREEN_H    #cdee69
+#define T_YELLOW     #d0b03c
+#define T_YELLOW_H   #ffe377
+#define T_BLUE       #72b3cc
+#define T_BLUE_H     #9cd9f0
+#define T_MAGENTA    #c8a0d1
+#define T_MAGENTA_H  #fbb1f9
+#define T_CYAN       #218693
+#define T_CYAN_H     #77dfd8
+#define T_WHITE      #b0b0b0
+#define T_WHITE_H    #f7f7f7
+
+#elif defined WOMBAT
+! Wombat theme?
+#define T_BACKGROUND #303030
+! #define T_FOREGROUND #f6f3e8
+#define T_FOREGROUND #d6d3c8
+! #define T_FORE_H     #f6f3e8
+#define T_FORE_H     #ffffff
+
+#define T_BLACK      #3d3d3d
+#define T_BLACK_H    #636363
+#define T_RED        #cc0000
+#define T_RED_H      #cc3300
+#define T_GREEN      #00cc00
+#define T_GREEN_H    #95e454
+#define T_YELLOW     #fce94f
+#define T_YELLOW_H   #c2b43d
+#define T_BLUE       #5f87df
+#define T_BLUE_H     #8ac6f2
+#define T_MAGENTA    #ff00d7
+#define T_MAGENTA_H  #ff5996
+#define T_CYAN       #008b8b
+#define T_CYAN_H     #00ffff
+#define T_WHITE      #c8c8c8
+#define T_WHITE_H    #eeeeee
+
+#elif defined BASE16_3024
+
+#define base00 #090300
+#define base01 #3a3432
+#define base02 #4a4543
+#define base03 #5c5855
+#define base04 #807d7c
+#define base05 #a5a2a2
+#define base06 #d6d5d4
+#define base07 #f7f7f7
+#define base08 #db2d20
+#define base09 #e8bbd0
+#define base0A #fded02
+#define base0B #01a252
+#define base0C #b5e4f4
+#define base0D #01a0e4
+#define base0E #a16a94
+#define base0F #cdab53
+
+#elif defined BASE16_ATELIER_DUNE
+
+#define base00 #20201d
+#define base01 #292824
+#define base02 #6e6b5e
+#define base03 #7d7a68
+#define base04 #999580
+#define base05 #a6a28c
+#define base06 #e8e4cf
+#define base07 #fefbec
+#define base08 #d73737
+#define base09 #b65611
+#define base0A #cfb017
+#define base0B #60ac39
+#define base0C #1fad83
+#define base0D #6684e1
+#define base0E #b854d4
+#define base0F #d43552
+
+#elif defined BASE16_ATELIER_FOREST
+
+#define base00 #1b1918
+#define base01 #2c2421
+#define base02 #68615e
+#define base03 #766e6b
+#define base04 #9c9491
+#define base05 #a8a19f
+#define base06 #e6e2e0
+#define base07 #f1efee
+#define base08 #f22c40
+#define base09 #df5320
+#define base0A #d5911a
+#define base0B #5ab738
+#define base0C #00ad9c
+#define base0D #407ee7
+#define base0E #6666ea
+#define base0F #c33ff3
+
+#elif defined BASE16_ATELIER_HEALTH
+
+#define base00 #1b181b
+#define base01 #292329
+#define base02 #695d69
+#define base03 #776977
+#define base04 #9e8f9e
+#define base05 #ab9bab
+#define base06 #d8cad8
+#define base07 #f7f3f7
+#define base08 #ca402b
+#define base09 #a65926
+#define base0A #bb8a35
+#define base0B #379a37
+#define base0C #159393
+#define base0D #516aec
+#define base0E #7b59c0
+#define base0F #cc33cc
+
+#elif defined BASE16_ATELIER_LAKESIDE
+
+#define base00 #161b1d
+#define base01 #1f292e
+#define base02 #516d7b
+#define base03 #5a7b8c
+#define base04 #7195a8
+#define base05 #7ea2b4
+#define base06 #c1e4f6
+#define base07 #ebf8ff
+#define base08 #d22d72
+#define base09 #935c25
+#define base0A #8a8a0f
+#define base0B #568c3b
+#define base0C #2d8f6f
+#define base0D #257fad
+#define base0E #5d5db1
+#define base0F #b72dd2
+
+#elif defined BASE16_ATELIER_SEASIDE
+
+#define base00 #131513
+#define base01 #242924
+#define base02 #5e6e5e
+#define base03 #687d68
+#define base04 #809980
+#define base05 #8ca68c
+#define base06 #cfe8cf
+#define base07 #f0fff0
+#define base08 #e6193c
+#define base09 #87711d
+#define base0A #c3c322
+#define base0B #29a329
+#define base0C #1999b3
+#define base0D #3d62f5
+#define base0E #ad2bee
+#define base0F #e619c3
+
+#elif defined BASE16_BESPIN
+
+#define base00 #28211c
+#define base01 #36312e
+#define base02 #5e5d5c
+#define base03 #666666
+#define base04 #797977
+#define base05 #8a8986
+#define base06 #9d9b97
+#define base07 #baae9e
+#define base08 #cf6a4c
+#define base09 #cf7d34
+#define base0A #f9ee98
+#define base0B #54be0d
+#define base0C #afc4db
+#define base0D #5ea6ea
+#define base0E #9b859d
+#define base0F #937121
+
+#elif defined BASE16_BREWER
+
+#define base00 #0c0d0e
+#define base01 #2e2f30
+#define base02 #515253
+#define base03 #737475
+#define base04 #959697
+#define base05 #b7b8b9
+#define base06 #dadbdc
+#define base07 #fcfdfe
+#define base08 #e31a1c
+#define base09 #e6550d
+#define base0A #dca060
+#define base0B #31a354
+#define base0C #80b1d3
+#define base0D #3182bd
+#define base0E #756bb1
+#define base0F #b15928
+
+#elif defined BASE16_BRIGHT
+
+#define base00 #000000
+#define base01 #303030
+#define base02 #505050
+#define base03 #b0b0b0
+#define base04 #d0d0d0
+#define base05 #e0e0e0
+#define base06 #f5f5f5
+#define base07 #ffffff
+#define base08 #fb0120
+#define base09 #fc6d24
+#define base0A #fda331
+#define base0B #a1c659
+#define base0C #76c7b7
+#define base0D #6fb3d2
+#define base0E #d381c3
+#define base0F #be643c
+
+#elif defined BASE16_CHALK
+
+#define base00 #151515
+#define base01 #202020
+#define base02 #303030
+#define base03 #505050
+#define base04 #b0b0b0
+#define base05 #d0d0d0
+#define base06 #e0e0e0
+#define base07 #f5f5f5
+#define base08 #fb9fb1
+#define base09 #eda987
+#define base0A #ddb26f
+#define base0B #acc267
+#define base0C #12cfc0
+#define base0D #6fc2ef
+#define base0E #e1a3ee
+#define base0F #deaf8f
+
+#elif defined BASE16_CODESCHOOL
+
+#define base00 #232c31
+#define base01 #1c3657
+#define base02 #2a343a
+#define base03 #3f4944
+#define base04 #84898c
+#define base05 #9ea7a6
+#define base06 #a7cfa3
+#define base07 #b5d8f6
+#define base08 #2a5491
+#define base09 #43820d
+#define base0A #a03b1e
+#define base0B #237986
+#define base0C #b02f30
+#define base0D #484d79
+#define base0E #c59820
+#define base0F #c98344
+
+#elif defined BASE16_DEFAULT
+
+#define base00 #151515
+#define base01 #202020
+#define base02 #303030
+#define base03 #505050
+#define base04 #b0b0b0
+#define base05 #d0d0d0
+#define base06 #e0e0e0
+#define base07 #f5f5f5
+#define base08 #ac4142
+#define base09 #d28445
+#define base0A #f4bf75
+#define base0B #90a959
+#define base0C #75b5aa
+#define base0D #6a9fb5
+#define base0E #aa759f
+#define base0F #8f5536
+
+#elif defined BASE16_EIGHTIES
+
+#define base00 #2d2d2d
+#define base01 #393939
+#define base02 #515151
+#define base03 #747369
+#define base04 #a09f93
+#define base05 #d3d0c8
+#define base06 #e8e6df
+#define base07 #f2f0ec
+#define base08 #f2777a
+#define base09 #f99157
+#define base0A #ffcc66
+#define base0B #99cc99
+#define base0C #66cccc
+#define base0D #6699cc
+#define base0E #cc99cc
+#define base0F #d27b53
+
+#elif defined BASE16_EMBERS
+
+#define base00 #16130F
+#define base01 #2C2620
+#define base02 #433B32
+#define base03 #5A5047
+#define base04 #8A8075
+#define base05 #A39A90
+#define base06 #BEB6AE
+#define base07 #DBD6D1
+#define base08 #826D57
+#define base09 #828257
+#define base0A #6D8257
+#define base0B #57826D
+#define base0C #576D82
+#define base0D #6D5782
+#define base0E #82576D
+#define base0F #825757
+
+#elif defined BASE16_FLAT
+
+#define base00 #2C3E50
+#define base01 #34495E
+#define base02 #7F8C8D
+#define base03 #95A5A6
+#define base04 #BDC3C7
+#define base05 #e0e0e0
+#define base06 #f5f5f5
+#define base07 #ECF0F1
+#define base08 #E74C3C
+#define base09 #E67E22
+#define base0A #F1C40F
+#define base0B #2ECC71
+#define base0C #1ABC9C
+#define base0D #3498DB
+#define base0E #9B59B6
+#define base0F #be643c
+
+#elif defined BASE16_GOOGLE
+
+#define base00 #1d1f21
+#define base01 #282a2e
+#define base02 #373b41
+#define base03 #969896
+#define base04 #b4b7b4
+#define base05 #c5c8c6
+#define base06 #e0e0e0
+#define base07 #ffffff
+#define base08 #CC342B
+#define base09 #F96A38
+#define base0A #FBA922
+#define base0B #198844
+#define base0C #3971ED
+#define base0D #3971ED
+#define base0E #A36AC7
+#define base0F #3971ED
+
+#elif defined BASE16_ISOTOPE
+
+#define base00 #000000
+#define base01 #404040
+#define base02 #606060
+#define base03 #808080
+#define base04 #c0c0c0
+#define base05 #d0d0d0
+#define base06 #e0e0e0
+#define base07 #ffffff
+#define base08 #ff0000
+#define base09 #ff9900
+#define base0A #ff0099
+#define base0B #33ff00
+#define base0C #00ffff
+#define base0D #0066ff
+#define base0E #cc00ff
+#define base0F #3300ff
+
+#elif defined BASE16_LONDON_TUBE
+
+#define base00 #231f20
+#define base01 #1c3f95
+#define base02 #5a5758
+#define base03 #737171
+#define base04 #959ca1
+#define base05 #d9d8d8
+#define base06 #e7e7e8
+#define base07 #ffffff
+#define base08 #ee2e24
+#define base09 #f386a1
+#define base0A #ffd204
+#define base0B #00853e
+#define base0C #85cebc
+#define base0D #009ddc
+#define base0E #98005d
+#define base0F #b06110
+
+#elif defined BASE16_MARRAKESH
+
+#define base00 #201602
+#define base01 #302e00
+#define base02 #5f5b17
+#define base03 #6c6823
+#define base04 #86813b
+#define base05 #948e48
+#define base06 #ccc37a
+#define base07 #faf0a5
+#define base08 #c35359
+#define base09 #b36144
+#define base0A #a88339
+#define base0B #18974e
+#define base0C #75a738
+#define base0D #477ca1
+#define base0E #8868b3
+#define base0F #b3588e
+
+#elif defined BASE16_MOCHA
+
+#define base00 #3B3228
+#define base01 #534636
+#define base02 #645240
+#define base03 #7e705a
+#define base04 #b8afad
+#define base05 #d0c8c6
+#define base06 #e9e1dd
+#define base07 #f5eeeb
+#define base08 #cb6077
+#define base09 #d28b71
+#define base0A #f4bc87
+#define base0B #beb55b
+#define base0C #7bbda4
+#define base0D #8ab3b5
+#define base0E #a89bb9
+#define base0F #bb9584
+
+#elif defined BASE16_MONOKAI
+
+#define base00 #272822
+#define base01 #383830
+#define base02 #49483e
+#define base03 #75715e
+#define base04 #a59f85
+#define base05 #f8f8f2
+#define base06 #f5f4f1
+#define base07 #f9f8f5
+#define base08 #f92672
+#define base09 #fd971f
+#define base0A #f4bf75
+#define base0B #a6e22e
+#define base0C #a1efe4
+#define base0D #66d9ef
+#define base0E #ae81ff
+#define base0F #cc6633
+
+#elif defined BASE16_OCEAN
+
+#define base00 #2b303b
+#define base01 #343d46
+#define base02 #4f5b66
+#define base03 #65737e
+#define base04 #a7adba
+#define base05 #c0c5ce
+#define base06 #dfe1e8
+#define base07 #eff1f5
+#define base08 #bf616a
+#define base09 #d08770
+#define base0A #ebcb8b
+#define base0B #a3be8c
+#define base0C #96b5b4
+#define base0D #8fa1b3
+#define base0E #b48ead
+#define base0F #ab7967
+
+#elif defined BASE16_PARAISO
+
+#define base00 #2f1e2e
+#define base01 #41323f
+#define base02 #4f424c
+#define base03 #776e71
+#define base04 #8d8687
+#define base05 #a39e9b
+#define base06 #b9b6b0
+#define base07 #e7e9db
+#define base08 #ef6155
+#define base09 #f99b15
+#define base0A #fec418
+#define base0B #48b685
+#define base0C #5bc4bf
+#define base0D #06b6ef
+#define base0E #815ba4
+#define base0F #e96ba8
+
+#elif defined BASE16_POP
+
+#define base00 #000000
+#define base01 #202020
+#define base02 #303030
+#define base03 #505050
+#define base04 #b0b0b0
+#define base05 #d0d0d0
+#define base06 #e0e0e0
+#define base07 #ffffff
+#define base08 #eb008a
+#define base09 #f29333
+#define base0A #f8ca12
+#define base0B #37b349
+#define base0C #00aabb
+#define base0D #0e5a94
+#define base0E #b31e8d
+#define base0F #7a2d00
+
+#elif defined BASE16_RAILSCASTS
+
+#define base00 #2b2b2b
+#define base01 #272935
+#define base02 #3a4055
+#define base03 #5a647e
+#define base04 #d4cfc9
+#define base05 #e6e1dc
+#define base06 #f4f1ed
+#define base07 #f9f7f3
+#define base08 #da4939
+#define base09 #cc7833
+#define base0A #ffc66d
+#define base0B #a5c261
+#define base0C #519f50
+#define base0D #6d9cbe
+#define base0E #b6b3eb
+#define base0F #bc9458
+
+#elif defined BASE16_SHAPESHIFTER
+
+#define base00 #000000
+#define base01 #040404
+#define base02 #102015
+#define base03 #343434
+#define base04 #555555
+#define base05 #ababab
+#define base06 #e0e0e0
+#define base07 #f9f9f9
+#define base08 #e92f2f
+#define base09 #e09448
+#define base0A #dddd13
+#define base0B #0ed839
+#define base0C #23edda
+#define base0D #3b48e3
+#define base0E #f996e2
+#define base0F #69542d
+
+#elif defined BASE16_SOLARIZED
+
+#define base00 #002b36
+#define base01 #073642
+#define base02 #586e75
+#define base03 #657b83
+#define base04 #839496
+#define base05 #93a1a1
+#define base06 #eee8d5
+#define base07 #fdf6e3
+#define base08 #dc322f
+#define base09 #cb4b16
+#define base0A #b58900
+#define base0B #859900
+#define base0C #2aa198
+#define base0D #268bd2
+#define base0E #6c71c4
+#define base0F #d33682
+
+#elif defined BASE16_TOMORROW
+
+#define base00 #1d1f21
+#define base01 #282a2e
+#define base02 #373b41
+#define base03 #969896
+#define base04 #b4b7b4
+#define base05 #c5c8c6
+#define base06 #e0e0e0
+#define base07 #ffffff
+#define base08 #cc6666
+#define base09 #de935f
+#define base0A #f0c674
+#define base0B #b5bd68
+#define base0C #8abeb7
+#define base0D #81a2be
+#define base0E #b294bb
+#define base0F #a3685a
+
+#elif defined BASE16_TWILIGHT
+
+#define base00 #1e1e1e
+#define base01 #323537
+#define base02 #464b50
+#define base03 #5f5a60
+#define base04 #838184
+#define base05 #a7a7a7
+#define base06 #c3c3c3
+#define base07 #ffffff
+#define base08 #cf6a4c
+#define base09 #cda869
+#define base0A #f9ee98
+#define base0B #8f9d6a
+#define base0C #afc4db
+#define base0D #7587a6
+#define base0E #9b859d
+#define base0F #9b703f
+
+#elif defined CUSTOM
+
+#define T_BACKGROUND #2c3e50
+#define T_FOREGROUND #cacccd
+#define T_FORE_H     #ffffff
+#define T_BLACK      #354a60
+#define T_BLACK_H    #586e75
+#define T_RED        #cb4b16
+#define T_RED_H      #cc3300
+#define T_GREEN      #859900
+#define T_GREEN_H    #95e454
+#define T_YELLOW     #b58900
+#define T_YELLOW_H   #fce94f
+#define T_BLUE       #268bd2
+#define T_BLUE_H     #8ac6f2
+#define T_MAGENTA    #d33682
+#define T_MAGENTA_H  #ff5996
+#define T_CYAN       #2aa198
+#define T_CYAN_H     #00ffff
+#define T_WHITE      #aaaaaa
+#define T_WHITE_H    #e8e8e8
+
+#endif
+
+#if defined TANGOESQUE || defined EMACSTHEME || defined MOLOKAI || defined SOLARIZED || defined SMYCK || defined WOMBAT || defined CUSTOM
+xterm*background:  T_BACKGROUND
+xterm*foreground:  T_FOREGROUND
+xterm*cursorColor: T_FOREGROUND
+xterm*colorBD:     T_FORE_H
+xterm*color0:      T_BLACK
+xterm*color1:      T_RED
+xterm*color2:      T_GREEN
+xterm*color3:      T_YELLOW
+xterm*color4:      T_BLUE
+xterm*color5:      T_MAGENTA
+xterm*color6:      T_CYAN
+xterm*color7:      T_WHITE
+xterm*color8:      T_BLACK_H
+xterm*color9:      T_RED_H
+! T.ex. executables
+xterm*color10:     T_GREEN_H
+xterm*color11:     T_YELLOW_H
+! T.ex. directories (tror jag)
+xterm*color12:     T_BLUE_H
+xterm*color13:     T_MAGENTA_H
+! T.ex. softlinks
+xterm*color14:     T_CYAN_H
+xterm*color15:     T_WHITE_H
+#else
+#ifdef LIGHT
+xterm*foreground:  base02
+xterm*background:  base07
+xterm*cursorColor: base02
+#else
+xterm*foreground:  base05
+xterm*background:  base00
+xterm*cursorColor: base05
+#endif
+xterm*color0:      base00
+xterm*color1:      base08
+xterm*color2:      base0B
+xterm*color3:      base0A
+xterm*color4:      base0D
+xterm*color5:      base0E
+xterm*color6:      base0C
+xterm*color7:      base05
+xterm*color8:      base03
+xterm*color9:      base08
+xterm*color10:     base0B
+xterm*color11:     base0A
+xterm*color12:     base0D
+xterm*color13:     base0E
+xterm*color14:     base0C
+xterm*color15:     base07
+
+xterm*color16: base09
+xterm*color17: base0F
+xterm*color18: base01
+xterm*color19: base02
+xterm*color20: base04
+xterm*color21: base06
+#endif
+
+! xterm ----------------------------------------------------------------------
+
+xterm*VT100.geometry:     80x25
+xterm*dynamicColors:      true
+xterm*utf8:               2
+
+!eightBitInput (false) och metaSendsEscape (true) behövs visst för att få meta
+!att fungera i emasc
+xterm*eightBitInput:      false
+xterm*metaSendsEscape:    true
+xterm*saveLines:          512
+xterm*scrollKey:          true
+xterm*scrollTtyOutput:    false
+xterm*scrollBar:          false
+!xterm*rightScrollBar:     true
+xterm*jumpScroll:         true
+xterm*multiScroll:        true
+xterm*toolBar:            false
+
+#ifdef SMALLFONT
+xterm*boldMode: false
+xterm*font: fixed
+xterm*boldFont: fixed
+!Bold fonts will not show up as bold since the 'fixed' font is hard to read then
+xterm*allowBoldFonts: false
+xterm*colorBDMode: true
+#elif defined TERMINUS
+xterm*faceName:           Terminus:style=Regular:size=10
+#elif defined DINA
+xterm*font:              -*-dina-medium-r-*-*-16-*-*-*-*-*-*-*
+#endif
+
+xterm*loginShell: true
+
+! emacs ----------------------------------------------------------------------
+
+!emacs.font: Terminus-9
