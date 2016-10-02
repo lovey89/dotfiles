@@ -1,0 +1,14 @@
+[user]
+	name = Love Y
+	email = xlove.github@yregard.se
+[core]
+	autocrlf = input
+	editor = vim
+[push]
+	default = tracking
+[merge]
+	tool = kdiff3
+[color]
+	ui = true
+[alias]
+	gol = log --graph --decorate --oneline
