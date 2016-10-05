@@ -7,8 +7,12 @@ sxhkd &
 ####################
 #bspc monitor -d I II III IV V VI VII VIII IX X
 # You find the monitor names by running "xrandr"
-bspc monitor DVI-D-0 -d I II III IV V
-bspc monitor DVI-I-0 -d VI VII VIII IX X
+if [[ "$HOSTNAME" == "Arch_Desktop" ]]; then
+  bspc monitor DVI-D-0 -d I II III IV V
+  bspc monitor DVI-I-0 -d VI VII VIII IX X
+else
+  bspc monitor -d I II III IV V VI VII VIII IX X
+fi
 
 ###################
 # Border settings #
