@@ -5,13 +5,16 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
+# Source global definitions
+if [ -f /etc/bashrc ]; then
+    . /etc/bashrc
+fi
 
-
-BASH_ALIASES=".bash_aliases"
+MY_BASH_ALIASES="$HOME/.bash_aliases"
 
 #Load aliases
-if [ -f "$BASH_ALIASES" ]; then
-    . "$BASH_ALIASES"
+if [ -f "$MY_BASH_ALIASES" ]; then
+    . "$MY_BASH_ALIASES"
 fi
 
 # Prompt
