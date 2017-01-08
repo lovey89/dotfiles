@@ -29,7 +29,10 @@ git_prompt ()
 PS1='\[\e[0;32m\]\A\[\e[m\] \[\e[0;31m\]$HOSTNAME\[\e[m\]:\[\e[0;36m\]\W\[\e[m\]\[\e[0;33m\]$(git_prompt)\[\e[m\]\[\e[0;36m\]>\[\e[m\]'
 
 # Variables
-VISUAL=vim
+export VISUAL=vim
+export PATH="$PATH":"$HOME"/dotfiles/scripts
+#export PROMPT_COMMAND='printf "\033k%s@%s:%s\033\\" "${USER}" "${HOSTNAME%%.*}" "${PWD/#$HOME/\~}"'
+unset -v PROMPT_COMMAND
 
 #Use more colors if possible
 if [ -e /usr/share/terminfo/x/xterm-256color ]; then
