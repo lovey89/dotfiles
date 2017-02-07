@@ -31,6 +31,7 @@
  '(custom-theme-directory "~/.emacs.d/custom_themes")
  '(dabbrev-check-all-buffers t)
  '(delete-selection-mode nil)
+ '(fill-column 100)
  '(global-font-lock-mode t)
  '(inhibit-startup-screen t)
  '(menu-bar-mode nil)

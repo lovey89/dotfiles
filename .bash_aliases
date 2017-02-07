@@ -10,3 +10,9 @@ alias cfind='find -L . \( ! -name ".git" -o -prune \) -type f -print0 | xargs -0
 
 # This will make sudo available for aliases as well
 alias sudo='sudo '
+
+# Functions
+ffile ()
+{
+  find . -iname "*$1*"
+}
