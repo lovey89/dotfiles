@@ -27,6 +27,7 @@ git_prompt ()
     echo "($git_branch)"
 }
 PS1='\[\e[0;32m\]\A\[\e[m\] \[\e[0;31m\]$HOSTNAME\[\e[m\]:\[\e[0;36m\]\W\[\e[m\]\[\e[0;33m\]$(git_prompt)\[\e[m\]\[\e[0;36m\]>\[\e[m\]'
+# See for more color codes http://misc.flogisoft.com/bash/tip_colors_and_formatting
 
 # Variables
 export VISUAL=vim
