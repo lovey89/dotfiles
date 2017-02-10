@@ -16,3 +16,8 @@ ffile ()
 {
   find . -iname "*$1*"
 }
+
+charcount ()
+{
+  wc -m <(echo -nE "$1") | cut --delimiter=' ' -f1
+}
