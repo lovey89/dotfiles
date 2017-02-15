@@ -11,6 +11,7 @@ if [ -f /etc/bashrc ]; then
 fi
 
 MY_BASH_ALIASES="$HOME/.bash_aliases"
+MY_LOCAL_SETTINGS="$HOME/.bash_local"
 
 # Load aliases
 if [ -f "$MY_BASH_ALIASES" ]; then
@@ -42,4 +43,9 @@ if [ -e /usr/share/terminfo/x/xterm-256color ]; then
     export TERM='xterm-256color'
 else
     export TERM='xterm-color'
+fi
+
+# Load local settings
+if [ -f "$MY_LOCAL_SETTINGS" ]; then
+    . "$MY_LOCAL_SETTINGS"
 fi
