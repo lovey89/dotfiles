@@ -36,7 +36,7 @@ export PATH="$PATH":"$HOME"/dotfiles/scripts
 #export PROMPT_COMMAND='printf "\033k%s@%s:%s\033\\" "${USER}" "${HOSTNAME%%.*}" "${PWD/#$HOME/\~}"'
 unset -v PROMPT_COMMAND
 # Options used by the 'less' command
-export LESS="-RS#3Mi"
+export LESS="-RS#3MiF"
 
 #Use more colors if possible
 if [ -e /usr/share/terminfo/x/xterm-256color ]; then
