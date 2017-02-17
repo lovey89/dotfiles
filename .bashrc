@@ -36,10 +36,17 @@ export PATH="$PATH":"$HOME"/dotfiles/scripts
 #export PROMPT_COMMAND='printf "\033k%s@%s:%s\033\\" "${USER}" "${HOSTNAME%%.*}" "${PWD/#$HOME/\~}"'
 unset -v PROMPT_COMMAND
 # Options used by the 'less' command
-export LESS="-RS#3MiF"
+export LESS="-RS#3Mi"
+
+if [ "$OSTYPE" != "cygwin" ]; then
+    # It looks like cygwin handles this variable poorly
+    LESS="$LESS":"F"
+fi
 
 #Use more colors if possible
 if [ -e /usr/share/terminfo/x/xterm-256color ]; then
+    export TERM='xterm-256color'
+elif [ "$OSTYPE" == "cygwin" ]; then
     export TERM='xterm-256color'
 else
     export TERM='xterm-color'
