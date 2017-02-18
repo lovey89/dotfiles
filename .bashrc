@@ -40,7 +40,7 @@ export LESS="-RS#3Mi"
 
 if [ "$OSTYPE" != "cygwin" ]; then
     # It looks like cygwin handles this variable poorly
-    LESS="$LESS":"F"
+    LESS="${LESS}F"
 fi
 
 #Use more colors if possible
