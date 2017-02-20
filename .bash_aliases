@@ -21,3 +21,8 @@ charcount ()
 {
   wc -m <(echo -nE "$1") | cut --delimiter=' ' -f1
 }
+
+pathreplace()
+{
+  find . \( ! -name ".git" -o -prune \) -type f -exec sed -b -i "s/$1/$2/g" {} \;
+}
