@@ -12,7 +12,7 @@ alias cfind='find -L . \( ! -name ".git" -o -prune \) -type f -print0 | xargs -0
 alias sudo='sudo '
 
 # Functions
-ffile ()
+ffind ()
 {
   find . -iname "*$1*"
 }
