@@ -862,6 +862,10 @@ xterm*jumpScroll:         true
 xterm*multiScroll:        true
 xterm*toolBar:            false
 
+XTerm*VT100.cutNewLine: false
+XTerm*VT100.cutToBeginningOfLine: false
+XTerm*VT100.charClass: 33:48,35:48,37:48,42:48,45-47:48,64:48,95:48,126:48
+
 #ifdef SMALLFONT
 xterm*boldMode: false
 xterm*font: fixed
