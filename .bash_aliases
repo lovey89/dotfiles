@@ -26,3 +26,8 @@ pathreplace()
 {
   find . \( ! -name ".git" -o -prune \) -type f -exec sed -b -i "s/$1/$2/g" {} \;
 }
+
+if [ "$OSTYPE" == "cygwin" ]; then
+  # Aliases for cygwin (Windows)
+  alias winkillall='taskkill /F /IM'
+fi
