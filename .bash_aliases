@@ -17,6 +17,41 @@ ffind ()
   find . -iname "*$1*"
 }
 
+afind () # Needs more testing!
+{
+  OPTIND=1 # Needed to get getopts to work
+
+  FILE_ENDING=""
+  FILE_PATH="( ! -name .git -o -prune )"
+
+  while getopts ":i:t:" opt; do
+    case $opt in
+      i)
+        FILE_PATH="( ! -name .git -a ! -path */$OPTARG -o -prune )"
+        ;;
+      t)
+        FILE_ENDING="-iname *.$OPTARG"
+        ;;
+      \?)
+        echo "Invalid option: -$OPTARG" >&2
+        exit 1
+        ;;
+      :)
+        echo "Option -$OPTARG requires an argument." >&2
+        exit 1
+        ;;
+    esac
+  done
+
+  shift $((OPTIND-1))
+
+  find -L . $FILE_PATH $FILE_ENDING -type f -print0 | xargs -0 grep --color=auto -in $1
+  #echo $FILE_PATH
+  #echo $FILE_ENDING
+  #echo $1
+  #echo "find -L . $FILE_PATH $FILE_ENDING -type f -print0 | xargs -0 grep --color=auto -in $1"
+}
+
 charcount ()
 {
   wc -m <(echo -nE "$1") | cut --delimiter=' ' -f1
@@ -29,5 +64,9 @@ pathreplace()
 
 if [ "$OSTYPE" == "cygwin" ]; then
   # Aliases for cygwin (Windows)
-  alias winkillall='taskkill /F /IM'
+  alias winkill='taskill /PID'
+  alias fwinkill='taskill /F /PID'
+  alias winkillall='taskkill /IM'
+  alias fwinkillall='taskkill /F /IM'
+  alias start-ssh-agent='eval $(ssh-agent -s); ssh-add ~/.ssh/id_rsa'
 fi
