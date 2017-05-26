@@ -27,7 +27,7 @@ afind () # Needs more testing!
   while getopts ":i:t:" opt; do
     case $opt in
       i)
-        FILE_PATH="( ! -name .git -a ! -path */$OPTARG -o -prune )"
+        FILE_PATH="\( ! -name .git -a ! -path \*/$OPTARG -o -prune \)"
         ;;
       t)
         FILE_ENDING="-iname *.$OPTARG"
@@ -45,7 +45,8 @@ afind () # Needs more testing!
 
   shift $((OPTIND-1))
 
-  find -L . $FILE_PATH $FILE_ENDING -type f -print0 | xargs -0 grep --color=auto -in $1
+  # In order to treat the glob expression (*) correctly use the eval command
+  eval "find -L . $FILE_PATH $FILE_ENDING -type f -print0 | xargs -0 grep --color=auto -in \"$1\""
   #echo $FILE_PATH
   #echo $FILE_ENDING
   #echo $1
