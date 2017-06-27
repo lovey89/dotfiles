@@ -1,0 +1,21 @@
+Run the install.sh script to create a symbolic link in ~/.ssh/getdb which points
+to the getdb file in this directory (then you will always have the latest changes
+when you pull this repository, that is, you won't have to repeat these steps).
+
+Then add the following lines to the ~/.ssh/config file (without the dashed lines):
+--------------------
+Host */jh
+    ProxyCommand ~/.ssh/getdb $(dirname %h)
+
+Host jh/*
+    ProxyCommand ~/.ssh/getdb $(basename %h)
+--------------------
+
+Now you will be able to setup a jumphost to e.g. a server using
+following command:
+  ssh <a_specified_name>/db
+  # OR
+  ssh db/<a_specified_name>
+
+Check getdb file for valid values
+
