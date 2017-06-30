@@ -14,6 +14,7 @@
 	lg2 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(auto)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --all
 	localconfig = "!f() { touch ~/.gitconfig.local ; git config -f ~/.gitconfig.local "$@" ; }; f"
 	triggercommit = commit --allow-empty -m "trigger"
+	# https://stackoverflow.com/questions/12481639/remove-files-from-git-commit
 	oops = reset --soft HEAD^
 [include]
 	# Create this file and add local config in the same format as in this file. To check global settings
