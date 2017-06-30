@@ -19,3 +19,5 @@
 	# Create this file and add local config in the same format as in this file. To check global settings
 	# you can issue "git config --global --includes". Also see "localconfig" alias defined above
 	path = ~/.gitconfig.local
+[user]
+	name = Love Yregård

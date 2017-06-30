@@ -22,7 +22,7 @@ afind () # Needs more testing!
   OPTIND=1 # Needed to get getopts to work
 
   FILE_ENDING=""
-  FILE_PATH="( ! -name .git -o -prune )"
+  FILE_PATH="\( ! -name .git -o -prune \)"
 
   while getopts ":i:t:" opt; do
     case $opt in
