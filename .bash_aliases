@@ -5,8 +5,8 @@ alias ll='ls -la'
 alias ..='cd ..'
 alias cd..="cd .."
 
-alias efind='find -L . \( ! -name ".git" -o -prune \) -type f -print0 | xargs -0 grep --color=auto -in'
-alias cfind='find -L . \( ! -name ".git" -o -prune \) -type f -print0 | xargs -0 grep -C 10 --color=auto -in'
+alias efind='find -L . \( ! -name ".git" -a ! -name ".idea" -o -prune \) -type f -print0 | xargs -0 grep --color=auto -in'
+alias cfind='find -L . \( ! -name ".git" -a ! -name ".idea" -o -prune \) -type f -print0 | xargs -0 grep -C 10 --color=auto -in'
 
 # This will make sudo available for aliases as well
 alias sudo='sudo '
@@ -22,12 +22,12 @@ afind () # Needs more testing!
   OPTIND=1 # Needed to get getopts to work
 
   FILE_ENDING=""
-  FILE_PATH="\( ! -name .git -o -prune \)"
+  FILE_PATH="\( ! -name .git -a ! -name .idea -o -prune \)"
 
   while getopts ":i:t:" opt; do
     case $opt in
       i)
-        FILE_PATH="\( ! -name .git -a ! -path \*/$OPTARG -o -prune \)"
+        FILE_PATH="\( ! -name .git -a ! -name .idea -a ! -path \*/$OPTARG -o -prune \)"
         ;;
       t)
         FILE_ENDING="-iname *.$OPTARG"
