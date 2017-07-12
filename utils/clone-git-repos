@@ -1,0 +1,136 @@
+#!/bin/bash
+
+CLONEDIR=$(pwd)
+USERNAME_FOR_GIT=$USER
+CURRENT_GROUP=$CLONEDIR
+CURRENT_DIR=$CLONEDIR
+
+GROUP_FOLDER=TRUE
+COMPONENT_FOLDER=TRUE
+
+VALID_ARGS=FALSE
+
+create_new_group() {
+    if [ $GROUP_FOLDER = "TRUE" ]; then
+        NEW_DIR=${CLONEDIR}/$1
+
+        mkdir -p $NEW_DIR
+        cd $NEW_DIR
+
+        CURRENT_GROUP=$NEW_DIR
+        CURRENT_DIR=$NEW_DIR
+    else
+        CURRENT_DIR=$CLONEDIR
+        cd $CURRENT_DIR
+    fi
+}
+
+create_new_component() {
+    if [ $COMPONENT_FOLDER = "TRUE" ]; then
+        NEW_DIR=${CURRENT_GROUP}/$1
+
+        mkdir -p $NEW_DIR
+        cd $NEW_DIR
+
+        CURRENT_DIR=$NEW_DIR
+    fi
+}
+
+clone_git_repo() {
+    NEW_DIR=$(basename $1)
+    if [ -d "$NEW_DIR" ]; then
+        echo -e "\033[0;35mRepo \033[0;36m$1\033[0;35m already cloned in \033[0;33m${CURRENT_DIR}/${NEW_DIR}\033[0m"
+        return
+    fi
+
+    echo -e "\033[0;32mCloning repo \033[0;36m$1\033[0;32m into \033[0;33m${CURRENT_DIR}/${NEW_DIR}\033[0m"
+    #git clone ssh://${USERNAME_FOR_GIT}@gerrit-server:29418/$1
+    cp ${CLONEDIR}/commit-msg ${CURRENT_DIR}/${NEW_DIR}/.git/hooks/
+}
+
+usage() {
+    cat <<EOF
+Script to clone the Organizational Management repositories into the current directory
+
+Usage:
+  Clone the Organizational Management repositories:
+    $(basename $0) [-u username] -g
+    $(basename $0) [-u username] -c
+    $(basename $0) [-u username] -f
+
+  Show this help:
+    $(basename $0) -h
+
+Arguments:
+  -u : The username which will be used when connecting to server for cloning.
+       If this value is not given the value in the \$USER variable will be used.
+
+  -g : Grouping
+       Clone the repos and group them into logical groups. E.g.
+
+  -c : Component grouping
+       Clone the repos but don't put them into logical groups, only group them by component. E.g.
+
+  -f : Flat
+       Clone the repos and don't group them in any way. E.g.
+
+TIPS:
+  If you have a passphrase on your SSH key run the following command before you run this command:
+    eval \$(ssh-agent -s); ssh-add ~/.ssh/id_rsa
+  # Note that your ssh key may be called something else
+
+EOF
+    exit
+}
+
+if (( $# == 0 )); then
+    usage
+fi
+
+while getopts ":gu:cfh" opt; do
+    case $opt in
+        g)
+            GROUP_FOLDER=TRUE
+            COMPONENT_FOLDER=TRUE
+            VALID_ARGS=TRUE
+            ;;
+        c)
+            GROUP_FOLDER=FALSE
+            COMPONENT_FOLDER=TRUE
+            VALID_ARGS=TRUE
+            ;;
+        f)
+            GROUP_FOLDER=FALSE
+            COMPONENT_FOLDER=FALSE
+            VALID_ARGS=TRUE
+            ;;
+        u)
+            USERNAME_FOR_GIT=$OPTARG
+            ;;
+        h)
+            usage
+            ;;
+        \?)
+            echo "Invalid option: -$OPTARG" >&2
+            exit 1
+            ;;
+        :)
+            echo "Option -$OPTARG requires an argument." >&2
+            exit 1
+            ;;
+    esac
+done
+
+if [ $VALID_ARGS = "FALSE" ]; then
+    echo "None of the flags -g, -c or -f was provided"  1>&2
+    exit 1
+fi
+
+
+#scp -p -P 29418 ${USERNAME_FOR_GIT}@gerrit-server:hooks/commit-msg .
+
+# call functions here
+
+
+rm ${CLONEDIR}/commit-msg
+
