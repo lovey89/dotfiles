@@ -1,24 +1,33 @@
 #!/bin/bash
+# Add the following lines in the file ~/.ssh/config.
+#
+# Host tunnel/*
+#     ProxyCommand ~/.ssh/getdb $(basename %h)
+#
+# Host */tunnel
+#     ProxyCommand ~/.ssh/getdb $(dirname %h)
+
+# Use the command like:
+#  ssh tunnel/alias
 
 declare -A jumphosts
 # Feel free to add more hosts but be aware that bash is picky with the
 # spaces (you can use spaces and newlines inside the value string). It's
 # important to not use any extra spaces inside the brackets or around the
 # equal sign.
-# Format is "jumphost host1 port1 host2 port2 host3 port3 ..."
+# Format is "jumphost host1 local_port1 dest_port1 host2 local_port2 dest_port2 host3 local_port3 dest_port3 ..."
 jumphosts=(
-    ["dummy_name_1"]="   jumphost_or_ip1     destination_host_or_ip11          12345"
-    ["dummy_name_2"]="   jumphost_or_ip2     destination_host_or_ip21          12345"
-    ["dummy_name_3"]="   jumphost_or_ip3     destination_host_or_ip31          12345
-                                             destination_host_or_ip32          12346"
-    ["dummy_name_4"]="   jumphost_or_ip4     destination_host_or_ip41          12345"
-    ["dummy_name_5"]="   jumphost_or_ip5     destination_host_or_ip51          12345"
+    # Alias              Jumphost            Destination_host             Local_port  Destination_port
+    ["dummy_name_1"]="   jumphost_or_ip1     destination_host_or_ip11     12345       5555"
+    ["dummy_name_2"]="   jumphost_or_ip2     destination_host_or_ip21     12345       5555"
+    ["dummy_name_3"]="   jumphost_or_ip3     destination_host_or_ip31     12345       5555
+                                             destination_host_or_ip32     12346       5555"
+    ["dummy_name_4"]="   jumphost_or_ip4     destination_host_or_ip41     12345       5553"
+    ["dummy_name_5"]="   jumphost_or_ip5     destination_host_or_ip51     12345       5554"
 )
-# It's easy to make this configurable as well
-DESTINATION_PORT=5432
 
 create_ssh_forwarding_command() {
-    local FORWARD_COMMAND JUMPHOST HOST PORT REST
+    local FORWARD_COMMAND JUMPHOST HOST LOCAL_PORT DEST_PORT REST
     IFS=$' \n' read -d '' JUMPHOST REST <<< $2
 
     if [ -z "$REST" ]; then
@@ -26,16 +35,16 @@ create_ssh_forwarding_command() {
         exit
     fi
 
-    FORWARD_COMMAND="ssh $JUMPHOST -N "
+    FORWARD_COMMAND="ssh $JUMPHOST -N -o ServerAliveInterval=60 "
     # Add all forwarding parameters
     while [ -n "$REST" ]; do
-        IFS=$' \n' read -d '' HOST PORT REST <<< $REST
+        IFS=$' \n' read -d '' HOST LOCAL_PORT DEST_PORT REST <<< $REST
 
-        if [ -z "$PORT" ]; then
-            echo "The port for \"$HOST\" is missing. Exiting..." 1>&2
+        if [ -z "$LOCAL_PORT" -o -z "$DEST_PORT" ]; then
+            echo "A port for \"$HOST\" is missing. Exiting..." 1>&2
             exit
         fi
-        FORWARD_COMMAND="$FORWARD_COMMAND -L ${PORT}:${HOST}:${DESTINATION_PORT} "
+        FORWARD_COMMAND="$FORWARD_COMMAND -L ${LOCAL_PORT}:${HOST}:${DEST_PORT} "
     done
 
     # The actual ssh command is run here

@@ -50,7 +50,7 @@ clone_git_repo() {
 
 usage() {
     cat <<EOF
-Script to clone the Organizational Management repositories into the current directory
+Script to clone a bunch of repositories into the current directory
 
 Usage:
   Clone the Organizational Management repositories:
