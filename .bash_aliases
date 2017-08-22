@@ -53,6 +53,19 @@ afind () # Needs more testing!
   #echo "find -L . $FILE_PATH $FILE_ENDING -type f -print0 | xargs -0 grep --color=auto -in $1"
 }
 
+sha1sumdir ()
+{
+  for var in "$@"; do
+    if [ -d "$var" ]; then
+      HASH=$(find "$var" -xtype f -print0 | xargs -0 sha1sum | cut -b-40 | sort | sha1sum | cut -b-40)
+      echo "DIR   $HASH  $var"
+    else
+      HASH=$(sha1sum "$var")
+      echo "FILE  $HASH"
+    fi
+  done
+}
+
 charcount ()
 {
   wc -m <(echo -nE "$1") | cut --delimiter=' ' -f1
