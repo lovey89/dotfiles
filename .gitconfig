@@ -12,7 +12,7 @@
 	llg =  "!git lg2"
 	lg1 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(auto)%d%C(reset)' --all
 	lg2 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(auto)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --all
-	localconfig = "!f() { touch ~/.gitconfig.local ; git config -f ~/.gitconfig.local "$@" ; }; f"
+	localconfig = "!f() { touch ~/.gitconfig.local ; git config -f ~/.gitconfig.local \"$@\" ; }; f"
 	triggercommit = commit --allow-empty -m "trigger"
 	# https://stackoverflow.com/questions/12481639/remove-files-from-git-commit
 	oops = reset --soft HEAD^
