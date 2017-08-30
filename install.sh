@@ -10,17 +10,17 @@ createlink()
     # Check if this link is pointing to the dotfiles directory
     LINK_PATH=$(dirname $(readlink -f "$HOME_DIR_POSITION"))
     if [ "$LINK_PATH" = "$DOTFILES_DIR" ]; then
-      echo -e "\033[0;32mSym link for \033[0;34m$1\033[0;32m already exists\033[0m"
+      echo -e "\033[0;32mSym link for \033[1;34m$1\033[0;32m already exists\033[0m"
       return
     else
-      echo -e "\033[0;31mRemoving old symlink \033[0;34m$1 -> $(readlink -f $HOME_DIR_POSITION)\033[0m"
+      echo -e "\033[0;31mRemoving old symlink \033[1;34m$1 -> $(readlink -f $HOME_DIR_POSITION)\033[0m"
       rm "$HOME_DIR_POSITION"
     fi
   elif [ -e "$HOME_DIR_POSITION" ]; then
-    echo -e "\033[0;36mCreating backup of \033[0;34m$1\033[0m"
+    echo -e "\033[0;36mCreating backup of \033[1;34m$1\033[0m"
     mv "$HOME_DIR_POSITION" "$BACKUP_DIR"
   fi
-  echo -e "\033[0;33mCreating symlink for \033[0;34m$1\033[0m"
+  echo -e "\033[0;33mCreating symlink for \033[1;34m$1\033[0m"
   ln -s "$DOTFILES_DIR/$1" "$HOME_DIR_POSITION"
 }
 
