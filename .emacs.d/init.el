@@ -39,8 +39,12 @@
  '(scroll-margin 2)
  '(scroll-step 1)
  '(show-paren-mode t)
- '(text-mode-hook (quote (turn-on-auto-fill text-mode-hook-identify)))
- '(tool-bar-mode nil))
+ '(text-mode-hook (quote (turn-on-auto-fill text-mode-hook-identify))))
+
+(if (display-graphic-p)
+  ;; Only run this command in graphical mode. It is not used at all in terminal mode anyways.
+  ;; This line otherwise causes problems in Cygwin
+  (tool-bar-mode nil))
  
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
