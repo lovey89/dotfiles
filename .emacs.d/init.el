@@ -17,7 +17,7 @@
 (setq backup-directory-alist `(("." . "~/.saves")))
 (setq backup-by-copying t)
 ;(setq backup-by-copying-when-linked t)
- 
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -443,3 +443,26 @@ If point was already at that position, move point to beginning of line."
 ;(define-key ctl-z-map (kbd "m") 'move-to-window-line-middle)
 ;(define-key ctl-z-map (kbd "l") 'move-to-window-line-bottom)
 ;(global-set-key (kbd "C-z") 'ctl-z-map)
+
+;; Org-mode settings
+;;;;;;;;;;
+  ;; The following lines are always needed.  Choose your own keys.
+  (global-set-key "\C-cl" 'org-store-link)
+  (global-set-key "\C-ca" 'org-agenda)
+  (global-set-key "\C-cc" 'org-capture)
+  (global-set-key "\C-cb" 'org-iswitchb)
+
+  ;; Make windmove work in org-mode:
+  (add-hook 'org-shiftup-final-hook 'windmove-up)
+  (add-hook 'org-shiftleft-final-hook 'windmove-left)
+  (add-hook 'org-shiftdown-final-hook 'windmove-down)
+  (add-hook 'org-shiftright-final-hook 'windmove-right)
+
+  ;; Indent mode
+  (setq org-startup-indented t)
+
+  ;; fontify code in code blocks
+  (setq org-src-fontify-natively t)
+
+  ;; Log time when an item was set to done
+  (setq org-log-done 'time) ;; Change 'time to 'note if you also want to include a note
