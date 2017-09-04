@@ -16,8 +16,12 @@
 	triggercommit = commit --allow-empty -m "trigger"
 	# https://stackoverflow.com/questions/12481639/remove-files-from-git-commit
 	oops = reset --soft HEAD^
+	# If you accidentally ran "git commit --amend" instead of "git commit" this alias will "undo" the commit and you can write it correctly
+	# https://stackoverflow.com/questions/1459150/how-to-undo-git-commit-amend-done-instead-of-git-commit
+	# Also see "git reflog"
+	accidentamend = reset --soft HEAD@{1}
 	# copymode. Removes leading + and - but keeps the color. E.g git cm diff --staged
-	cm = "!f() { git "$@" --color | sed -r -e 's/^ //' -e 's/^(\\x1b\\[[0-9]{2}m)(\\+|-)/\\1/' | less ; }; f"
+	cm = "!f() { COMMAND=\"$1\"; shift 1; git \"$COMMAND\" --color \"$@\" | sed -r -e 's/^ //' -e 's/^(\\x1b\\[[0-9]{2}m)(\\+|-)/\\1/' | less ; }; f"
 [include]
 	# Create this file and add local config in the same format as in this file. To check global settings
 	# you can issue "git config --global --includes". Also see "localconfig" alias defined above
