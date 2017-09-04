@@ -1,114 +1,57 @@
-(setq default-frame-alist
-  '((top . 200) (left . 400)
-    (width . 80) (height . 40)
-    (cursor-color . "green")
-    (cursor-type . box)
-))
- 
-(setq initial-frame-alist '((top . 10) (left . 30)))
+;; Packages
+;;;;;;;;;;
 
-;Make dabbrev commands case sensitive
+;;
+(require 'view)
+
+
+;; General settings
+;;;;;;;;;;
+
+;; Make dabbrev commands case sensitive
 (setq dabbrev-case-fold-search nil)
- 
-;Line breaks at white spaces instead of anywhere
+
+;; Line breaks at white spaces instead of anywhere
 (setq-default word-wrap t)
 
-;Move backup files to ~/.saves
+;; Move backup files to ~/.saves
 (setq backup-directory-alist `(("." . "~/.saves")))
 (setq backup-by-copying t)
-;(setq backup-by-copying-when-linked t)
 
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(auto-fill-mode nil)
- '(column-number-mode t)
- '(custom-safe-themes
-   (quote
-    ("8b9f12f744659b89e85a47826f8513154fce3a5e087be767fa34fbd57ed5a81c" default)))
- '(custom-theme-directory "~/.emacs.d/custom_themes")
- '(dabbrev-check-all-buffers t)
- '(delete-selection-mode nil)
- '(fill-column 100)
- '(global-font-lock-mode t)
- '(inhibit-startup-screen t)
- '(menu-bar-mode nil)
- '(scroll-bar-mode nil)
- '(scroll-margin 2)
- '(scroll-step 1)
- '(show-paren-mode t)
- '(text-mode-hook (quote (turn-on-auto-fill text-mode-hook-identify))))
+;; Show column number in the mode line
+(setq column-number-mode t)
+
+;; Margin to top and bottom when scrolling
+(setq scroll-margin 2)
+
+;; Activate mode: Show matching parenthesis
+(show-paren-mode t)
+
+;; Remove trailing whitespaces on save
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+
+
+;; Appearance
+;;;;;;;;;;
+
+(setq custom-theme-directory "~/.emacs.d/custom_themes")
+
+;; Mark the current position with a horizontal line
+(global-hl-line-mode 1)
+
+;; Set color scheme. Create new themes by running the "customize-themes" command
+;; The t is added because we don't want to be prompted if the theme is safe
+(load-theme 'mywombat2 t)
 
 (if (display-graphic-p)
   ;; Only run this command in graphical mode. It is not used at all in terminal mode anyways.
   ;; This line otherwise causes problems in Cygwin
-  (tool-bar-mode nil))
- 
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
+    (tool-bar-mode nil))
 
-(add-to-list 'load-path "~/.emacs.d/cscope")
 
-;Set theme. Create new themes by running the "customize-themes" command
-(load-theme 'mywombat2)
-(global-hl-line-mode 1)
+;; Tmux settings
+;;;;;;;;;;
 
-(require 'xcscope)
-(setq cscope-do-not-update-database 1)
-(setq cscope-edit-single-match nil)
-(define-key cscope:map "\C-csd" 'cscope-find-global-definition-no-prompting)
-(define-key cscope:map "\C-csD" 'cscope-find-global-definition)
-(define-key cscope:map "\C-csc" 'cscope-find-functions-calling-this-function-no-prompting)
-(define-key cscope:map "\C-csC" 'cscope-find-functions-calling-this-function)
-(define-key cscope:map "\C-css" 'cscope-find-this-symbol-no-prompting)
-(define-key cscope:map "\C-csS" 'cscope-find-this-symbol)
-
-(when (>= emacs-major-version 23) 
-;Fixa problem med att S-up inte alltid fungerar som den ska
-;(if (equal "xterm" (tty-type))
-  (define-key input-decode-map "\e[1;2A" [S-up]);)
-
-;(defadvice terminal-init-xterm (after select-shift-up activate)
-;      (define-key input-decode-map "\e[1;2A" [S-up]))
-)
-
-;För att kunna byta fönster med shift-pil
-(when (fboundp 'windmove-default-keybindings)
-  (windmove-default-keybindings)
-  ;Wrappa runt
-  (setq windmove-wrap-around t)
-  ;Shift up. Kombinationen hittades genom kommandot C-q som returnerar ^[[1;2A byt ut ^[ mot \e
-  (global-set-key "\e[1;2A" 'windmove-up)) ; kanske är överflödig nu?
-
-(define-key key-translation-map (kbd "<select>") (kbd "<end>")) ;För jobbet. End-knappen fungerar inte
-
-;Auto-complete (utifrån innehållet i filen). Bindas till C-SPC (men @ är SPC typ?)
-(global-set-key (kbd "C-@") 'dabbrev-completion-all)
-(global-set-key (kbd "C-n") 'set-mark-command)
-
-(require 'view)
-(global-set-key (kbd "M-v") 'View-scroll-half-page-backward)
-(global-set-key (kbd "C-v") 'View-scroll-half-page-forward)
-(global-set-key (kbd "M-b") (lambda () (interactive) (scroll-down 1)))
-(global-set-key (kbd "C-b") (lambda () (interactive) (scroll-up 1)))
-
-(define-key key-translation-map (kbd "<A-up>") (kbd "<M-up>")) ;Rebinda knapparna eftersom dessa av någon anledning ibland visas som <A-up> osv.
-(define-key key-translation-map (kbd "<A-down>") (kbd "<M-down>"))
-(define-key key-translation-map (kbd "<A-right>") (kbd "<M-right>"))
-(define-key key-translation-map (kbd "<A-left>") (kbd "<M-left>"))
-
-;Man kan nu ändra storlek på fönstrena genom alt-pil
-(global-set-key (kbd "<M-up>")    'enlarge-window)
-(global-set-key (kbd "<M-right>") 'enlarge-window-horizontally)
-(global-set-key (kbd "<M-left>")  'shrink-window-horizontally)
-(global-set-key (kbd "<M-down>")  'shrink-window)
- 
 ;; handle tmux's xterm-keys
 ;; put the following line in your ~/.tmux.conf:
 ;;   setw -g xterm-keys on
@@ -118,7 +61,7 @@
         (while (<= x 8)
           ;; shift
           (if (= x 2)
-              (setq tkey "S-"))
+	      (setq tkey "S-"))
           ;; alt
           (if (= x 3)
               (setq tkey "M-"))
@@ -137,9 +80,10 @@
           ;; ctrl + alt + shift
           (if (= x 8)
               (setq tkey "C-M-S-"))
- 
-          ;Till skillnad mot kbd verkar read-kbd-macro evaluera sina argument
-          ;"Från-knapparna" visades exakt så här när man använde C-h c kommandot
+
+          ;; Unlike kbd, read-kbd-macro seems to evaluate its argument. The "from buttons" was shown exactly
+	  ;; like this when you issued the "C-h c" command
+
           ;; arrows
           (define-key key-translation-map (read-kbd-macro (format "M-[ 1 ; %d A" x)) (read-kbd-macro (format "%s<up>" tkey)))
           (define-key key-translation-map (read-kbd-macro (format "M-[ 1 ; %d B" x)) (read-kbd-macro (format "%s<down>" tkey)))
@@ -197,25 +141,21 @@
           (define-key key-translation-map (read-kbd-macro (format "M-[ 33 ; %d ~" x)) (read-kbd-macro (format "%s<f19>" tkey)))
           ;; f20
           (define-key key-translation-map (read-kbd-macro (format "M-[ 34 ; %d ~" x)) (read-kbd-macro (format "%s<f20>" tkey)))
- 
+
           (setq x (+ x 1))
           ))
       )
   )
 
-(global-set-key (kbd "C-x 7") 'toggle-current-window-dedication)
+;; Fix problem with S-<up>
+(when (>= emacs-major-version 23)
+  (define-key input-decode-map "\e[1;2A" [S-up]))
 
-(global-set-key [(shift f4)] 'my-top-of-page)
-(global-set-key [(C-f4)] 'my-bottom-of-page)
-(global-set-key [(f4)] 'my-middle-of-page)
-(global-set-key [home] 'smart-beginning-of-line)
-(global-set-key "\C-a" 'smart-beginning-of-line)
-(global-set-key [(f1)] (lambda () (interactive) (manual-entry (current-word))))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; AUTOMATICALLY CLOSE BRACES ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Functions
+;;;;;;;;;;
 
+;;;; Automatically close braces
 (setq skeleton-pair t)
 (setq skeleton-pair-alist
       '((?\( _ ?\))
@@ -309,10 +249,8 @@
 ;(global-set-key ")"  'autopair-insert)
 ;...
 
-;;;;;;;;;;;;;;;;;;;
-;; OWN FUNCTIONS ;;
-;;;;;;;;;;;;;;;;;;;
-(defun dabbrev-completion-all () ;För att sätta prefix till 16. Då autocompletar man mha alla buffrar
+;;;; Own functions
+(defun dabbrev-completion-all () ; This commands sets the prefix to 16. Then it will auto complete using alternatives from all buffers
   (interactive)
   (let ((current-prefix-arg '(16))) ; C-u
   (call-interactively 'dabbrev-completion)))
@@ -382,9 +320,90 @@ If point was already at that position, move point to beginning of line."
     (and (= oldpos (point))
          (beginning-of-line))))
 
-;;;;;;;;;;;
-;; HOOKS ;;
-;;;;;;;;;;;
+
+;; Key bindings
+;;;;;;;;;;
+
+;;;; General
+
+;; Change pane size with Meta-arrow
+(global-set-key (kbd "<M-up>")    'enlarge-window)
+(global-set-key (kbd "<M-right>") 'enlarge-window-horizontally)
+(global-set-key (kbd "<M-left>")  'shrink-window-horizontally)
+(global-set-key (kbd "<M-down>")  'shrink-window)
+
+;; Auto-complete (by looking at the content in the current buffers). Bound to C-SPC
+(global-set-key (kbd "C-@") 'dabbrev-completion-all)
+
+;; Rebind mark-command to C-n (originally C-SPC)
+(global-set-key (kbd "C-n") 'set-mark-command)
+
+;; Keys to scroll in the current buffer
+(global-set-key (kbd "M-v") 'View-scroll-half-page-backward)
+(global-set-key (kbd "C-v") 'View-scroll-half-page-forward)
+(global-set-key (kbd "M-b") (lambda () (interactive) (scroll-down 1)))
+(global-set-key (kbd "C-b") (lambda () (interactive) (scroll-up 1)))
+
+;; Toggle the current window to dedicated. No buffer will open automatically in this window
+(global-set-key (kbd "C-x 7") 'toggle-current-window-dedication)
+
+;; Move the cursor to the top/bottom/middle if the current "view"
+(global-set-key [(shift f4)] 'my-top-of-page)
+(global-set-key [(C-f4)] 'my-bottom-of-page)
+(global-set-key [(f4)] 'my-middle-of-page)
+
+;; Move cursor to beginning of line or after indentation if you call function several times
+(global-set-key [home] 'smart-beginning-of-line)
+(global-set-key "\C-a" 'smart-beginning-of-line)
+
+;; Open man page of the word you're currently hovering over
+(global-set-key [(f1)] (lambda () (interactive) (manual-entry (current-word))))
+
+;; Switch window with S-<arrow>
+(when (fboundp 'windmove-default-keybindings)
+  (windmove-default-keybindings)
+  ;; Wrap around
+  (setq windmove-wrap-around t)
+  ;; Shift up. This combination was found by pressing C-q which returns ^[[1;2A. Switch ^[ to \e
+  (global-set-key "\e[1;2A" 'windmove-up)) ; Maybe not needed anylonger?
+
+
+;;;; Org-mode
+
+;; The following lines are always needed.  Choose your own keys.
+(global-set-key "\C-cl" 'org-store-link)
+(global-set-key "\C-ca" 'org-agenda)
+(global-set-key "\C-cc" 'org-capture)
+(global-set-key "\C-cb" 'org-iswitchb)
+
+
+;;;; Rebinds (fixes when emacs behaves strangely)
+
+;; End button shows up as <select>
+(define-key key-translation-map (kbd "<select>") (kbd "<end>"))
+
+;; I have seen that M-<arrow> sometimes shows up as A-<arrow>
+(define-key key-translation-map (kbd "<A-up>") (kbd "<M-up>"))
+(define-key key-translation-map (kbd "<A-down>") (kbd "<M-down>"))
+(define-key key-translation-map (kbd "<A-right>") (kbd "<M-right>"))
+(define-key key-translation-map (kbd "<A-left>") (kbd "<M-left>"))
+
+
+;; C-mode settings
+;;;;;;;;;;
+
+;; cscope settings
+(add-to-list 'load-path "~/.emacs.d/cscope")
+
+(require 'xcscope)
+(setq cscope-do-not-update-database 1)
+(setq cscope-edit-single-match nil)
+(define-key cscope:map "\C-csd" 'cscope-find-global-definition-no-prompting)
+(define-key cscope:map "\C-csD" 'cscope-find-global-definition)
+(define-key cscope:map "\C-csc" 'cscope-find-functions-calling-this-function-no-prompting)
+(define-key cscope:map "\C-csC" 'cscope-find-functions-calling-this-function)
+(define-key cscope:map "\C-css" 'cscope-find-this-symbol-no-prompting)
+(define-key cscope:map "\C-csS" 'cscope-find-this-symbol)
 
 ;(setq-default c-default-style "linux")
 (setq c-default-style "linux")
@@ -421,7 +440,97 @@ If point was already at that position, move point to beginning of line."
              (local-set-key "}" 'autopair-close-block)
              (local-set-key "\"" 'autopair-insert)))
 
-;(add-hook 'before-save-hook 'delete-trailing-whitespace)
+
+;; Org-mode settings
+;;;;;;;;;;
+
+;; Make windmove work in org-mode:
+(add-hook 'org-shiftup-final-hook 'windmove-up)
+(add-hook 'org-shiftleft-final-hook 'windmove-left)
+(add-hook 'org-shiftdown-final-hook 'windmove-down)
+(add-hook 'org-shiftright-final-hook 'windmove-right)
+
+;; Indent mode
+(setq org-startup-indented t)
+
+;; fontify code in code blocks
+(setq org-src-fontify-natively t)
+
+;; Log time when an item was set to done
+(setq org-log-done 'time) ;; Change 'time to 'note if you also want to include a note
+
+
+
+;;;;;;
+
+
+
+
+
+
+
+
+
+
+
+(setq default-frame-alist
+  '((top . 200) (left . 400)
+    (width . 80) (height . 40)
+    (cursor-color . "green")
+    (cursor-type . box)
+))
+
+(setq initial-frame-alist '((top . 10) (left . 30)))
+
+
+
+
+
+
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(auto-fill-mode nil)
+ '(custom-safe-themes
+   (quote
+    ("8b9f12f744659b89e85a47826f8513154fce3a5e087be767fa34fbd57ed5a81c" default)))
+ '(dabbrev-check-all-buffers t)
+ '(delete-selection-mode nil)
+ '(fill-column 100)
+ '(global-font-lock-mode t)
+ '(inhibit-startup-screen t)
+ '(menu-bar-mode nil)
+ '(scroll-bar-mode nil)
+ '(scroll-step 1)
+ '(text-mode-hook (quote (turn-on-auto-fill text-mode-hook-identify))))
+
+
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ;(define-prefix-command 'ctl-z-map)
@@ -443,26 +552,3 @@ If point was already at that position, move point to beginning of line."
 ;(define-key ctl-z-map (kbd "m") 'move-to-window-line-middle)
 ;(define-key ctl-z-map (kbd "l") 'move-to-window-line-bottom)
 ;(global-set-key (kbd "C-z") 'ctl-z-map)
-
-;; Org-mode settings
-;;;;;;;;;;
-  ;; The following lines are always needed.  Choose your own keys.
-  (global-set-key "\C-cl" 'org-store-link)
-  (global-set-key "\C-ca" 'org-agenda)
-  (global-set-key "\C-cc" 'org-capture)
-  (global-set-key "\C-cb" 'org-iswitchb)
-
-  ;; Make windmove work in org-mode:
-  (add-hook 'org-shiftup-final-hook 'windmove-up)
-  (add-hook 'org-shiftleft-final-hook 'windmove-left)
-  (add-hook 'org-shiftdown-final-hook 'windmove-down)
-  (add-hook 'org-shiftright-final-hook 'windmove-right)
-
-  ;; Indent mode
-  (setq org-startup-indented t)
-
-  ;; fontify code in code blocks
-  (setq org-src-fontify-natively t)
-
-  ;; Log time when an item was set to done
-  (setq org-log-done 'time) ;; Change 'time to 'note if you also want to include a note
