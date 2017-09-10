@@ -1,5 +1,9 @@
 (deftheme mywombat2
-  "Created 2017-01-08.")
+  "Created 2017-09-10.")
+
+(custom-theme-set-variables
+ 'mywombat2
+ '(ansi-color-names-vector ["#242424" "#e5786d" "#95e454" "#cae682" "#8ac6f2" "#333366" "#ccaa8f" "#f6f3e8"]))
 
 (custom-theme-set-faces
  'mywombat2
@@ -20,20 +24,18 @@
  '(font-lock-function-name-face ((((class color) (min-colors 89)) (:foreground "#cae682"))))
  '(font-lock-keyword-face ((((class color) (min-colors 89)) (:foreground "#8ac6f2" :weight bold))))
  '(font-lock-string-face ((((class color) (min-colors 89)) (:foreground "#95e454"))))
- '(font-lock-type-face ((((class color) (min-colors 89)) (:foreground "#92a65e" :weight bold))))
+ '(font-lock-type-face ((t (:foreground "#92a65e" :weight bold))))
  '(font-lock-variable-name-face ((((class color) (min-colors 89)) (:foreground "#cae682"))))
  '(font-lock-warning-face ((((class color) (min-colors 89)) (:foreground "#ccaa8f"))))
  '(link ((((class color) (min-colors 89)) (:foreground "#8ac6f2" :underline t))))
  '(link-visited ((((class color) (min-colors 89)) (:foreground "#e5786d" :underline t))))
- '(button ((((class color) (min-colors 89)) (:background "#333333" :foreground "#f6f3e8"))))
+ '(button ((t (:inherit link))))
  '(header-line ((((class color) (min-colors 89)) (:background "#303030" :foreground "#e7f6da"))))
- '(default ((((class color) (min-colors 89)) (:background "#242424" :foreground "#f6f3e8"))))
  '(show-paren-match ((t (:background "color-208" :foreground "black"))))
- '(show-paren-mismatch ((((class color)) (:background "purple" :foreground "white")) (t (:inverse-video t)))))
-
-(custom-theme-set-variables
- 'mywombat2
- '(ansi-color-names-vector ["#242424" "#e5786d" "#95e454" "#cae682"
-			    "#8ac6f2" "#333366" "#ccaa8f" "#f6f3e8"]))
+ '(show-paren-mismatch ((((class color)) (:background "purple" :foreground "white")) (t (:inverse-video t))))
+ '(default ((((class color) (min-colors 89)) (:background "#242424" :foreground "#f6f3e8"))))
+ '(org-block ((t (:background "color-234"))))
+ '(org-block-begin-line ((t (:background "#92a65e" :foreground "color-235"))))
+ '(org-block-end-line ((t (:inherit (org-block-begin-line))))))
 
 (provide-theme 'mywombat2)
