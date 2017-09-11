@@ -1,0 +1,7 @@
+#!/bin/bash
+#export http_proxy="http://host:port"
+#export https_proxy="http://host:port"
+# or
+#export http_proxy="http://username:password@host:port"
+#export https_proxy="http://username:password@host:port"
+#export no_proxy="localhost,192.168.0.14,otherhost"

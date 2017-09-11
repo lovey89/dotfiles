@@ -1,0 +1,11 @@
+#[user]
+#	email = email
+#[http]
+#	proxy = http://host:port/
+# or
+#	proxy = http://username:password@host:port/
+#[https]
+#	proxy = http://host:port/
+# or
+#	proxy = http://username:password@host:port/
+
