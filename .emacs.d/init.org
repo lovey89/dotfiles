@@ -130,6 +130,9 @@ Packages can be fetched from different mirrors, [[http://melpa.milkbox.net/#/][m
 archive and is well maintained.
 
 #+BEGIN_SRC emacs-lisp
+;; When behind a proxy I noticed that I couldn't connect without replacing https
+;; with http. So if you get a problem try that solution (or try to find a proper
+;; solution)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
 (add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/"))
 
