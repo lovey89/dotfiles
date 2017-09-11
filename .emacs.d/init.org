@@ -118,6 +118,9 @@ Packages can be fetched from different mirrors, [[http://melpa.milkbox.net/#/][m
 archive and is well maintained.
 
 #+BEGIN_SRC emacs-lisp
+;; When behind a proxy I noticed that I couldn't connect without replacing https
+;; with http. So if you get a problem try that solution (or try to find a proper
+;; solution)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
 (add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/"))
 
@@ -142,7 +145,7 @@ installed. To ensure we install missing packages if they are missing.
           ;focus                ; Dim color of text in surrounding sections
           idle-require         ; load elisp libraries while Emacs is idle
           ;geiser               ; GNU Emacs and Scheme talk to each other
-          ;git-gutter-fringe    ; Fringe version of git-gutter.el
+          git-gutter-fringe    ; Fringe version of git-gutter.el
           ;golden-ratio         ; Automatic resizing windows to golden ratio
           ;haskell-mode         ; A Haskell editing mode
           ;helm                 ; Incremental and narrowing framework
@@ -298,7 +301,6 @@ these.
 #+BEGIN_SRC emacs-lisp
 (dolist (mode
          '(tool-bar-mode                ; No toolbars, more room for text
-           scroll-bar-mode              ; No scroll bars either
            menu-bar-mode                ; Remove the menu bar at the top
            blink-cursor-mode))          ; The blinking cursor gets old
   (funcall mode 0))
@@ -409,13 +411,16 @@ I smuggled some configurations from [[https://github.com/torenord/.emacs.d/][tor
       git-gutter:lighter " GG") ; Change name in mode bar
 #+END_SRC
 
-Run the following commands only if running in graphical mode.
+Run the following commands only if running in graphical mode. If graphical mode
+is not installed these commands will cause problems even if you're running in
+terminal mode
 
 #+BEGIN_SRC emacs-lisp
 (if (display-graphic-p)
-    ;; Only run this command in graphical mode. It is not used at all in
-    ;; terminal mode anyways. This line otherwise causes problems in Cygwin
-    (tool-bar-mode nil))
+    ;; Only run these command in graphical mode
+    (scroll-bar-mode nil)     ; Remove the scroll bars
+    (tool-bar-mode nil)       ; Remove the toolbar
+)
 #+END_SRC
 
 ** Org mode
@@ -700,6 +705,13 @@ init-file to make sure that all functions are actually defined.
 #+BEGIN_SRC emacs-lisp
 (defvar custom-bindings-map (make-keymap)
   "A keymap for custom bindings.")
+#+END_SRC
+
+** Fixes for key binds
+
+#+BEGIN_SRC emacs-lisp
+;; In cygwin the end button shows up as <select>
+(define-key key-translation-map (kbd "<select>") (kbd "<end>"))
 #+END_SRC
 
 ** Bindings for [[https://github.com/magnars/expand-region.el][expand-region]]
@@ -1197,8 +1209,6 @@ Set the dictionary accordingly. The markup is also sensitive to line breaks, so
   ;; Shift up. This combination was found by pressing C-q which returns ^[[1;2A. Switch ^[ to \e
   (global-set-key "\e[1;2A" 'windmove-up)) ; Maybe not needed anylonger?
 
-;; End button shows up as <select>
-(define-key key-translation-map (kbd "<select>") (kbd "<end>"))
 
 ;; I have seen that M-<arrow> sometimes shows up as A-<arrow>
 (define-key key-translation-map (kbd "<A-up>") (kbd "<M-up>"))
