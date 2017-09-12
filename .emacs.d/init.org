@@ -441,43 +441,6 @@ even if running in terminal mode.
 )
 #+END_SRC
 
-** Org mode
-
-TODO items
-
-#+BEGIN_SRC emacs-lisp
-;; Log time when an item was set to done
-(setq org-log-done 'time) ;; Change 'time to 'note if you also want to include a note
-#+END_SRC
-
-Activate indent mode
-
-#+BEGIN_SRC emacs-lisp
-;; Indent mode
-(setq org-startup-indented t)
-#+END_SRC
-
-When editing org-files with source-blocks, we want the source blocks to
-be themed as they would in their native mode.
-
-#+BEGIN_SRC emacs-lisp
-(setq org-src-fontify-natively t
-      org-src-tab-acts-natively t
-      org-confirm-babel-evaluate nil
-      org-edit-src-content-indentation 0)
-#+END_SRC
-
-This is quite an ugly fix for allowing code markup for expressions like
-="this string"=, because the quotation marks causes problems.
-
-#+BEGIN_SRC emacs-lisp
-;;(require 'org)
-(eval-after-load "org"
-  '(progn
-     (setcar (nthcdr 2 org-emphasis-regexp-components) " \t\n,")
-     (custom-set-variables `(org-emphasis-alist ',org-emphasis-alist))))
-#+END_SRC
-
 ** Interactive functions
 
 =just-one-space= removes all whitespace around a point - giving it a
@@ -710,6 +673,55 @@ function or a variable in the echo area.
 #+BEGIN_SRC emacs-lisp
 (add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
 (add-hook 'lisp-interaction-mode-hook 'turn-on-eldoc-mode)
+#+END_SRC
+
+** Org mode
+
+TODO items
+
+#+BEGIN_SRC emacs-lisp
+;; Log time when an item was set to done
+(setq org-log-done 'time) ;; Change 'time to 'note if you also want to include a note
+#+END_SRC
+
+Activate indent mode
+
+#+BEGIN_SRC emacs-lisp
+;; Indent mode
+(setq org-startup-indented t)
+#+END_SRC
+
+When editing org-files with source-blocks, we want the source blocks to
+be themed as they would in their native mode.
+
+#+BEGIN_SRC emacs-lisp
+(setq org-src-fontify-natively t
+      org-src-tab-acts-natively t
+      org-confirm-babel-evaluate nil
+      org-edit-src-content-indentation 0)
+#+END_SRC
+
+This is quite an ugly fix for allowing code markup for expressions like
+="this string"=, because the quotation marks causes problems.
+
+#+BEGIN_SRC emacs-lisp
+;;(require 'org)
+(eval-after-load "org"
+  '(progn
+     (setcar (nthcdr 2 org-emphasis-regexp-components) " \t\n,")
+     (custom-set-variables `(org-emphasis-alist ',org-emphasis-alist))))
+#+END_SRC
+
+Add new short keys to generate code blocks. Default configuration allos you to
+type "<s" followed by a tab to generate a ~BEGIN_SRC - END_SRC~ block. I want to
+use more shortcuts for other type of blocks.
+
+#+BEGIN_SRC emacs-lisp
+;; <conf TAB to create a config block
+(add-to-list 'org-structure-template-alist
+             (list "conf" (concat "#+BEGIN_SRC emacs-lisp\n"
+                                  "?\n"
+                                  "#+END_SRC")))
 #+END_SRC
 
 * Key bindings
