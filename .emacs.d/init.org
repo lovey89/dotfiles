@@ -202,9 +202,6 @@ tends to lead to the largest bottleneck's in a configuration. =idle-require=
 delays the =require=-calls to a time where Emacs is in idle. So this is great
 for stuff you eventually want to load, but is not a high priority.
 
-I noticed that sometimes when I set variables they are overwritten when the
-package is loaded.
-
 #+BEGIN_SRC emacs-lisp
 (require 'idle-require)              ; Need in order to use idle-require
 
@@ -212,7 +209,7 @@ package is loaded.
          '(auto-compile              ; auto-compile .el files
            ;jedi                     ; auto-completion for python
            ;view
-           ;multiple-cursors          ; Multiple cursors
+           multiple-cursors          ; Multiple cursors
            ;matlab                   ; matlab-mode
            ;ob-matlab                ; org-babel matlab
            ;ox-latex                 ; the latex-exporter (from org)
@@ -223,10 +220,19 @@ package is loaded.
   (idle-require feature))
 
 (require 'view)
-(require 'multiple-cursors)
 
 (setq idle-require-idle-delay 2)
 (idle-require-mode 1)
+#+END_SRC
+
+I noticed that sometimes when I set variables they are overwritten when the
+package is loaded. With =with-eval-after-load= you can run code after the
+package is loaded.
+
+#+BEGIN_SRC emacs-lisp
+(with-eval-after-load "multiple-cursors"
+  (setq mc/always-run-for-all t))        ; Run commands for all cursors unless
+                                         ; stated other in the mc-lists.el file
 #+END_SRC
 
 ** Sane defaults
@@ -237,8 +243,6 @@ We can set variables to whatever value we'd like using =setq=.
 (setq dabbrev-case-fold-search nil       ; Make dabbrev commands case sensitive
       dabbrev-check-all-buffers t
       windmove-wrap-around t             ; Windmove wraps around
-      mc/always-run-for-all t            ; Run commands for all cursors unless
-                                         ; stated other in the mc-lists.el file
       ;auto-revert-interval 1            ; Refresh buffers fast
       ;custom-file (make-temp-file "")   ; Discard customization's
       ;default-input-method "TeX"        ; Use TeX when toggling input method
