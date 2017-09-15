@@ -39,18 +39,21 @@ the file that is loaded. It looks like this:
 
 ;; The name and path of our generated file
 (setq gen-file (concat user-emacs-directory "gen-init.el"))
+(setq compiled-gen-file (concat user-emacs-directory "gen-init.elc"))
 
 ;; If the generated file doesn't exist we should create it
-(unless (file-exists-p gen-file)
+(unless (file-exists-p compiled-gen-file)
   (progn
     ;; Open the configuration
     (find-file (concat user-emacs-directory "init.org"))
     ;; tangle it
-    (org-babel-tangle))
+    (org-babel-tangle)
+    ;; Compile it (create gen-init.elc)
+    (byte-compile-file gen-file))
   )
 
 ;; load the generated file
-(load-file gen-file)
+(load-file compiled-gen-file)
 #+END_SRC
 
 It tangles the org-file, so that this file is overwritten with the actual
@@ -97,6 +100,7 @@ tangled, and the tangled file is compiled."
       (org-babel-tangle)
       (byte-compile-file (concat user-emacs-directory "init.el")))))
 
+;; TODO: This doesn't work. git-gutter seems to cause problems
 (add-hook 'after-save-hook 'tangle-init)
 #+END_SRC
 

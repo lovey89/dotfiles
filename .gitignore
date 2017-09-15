@@ -3,4 +3,5 @@
 /.emacs.d/elpa/
 
 /.emacs.d/gen-init.el
+/.emacs.d/gen-init.elc
 /.emacs.d/tramp
