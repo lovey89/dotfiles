@@ -93,14 +93,14 @@ the =after-save-hook= ensuring to always tangle and byte-compile the
 (defun tangle-init ()
   "If the current buffer is 'init.org' the code-blocks are
 tangled, and the tangled file is compiled."
-  (when (equal (buffer-file-name)
-               (expand-file-name (concat user-emacs-directory "init.org")))
-    ;; Avoid running hooks when tangling.
-    (let ((prog-mode-hook nil))
-      (org-babel-tangle)
-      (byte-compile-file (concat user-emacs-directory "init.el")))))
+  (when (equal (file-name-nondirectory (buffer-file-name))
+               "init.org"))
+  ;; Avoid running hooks when tangling.
+  (let ((prog-mode-hook nil))
+    (org-babel-tangle)
+    (byte-compile-file gen-file)))
 
-;; TODO: This doesn't work. git-gutter seems to cause problems
+;; Ádd the function to after-save-hook
 (add-hook 'after-save-hook 'tangle-init)
 #+END_SRC
 
