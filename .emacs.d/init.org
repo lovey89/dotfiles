@@ -95,10 +95,10 @@ the =after-save-hook= ensuring to always tangle and byte-compile the
 tangled, and the tangled file is compiled."
   (when (equal (file-name-nondirectory (buffer-file-name))
                "init.org")
-  ;; Avoid running hooks when tangling.
-  (let ((prog-mode-hook nil))
-    (org-babel-tangle)
-    (byte-compile-file gen-file))))
+    ;; Avoid running hooks when tangling.
+    (let ((prog-mode-hook nil))
+      (org-babel-tangle)
+      (byte-compile-file gen-file))))
 
 ;; Add the function to after-save-hook
 (add-hook 'after-save-hook 'tangle-init)
