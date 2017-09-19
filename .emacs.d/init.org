@@ -11,20 +11,17 @@ Major parts of this file comes from [[https://github.com/larstvei/dot-emacs][thi
 ** Meta
 
 All changes to the configuration should be done in =init.org=, *not* in
-=init.el=. Any changes in the =init.el= will be overwritten by saving
-=init.org=. The =init.el= in this repo should not be tracked by git, and is
-replaced the first time Emacs is started (assuming it has been renamed to
-=~/.emacs.d=).
+=init.el=.  A file called =gen-init.el= (and its compiled version
+=gen-init.elc=) will be generated the first time Emacs is started (both ignored
+by git).
 
-Emacs can't load =.org=-files directly, but =org-mode= provides functions
-to extract the code blocks and write them to a file. There are multiple
-ways of handling this; like suggested by [[http://emacs.stackexchange.com/questions/3143/can-i-use-org-mode-to-structure-my-emacs-or-other-el-configuration-file][this StackOverflow post]], one
-could just use =org-babel-load-file=, but I had problems with
-byte-compilation. Previously I tracked both the =org.=- and =el.=-files,
-but the git commits got a little messy. So here is a new approach.
+Emacs can't load =.org=-files directly, but =org-mode= provides functions to
+extract the code blocks and write them to a file. There are multiple ways of
+handling this; like suggested by [[http://emacs.stackexchange.com/questions/3143/can-i-use-org-mode-to-structure-my-emacs-or-other-el-configuration-file][this StackOverflow post]], one could just use
+=org-babel-load-file=.
 
-When this configuration is loaded for the first time, the ~init.el~ is
-the file that is loaded. It looks like this:
+When this configuration is loaded for the first time, the ~gen-init.el~ is the
+file that is loaded. It looks like this:
 
 #+BEGIN_SRC emacs-lisp :tangle no
 ;; Note at the top of init.org file there is a line:
@@ -56,22 +53,11 @@ the file that is loaded. It looks like this:
 (load-file compiled-gen-file)
 #+END_SRC
 
-It tangles the org-file, so that this file is overwritten with the actual
+It tangles the org-file, so that =gen-init.el= is created with the actual
 configuration.
 
-There is no reason to track the =init.el= that is generated; by running
-the following command =git= will not bother tracking it:
-
-#+BEGIN_SRC sh :tangle no
-git update-index --assume-unchanged init.el
-#+END_SRC
-
-If one wishes to make changes to the repo-version of =init.el= start
-tracking again with:
-
-#+BEGIN_SRC sh :tangle no
-git update-index --no-assume-unchanged init.el
-#+END_SRC
+There is no reason to track =gen-init.el= or =gen-init.elc= that is generated so
+both these files are added to my =.gitignore= file.
 
 I want lexical scoping for the init-file, which can be specified in the
 header. The first line of the configuration is as follows:
@@ -80,14 +66,14 @@ header. The first line of the configuration is as follows:
 ;;; -*- lexical-binding: t -*-
 #+END_SRC
 
-The =init.el= should (after the first run) mirror the source blocks in
-the =init.org=. We can use =C-c C-v t= to run =org-babel-tangle=, which
-extracts the code blocks from the current file into a source-specific
-file (in this case a =.el=-file).
+The =gen-init.el= should (after the first run) mirror the source blocks in the
+=init.org=. We can use =C-c C-v t= to run =org-babel-tangle=, which extracts the
+code blocks from the current file into a source-specific file (in this case a
+=.el=-file).
 
-To avoid doing this each time a change is made we can add a function to
-the =after-save-hook= ensuring to always tangle and byte-compile the
-=org=-document after changes.
+To avoid doing this each time a change is made we can add a function to the
+=after-save-hook= ensuring to always tangle and byte-compile the =org=-document
+after changes.
 
 #+BEGIN_SRC emacs-lisp
 (defun tangle-init ()
