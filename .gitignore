@@ -1,7 +1,14 @@
 /.emacs.d/auto-save-list/
 /.emacs.d/autosaves/
+# Downloaded packages
 /.emacs.d/elpa/
 
+# Generated init file from init.org
 /.emacs.d/gen-init.el
+# Compiled version of gen-init.el
 /.emacs.d/gen-init.elc
 /.emacs.d/tramp
+# File to save info for save-place-moden
+/.emacs.d/places
+# Emacs bookmarks
+/.emacs.d/bookmarks
