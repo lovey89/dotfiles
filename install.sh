@@ -32,6 +32,7 @@ createlink ".gitconfig"
 createlink ".vimrc"
 createlink ".Xresources"
 createlink ".tmux.conf"
+createlink ".minttyrc"
 
 # directories
 createlink ".emacs.d"

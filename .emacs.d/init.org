@@ -665,6 +665,14 @@ function or a variable in the echo area.
 (add-hook 'lisp-interaction-mode-hook 'turn-on-eldoc-mode)
 #+END_SRC
 
+** Sh mode
+
+#+BEGIN_SRC emacs-lisp
+(setq sh-basic-offset 2
+      sh-indentation 2
+      smie-indent-basic 2)
+#+END_SRC
+
 ** Org mode
 
 TODO items

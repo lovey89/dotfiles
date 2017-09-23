@@ -1,0 +1,40 @@
+#define T_BACKGROUND #242424
+#define T_FOREGROUND #d6d3ca
+#define T_FORE_H     #ffffff
+#define T_BLACK      #2d2d2d
+#define T_BLACK_H    #484848
+#define T_RED        #e53a28
+#define T_RED_H      #e5786d
+#define T_GREEN      #95e454
+#define T_GREEN_H    #cae682
+#define T_YELLOW     #ffc125
+#define T_YELLOW_H   #ffe725
+#define T_BLUE       #64a8d8
+#define T_BLUE_H     #8ac6f2
+#define T_MAGENTA    #f283b6
+#define T_MAGENTA_H  #f6b3df
+#define T_CYAN       #3eb4aa
+#define T_CYAN_H     #51ddde
+#define T_WHITE      #d8d8d8
+#define T_WHITE_H    #ffffff
+
+*.background:  T_BACKGROUND
+*.foreground:  T_FOREGROUND
+*.cursorColor: T_FOREGROUND
+*.colorBD:     T_FORE_H
+*.color0:      T_BLACK
+*.color1:      T_RED
+*.color2:      T_GREEN
+*.color3:      T_YELLOW
+*.color4:      T_BLUE
+*.color5:      T_MAGENTA
+*.color6:      T_CYAN
+*.color7:      T_WHITE
+*.color8:      T_BLACK_H
+*.color9:      T_RED_H
+*.color10:     T_GREEN_H
+*.color11:     T_YELLOW_H
+*.color12:     T_BLUE_H
+*.color13:     T_MAGENTA_H
+*.color14:     T_CYAN_H
+*.color15:     T_WHITE_H
