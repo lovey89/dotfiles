@@ -30,11 +30,14 @@ createlink ".bashrc"
 createlink ".bash_aliases"
 createlink ".gitconfig"
 createlink ".vimrc"
-createlink ".Xresources"
 createlink ".tmux.conf"
-createlink ".minttyrc"
 
 # directories
 createlink ".emacs.d"
 createlink ".vim"
 
+if [ "$OSTYPE" == "cygwin" ]; then
+  createlink ".minttyrc"
+else
+  createlink ".Xresources"
+fi
