@@ -11,45 +11,45 @@ COMPONENT_FOLDER=TRUE
 VALID_ARGS=FALSE
 
 create_new_group() {
-    if [ $GROUP_FOLDER = "TRUE" ]; then
-        NEW_DIR=${CLONEDIR}/$1
+  if [ $GROUP_FOLDER = "TRUE" ]; then
+    NEW_DIR=${CLONEDIR}/$1
 
-        mkdir -p $NEW_DIR
-        cd $NEW_DIR
+    mkdir -p $NEW_DIR
+    cd $NEW_DIR
 
-        CURRENT_GROUP=$NEW_DIR
-        CURRENT_DIR=$NEW_DIR
-    else
-        CURRENT_DIR=$CLONEDIR
-        cd $CURRENT_DIR
-    fi
+    CURRENT_GROUP=$NEW_DIR
+    CURRENT_DIR=$NEW_DIR
+  else
+    CURRENT_DIR=$CLONEDIR
+    cd $CURRENT_DIR
+  fi
 }
 
 create_new_component() {
-    if [ $COMPONENT_FOLDER = "TRUE" ]; then
-        NEW_DIR=${CURRENT_GROUP}/$1
+  if [ $COMPONENT_FOLDER = "TRUE" ]; then
+    NEW_DIR=${CURRENT_GROUP}/$1
 
-        mkdir -p $NEW_DIR
-        cd $NEW_DIR
+    mkdir -p $NEW_DIR
+    cd $NEW_DIR
 
-        CURRENT_DIR=$NEW_DIR
-    fi
+    CURRENT_DIR=$NEW_DIR
+  fi
 }
 
 clone_git_repo() {
-    NEW_DIR=$(basename $1)
-    if [ -d "$NEW_DIR" ]; then
-        echo -e "\033[0;35mRepo \033[0;36m$1\033[0;35m already cloned in \033[0;33m${CURRENT_DIR}/${NEW_DIR}\033[0m"
-        return
-    fi
+  NEW_DIR=$(basename $1)
+  if [ -d "$NEW_DIR" ]; then
+    echo -e "\033[0;35mRepo \033[0;36m$1\033[0;35m already cloned in \033[0;33m${CURRENT_DIR}/${NEW_DIR}\033[0m"
+    return
+  fi
 
-    echo -e "\033[0;32mCloning repo \033[0;36m$1\033[0;32m into \033[0;33m${CURRENT_DIR}/${NEW_DIR}\033[0m"
-    #git clone ssh://${USERNAME_FOR_GIT}@gerrit-server:29418/$1
-    cp ${CLONEDIR}/commit-msg ${CURRENT_DIR}/${NEW_DIR}/.git/hooks/
+  echo -e "\033[0;32mCloning repo \033[0;36m$1\033[0;32m into \033[0;33m${CURRENT_DIR}/${NEW_DIR}\033[0m"
+  #git clone ssh://${USERNAME_FOR_GIT}@gerrit-server:29418/$1
+  cp ${CLONEDIR}/commit-msg ${CURRENT_DIR}/${NEW_DIR}/.git/hooks/
 }
 
 usage() {
-    cat <<EOF
+  cat <<EOF
 Script to clone a bunch of repositories into the current directory
 
 Usage:
@@ -80,50 +80,50 @@ TIPS:
   # Note that your ssh key may be called something else
 
 EOF
-    exit
+  exit
 }
 
 if (( $# == 0 )); then
-    usage
+  usage
 fi
 
 while getopts ":gu:cfh" opt; do
-    case $opt in
-        g)
-            GROUP_FOLDER=TRUE
-            COMPONENT_FOLDER=TRUE
-            VALID_ARGS=TRUE
-            ;;
-        c)
-            GROUP_FOLDER=FALSE
-            COMPONENT_FOLDER=TRUE
-            VALID_ARGS=TRUE
-            ;;
-        f)
-            GROUP_FOLDER=FALSE
-            COMPONENT_FOLDER=FALSE
-            VALID_ARGS=TRUE
-            ;;
-        u)
-            USERNAME_FOR_GIT=$OPTARG
-            ;;
-        h)
-            usage
-            ;;
-        \?)
-            echo "Invalid option: -$OPTARG" >&2
-            exit 1
-            ;;
-        :)
-            echo "Option -$OPTARG requires an argument." >&2
-            exit 1
-            ;;
-    esac
+  case $opt in
+    g)
+      GROUP_FOLDER=TRUE
+      COMPONENT_FOLDER=TRUE
+      VALID_ARGS=TRUE
+      ;;
+    c)
+      GROUP_FOLDER=FALSE
+      COMPONENT_FOLDER=TRUE
+      VALID_ARGS=TRUE
+      ;;
+    f)
+      GROUP_FOLDER=FALSE
+      COMPONENT_FOLDER=FALSE
+      VALID_ARGS=TRUE
+      ;;
+    u)
+      USERNAME_FOR_GIT=$OPTARG
+      ;;
+    h)
+      usage
+      ;;
+    \?)
+      echo "Invalid option: -$OPTARG" >&2
+      exit 1
+      ;;
+    :)
+      echo "Option -$OPTARG requires an argument." >&2
+      exit 1
+      ;;
+  esac
 done
 
 if [ $VALID_ARGS = "FALSE" ]; then
-    echo "None of the flags -g, -c or -f was provided"  1>&2
-    exit 1
+  echo "None of the flags -g, -c or -f was provided"  1>&2
+  exit 1
 fi
 
 
@@ -133,4 +133,3 @@ fi
 
 
 rm ${CLONEDIR}/commit-msg
-
