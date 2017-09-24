@@ -15,7 +15,8 @@
 	localconfig = "!f() { touch ~/.gitconfig.local ; git config -f ~/.gitconfig.local \"$@\" ; }; f"
 	triggercommit = commit --allow-empty -m "trigger"
 	# https://stackoverflow.com/questions/12481639/remove-files-from-git-commit
-	oops = reset --soft HEAD^
+	undolastcommit = reset --soft HEAD^
+	commitagain = commit -c ORIG_HEAD
 	# If you accidentally ran "git commit --amend" instead of "git commit" this alias will "undo" the commit and you can write it correctly
 	# https://stackoverflow.com/questions/1459150/how-to-undo-git-commit-amend-done-instead-of-git-commit
 	# Also see "git reflog"

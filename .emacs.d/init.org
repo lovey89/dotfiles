@@ -11,7 +11,7 @@ Major parts of this file comes from [[https://github.com/larstvei/dot-emacs][thi
 ** Meta
 
 All changes to the configuration should be done in =init.org=, *not* in
-=init.el=.  A file called =gen-init.el= (and its compiled version
+=init.el=. A file called =gen-init.el= (and its compiled version
 =gen-init.elc=) will be generated the first time Emacs is started (both ignored
 by git).
 
@@ -136,23 +136,19 @@ installed. To ensure we install missing packages if they are missing.
 (let* ((package--builtins nil)
        (packages
         '(auto-compile         ; automatically compile Emacs Lisp libraries
-          ;company              ; Modular text completion framework
-          ;define-word          ; display the definition of word at point
+          anaconda-mode        ; Anaconda-mode for python
+          ;ivy
+          ;councel
+          ;swiper
+          company              ; Modular text completion framework
+          company-anaconda     ; Anaconda (python) backand for company
           ;diminish             ; Diminished modes from modeline
-          ;drag-stuff           ; Drag stuff around in Emacs
           expand-region        ; Increase selected region by semantic units
           ;focus                ; Dim color of text in surrounding sections
           idle-require         ; load elisp libraries while Emacs is idle
           ;geiser               ; GNU Emacs and Scheme talk to each other
           git-gutter-fringe    ; Fringe version of git-gutter.el
           ;golden-ratio         ; Automatic resizing windows to golden ratio
-          ;helm                 ; Incremental and narrowing framework
-          ;helm-ag              ; the silver searcher with helm interface
-          ;helm-company         ; Helm interface for company-mode
-          ;helm-dash            ; Offline documentation using Dash docsets.
-          ;helm-projectile      ; Helm integration for Projectile
-          ;helm-swoop           ; Efficiently hopping squeezed lines
-          ;jedi                 ; Python auto-completion for Emacs
           ;js2-mode             ; Improved JavaScript editing mode
           ;magit                ; control Git from Emacs
           ;markdown-mode        ; Emacs Major mode for Markdown-formatted files
@@ -161,7 +157,6 @@ installed. To ensure we install missing packages if they are missing.
           neotree              ; Shows the file system tree in a buffer
           ;olivetti             ; Minor mode for a nice writing environment
           org                  ; Outline-based notes management and organizer
-          ;org-ref              ; citations bibliographies in org-mode
           paredit              ; minor mode for editing parentheses
           ;pdf-tools            ; Emacs support library for PDF files
           ;projectile           ; Manage and navigate projects in Emacs easily
@@ -424,10 +419,10 @@ like some modes are not installed either which would cause these lines to fail
 even if running in terminal mode.
 
 #+BEGIN_SRC emacs-lisp
-(if (display-graphic-p)
-    ;; Only run this command in graphical mode
-    (scroll-bar-mode nil)   ; No scroll bars
-    (tool-bar-mode nil)     ; No tool bar
+(when (display-graphic-p)
+  ;; Only run this command in graphical mode
+  (scroll-bar-mode nil)   ; No scroll bars
+  (tool-bar-mode nil)     ; No tool bar
 )
 #+END_SRC
 
@@ -673,6 +668,40 @@ function or a variable in the echo area.
       smie-indent-basic 2)
 #+END_SRC
 
+** Python
+
+If using cygwin don't forget to also isntall python3-setuptools. I also had
+problems with anaconda not fiding =NotFoundError= in the =jedi= module. I
+removed the import of =NotFoundError= in =anaconda_mode.py= and replaced the
+occurences in the code with =Error=.
+
+#+BEGIN_SRC emacs-lisp
+;(add-hook 'python-mode-hook 'anaconda-mode)
+(add-hook 'python-mode-hook
+          (lambda ()
+            (set (make-local-variable 'company-backends) '(company-anaconda))
+            (company-mode)
+            (anaconda-mode)))
+#+END_SRC
+
+** Company
+
+#+BEGIN_SRC emacs-lisp :tangle no
+; Use this if global-company-mode is activated. Now these line are not configured
+(eval-after-load "company"
+ '(add-to-list 'company-backends 'company-anaconda))
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+(setq company-tooltip-limit 20        ; Maximum number of candidates in the tooltip
+      company-idle-delay 0.3          ; Wait short time until presenting the list
+      company-echo-delay 0
+      company-minimum-prefix-length 2 ; Completion starts automatically after 2 chars
+      company-selection-wrap-around t ; Wrap around list
+      company-transformers '(company-sort-by-occurrence
+                             company-sort-by-backend-importance))
+#+END_SRC
+
 ** Org mode
 
 TODO items
@@ -781,6 +810,18 @@ visit that file and look at the settings.
 (define-key custom-bindings-map (kbd "C-c f")  'neotree-toggle)
 #+END_SRC
 
+** Bindings for [[http://company-mode.github.io/][company-mode]]
+
+#+BEGIN_SRC emacs-lisp
+;; Also bind company-complete to manually start completion
+
+(eval-after-load "company"
+  '(progn
+     (define-key company-active-map (kbd "C-d") 'company-show-doc-buffer)
+     (define-key company-active-map (kbd "C-n") 'company-select-next)
+     (define-key company-active-map (kbd "C-p") 'company-select-previous)))
+#+END_SRC
+
 ** Bindings for built-ins
 
 #+BEGIN_SRC emacs-lisp
@@ -824,6 +865,14 @@ visit that file and look at the settings.
 (define-key global-map          (kbd "M-n")       'jump-to-next-like-this)
 (define-key custom-bindings-map (kbd "M-,")       'jump-to-previous-like-this)
 (define-key custom-bindings-map (kbd "M-.")       'jump-to-next-like-this)
+
+;; Focus on new window when splitting
+(define-key custom-bindings-map (kbd "C-x 2")     '(lambda ()
+                                                     (interactive)(split-window-vertically)
+                                                     (other-window 1)))
+(define-key custom-bindings-map (kbd "C-x 3")     '(lambda ()
+                                                     (interactive)(split-window-horizontally)
+                                                     (other-window 1)))
 #+END_SRC
 
 ** Bindings for functions defined [[sec:defuns][above]]
@@ -956,23 +1005,6 @@ the value.
         (backward-kill-sexp)
         (forward-sexp))
     ad-do-it))
-#+END_SRC
-
-** TODO Completion
-
-[[http://company-mode.github.io/][Company-mode]] (short for complete anything) for auto completion. I want a pretty
-aggressive completion system, hence the no delay settings and short prefix
-length. Also see [[https://github.com/auto-complete/auto-complete][Auto-Complete]].
-
-#+BEGIN_SRC emacs-lisp :tangle no
-; EXCLUDED BY ME
-(setq company-idle-delay 0
-      company-echo-delay 0
-      company-dabbrev-downcase nil
-      company-minimum-prefix-length 2
-      company-selection-wrap-around t
-      company-transformers '(company-sort-by-occurrence
-                             company-sort-by-backend-importance))
 #+END_SRC
 
 ** TODO Helm
@@ -1187,19 +1219,6 @@ Set the dictionary accordingly. The markup is also sensitive to line breaks, so
 #+END_SRC
 
 ** Key bindings
-*** Bindings for [[http://company-mode.github.io/][company-mode]]
-
-#+BEGIN_SRC emacs-lisp :tangle no
-; EXCLUDED BY ME
-(define-key company-active-map (kbd "C-d") 'company-show-doc-buffer)
-(define-key company-active-map (kbd "C-n") 'company-select-next)
-(define-key company-active-map (kbd "C-p") 'company-select-previous)
-(define-key company-active-map (kbd "<tab>") 'company-complete)
-
-(define-key company-mode-map (kbd "C-:") 'helm-company)
-(define-key company-active-map (kbd "C-:") 'helm-company)
-#+END_SRC
-
 *** Bindings for [[http://emacs-helm.github.io/helm/][Helm]]
 
 #+BEGIN_SRC emacs-lisp :tangle no

@@ -2,6 +2,8 @@
 /.emacs.d/autosaves/
 # Downloaded packages
 /.emacs.d/elpa/
+# Anaconda files
+/.emacs.d/anaconda-mode/
 
 # Generated init file from init.org
 /.emacs.d/gen-init.el
