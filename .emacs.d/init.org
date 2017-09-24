@@ -679,10 +679,10 @@ removed the import of =NotFoundError= in =anaconda_mode.py= and replaced the
 occurences in the code with =Error=.
 
 #+BEGIN_SRC emacs-lisp
-;(add-hook 'python-mode-hook 'anaconda-mode)
 (add-hook 'python-mode-hook
           (lambda ()
-            (set (make-local-variable 'company-backends) '(company-anaconda))
+            (set (make-local-variable 'company-backends)
+                 '((company-yasnippet company-anaconda))) ; From doc string of company-yasnippet
             (company-mode)
             (anaconda-mode)))
 #+END_SRC
