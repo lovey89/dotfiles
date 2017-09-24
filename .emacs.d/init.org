@@ -160,7 +160,8 @@ installed. To ensure we install missing packages if they are missing.
           paredit              ; minor mode for editing parentheses
           ;pdf-tools            ; Emacs support library for PDF files
           ;projectile           ; Manage and navigate projects in Emacs easily
-          which-key)))         ; Display available keybindings in popup
+          which-key            ; Display available keybindings in popup
+          yasnippet)))         ; Template system for Emacs
   (ignore-errors ;; This package is only relevant for Mac OS X.
     (when (memq window-system '(mac ns))
       (push 'exec-path-from-shell packages)
@@ -194,6 +195,7 @@ for stuff you eventually want to load, but is not a high priority.
            ;ox-md                    ; Markdown exporter (from org)
            ;recentf                  ; recently opened files
            ;tex-mode                 ; TeX, LaTeX, and SliTeX mode commands
+           yasnippet
            ))
   (idle-require feature))
 
@@ -324,7 +326,8 @@ default.
                                         ; where is was the last time the file
                                         ; was visited
            show-paren-mode              ; Highlight matching parentheses
-           which-key-mode))             ; Available keybindings in popup
+           which-key-mode               ; Available keybindings in popup
+           yas-global-mode))            ; Activate yasnippet
   (funcall mode 1))
 
 (when (version< emacs-version "24.4")
