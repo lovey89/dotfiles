@@ -43,7 +43,8 @@ printf "# -----------------------------------------\n"
 
 printf "\n"
 
-printf "BoldAsFont=-1\n"
+printf "BoldAsFont=no\n"
+printf "BoldAsColour=yes\n"
 printf "BellType=0\n"
 printf "Term=xterm-256color\n"
 printf "CursorBlinks=no\n"

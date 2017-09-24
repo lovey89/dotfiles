@@ -3,7 +3,8 @@
 # the color scheme from an xresources file
 # -----------------------------------------
 
-BoldAsFont=-1
+BoldAsFont=no
+BoldAsColour=yes
 BellType=0
 Term=xterm-256color
 CursorBlinks=no
