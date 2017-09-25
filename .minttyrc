@@ -8,6 +8,12 @@ BoldAsColour=yes
 BellType=0
 Term=xterm-256color
 CursorBlinks=no
+Font=Courier New
+FontHeight=7
+Transparency=off
+BellFlash=no
+BellType=0
+BellPopup=no
 
 # The color codes are generated from the file: mywombat
 ForegroundColour = #d6d3ca

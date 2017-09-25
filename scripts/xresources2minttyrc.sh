@@ -48,6 +48,12 @@ printf "BoldAsColour=yes\n"
 printf "BellType=0\n"
 printf "Term=xterm-256color\n"
 printf "CursorBlinks=no\n"
+printf "Font=Courier New\n"
+printf "FontHeight=7\n"
+printf "Transparency=off\n"
+printf "BellFlash=no\n"
+printf "BellType=0\n"
+printf "BellPopup=no\n"
 
 printf "\n"
 
