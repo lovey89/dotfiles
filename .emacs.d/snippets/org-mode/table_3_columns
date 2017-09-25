@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: 3 column table
+# key: yat3
+# --
+| $1 | $2 | $3 |
+|-${1:$(make-string (string-width yas-text) ?\-)}-+-${2:$(make-string (string-width yas-text) ?\-)}-+-${3:$(make-string (string-width yas-text) ?\-)}-|
+| $0${1:$(make-string (string-width yas-text) ?\ )} | ${2:$(make-string (string-width yas-text) ?\ )} | ${3:$(make-string (string-width yas-text) ?\ )} |

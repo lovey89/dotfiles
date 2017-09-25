@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
 # name: 2 column table
-# key: t2
+# key: yat2
 # --
 | ${1:Key} | ${2:Description} |
 |-${1:$(make-string (string-width yas-text) ?\-)}-+-${2:$(make-string (string-width yas-text) ?\-)}-|

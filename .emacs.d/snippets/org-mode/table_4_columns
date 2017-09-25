@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: 4 column table
+# key: yat4
+# --
+| $1 | $2 | $3 | $4 |
+|-${1:$(make-string (string-width yas-text) ?\-)}-+-${2:$(make-string (string-width yas-text) ?\-)}-+-${3:$(make-string (string-width yas-text) ?\-)}-+-${4:$(make-string (string-width yas-text) ?\-)}-|
+| $0${1:$(make-string (string-width yas-text) ?\ )} | ${2:$(make-string (string-width yas-text) ?\ )} | ${3:$(make-string (string-width yas-text) ?\ )} | ${4:$(make-string (string-width yas-text) ?\ )} |

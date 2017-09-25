@@ -707,6 +707,14 @@ occurences in the code with =Error=.
 
 ** Org mode
 
+#+BEGIN_SRC emacs-lisp
+(add-hook 'org-mode-hook
+          (lambda ()
+            (set (make-local-variable 'company-backends)
+                 '((company-yasnippet))) ; From doc string of company-yasnippet
+            (company-mode)))
+#+END_SRC
+
 TODO items
 
 #+BEGIN_SRC emacs-lisp
@@ -816,13 +824,13 @@ visit that file and look at the settings.
 ** Bindings for [[http://company-mode.github.io/][company-mode]]
 
 #+BEGIN_SRC emacs-lisp
-;; Also bind company-complete to manually start completion
-
 (eval-after-load "company"
   '(progn
-     (define-key company-active-map (kbd "C-d") 'company-show-doc-buffer)
-     (define-key company-active-map (kbd "C-n") 'company-select-next)
-     (define-key company-active-map (kbd "C-p") 'company-select-previous)))
+     ; Manually start completion
+     (define-key custom-bindings-map (kbd "C-c C-SPC")  'company-complete)
+     (define-key company-active-map  (kbd "C-d")        'company-show-doc-buffer)
+     (define-key company-active-map  (kbd "C-n")        'company-select-next)
+     (define-key company-active-map  (kbd "C-p")        'company-select-previous)))
 #+END_SRC
 
 ** Bindings for built-ins
