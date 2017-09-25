@@ -226,8 +226,8 @@ We can set variables to whatever value we'd like using =setq=.
       ;auto-revert-interval 1            ; Refresh buffers fast
       ;custom-file (make-temp-file "")   ; Discard customization's
       ;default-input-method "TeX"        ; Use TeX when toggling input method
-      ;echo-keystrokes 0.1               ; Show keystrokes asap
-      ;inhibit-startup-message t         ; No splash screen please
+      echo-keystrokes 0.1                ; Show keystrokes asap in minibuffer
+      inhibit-startup-message t          ; No splash screen in gui (a separate buffer)
       ;initial-scratch-message nil       ; Clean scratch buffer
       ;recentf-max-saved-items 100       ; Show more recent files
       ;ring-bell-function 'ignore        ; Quiet
@@ -424,8 +424,8 @@ even if running in terminal mode.
 #+BEGIN_SRC emacs-lisp
 (when (display-graphic-p)
   ;; Only run this command in graphical mode
-  (scroll-bar-mode nil)   ; No scroll bars
-  (tool-bar-mode nil)     ; No tool bar
+  (scroll-bar-mode 0)   ; No scroll bars
+  (tool-bar-mode 0)     ; No tool bar
 )
 #+END_SRC
 
@@ -679,10 +679,13 @@ removed the import of =NotFoundError= in =anaconda_mode.py= and replaced the
 occurences in the code with =Error=.
 
 #+BEGIN_SRC emacs-lisp
+; From doc string of company-yasnippet
 (add-hook 'python-mode-hook
           (lambda ()
+            ; Company will show a merged list from these backends.
+            ; It looks like it is possible to show each backend one by one as well
             (set (make-local-variable 'company-backends)
-                 '((company-yasnippet company-anaconda))) ; From doc string of company-yasnippet
+                 '((company-yasnippet company-anaconda)))
             (company-mode)
             (anaconda-mode)))
 #+END_SRC
