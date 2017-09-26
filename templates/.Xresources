@@ -1,0 +1,47 @@
+! Load this file with the command 'xrdb ~/.Xresources' or
+! 'xrdb -merge ~/.Xresources' if you you want to also keep changes from a
+! previously loaded file
+! 'xrdb -query' to read out what is in xrdb
+
+! xterm ----------------------------------------------------------------------
+
+xterm*VT100.geometry:     80x25
+xterm*dynamicColors:      true
+xterm*utf8:               2
+
+!eightBitInput (false) och metaSendsEscape (true) behövs visst för att få meta
+!att fungera i emasc
+xterm*eightBitInput:      false
+xterm*metaSendsEscape:    true
+xterm*saveLines:          512
+xterm*scrollKey:          true
+xterm*scrollTtyOutput:    false
+xterm*scrollBar:          false
+!xterm*rightScrollBar:     true
+xterm*jumpScroll:         true
+xterm*multiScroll:        true
+xterm*toolBar:            false
+
+XTerm*VT100.cutNewLine: false
+XTerm*VT100.cutToBeginningOfLine: false
+XTerm*VT100.charClass: 33:48,35:48,37:48,42:48,45-47:48,64:48,95:48,126:48
+
+#ifdef SMALLFONT
+xterm*boldMode: false
+xterm*font: fixed
+xterm*boldFont: fixed
+!Bold fonts will not show up as bold since the 'fixed' font is hard to read then
+xterm*allowBoldFonts: false
+xterm*colorBDMode: true
+#elif defined TERMINUS
+xterm*faceName:           Terminus:style=Regular:size=10
+#elif defined DINA
+xterm*font:              -*-dina-medium-r-*-*-16-*-*-*-*-*-*-*
+#endif
+
+xterm*loginShell: true
+
+! emacs ----------------------------------------------------------------------
+
+!emacs.font: Terminus-9
+

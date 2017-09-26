@@ -1,0 +1,52 @@
+#!/bin/bash
+
+SCRIPT_DIR=$(readlink -f `dirname $0`)
+DOTFILES_DIR="${SCRIPT_DIR}/.."
+MINTTYRC_FILE="${DOTFILES_DIR}/.minttyrc"
+XRESOURCES_FILE="${DOTFILES_DIR}/.Xresources"
+COLOR_DIR="${SCRIPT_DIR}/Xresources.colors"
+
+if [ "$#" != 1 ]; then
+  echo "Wrong number of arguments" 1>&2
+  exit 1
+elif [ ! -r "${COLOR_DIR}/$1" ]; then
+  echo "Can't read color file: ${COLOR_DIR}/$1" 1>&2
+  exit 2
+fi
+
+# .minttyrc file
+# Remove it if it exists
+rm -f "$MINTTYRC_FILE"
+
+cat << MINTTY_COMMENTS > "$MINTTYRC_FILE"
+# Don't update this file directly. Update dotfiles/templates/.minttyrc and run
+# the dotfiles/templates/create_config_files command to generate the new config
+# -----------------------------------------------------------------------------
+
+MINTTY_COMMENTS
+cat "${SCRIPT_DIR}/.minttyrc" >> "$MINTTYRC_FILE"
+"${SCRIPT_DIR}/xresources2minttyrc.sh" "${COLOR_DIR}/$1" >> "$MINTTYRC_FILE"
+
+# Make it not writable
+chmod 444 "$MINTTYRC_FILE"
+
+# .Xresources file
+# Remove it if it exists
+rm -f "$XRESOURCES_FILE"
+
+cat << XRESOURCES_COMMENTS > "$XRESOURCES_FILE"
+! Dont update this file directly. Update dotfiles/templates/.Xresources and run
+! the dotfiles/templates/create_config_files command to generate the new config
+! -----------------------------------------------------------------------------
+
+XRESOURCES_COMMENTS
+cat "${SCRIPT_DIR}/.Xresources" >> "$XRESOURCES_FILE"
+
+cat << XRESOURCES_COMMENTS >> "$XRESOURCES_FILE"
+
+! The color codes are fetched from the file: $1
+XRESOURCES_COMMENTS
+cat "${COLOR_DIR}/$1" >> "$XRESOURCES_FILE"
+
+# Make it not writable
+chmod 444 "$XRESOURCES_FILE"

@@ -24,6 +24,9 @@ createlink()
   ln -s "$DOTFILES_DIR/$1" "$HOME_DIR_POSITION"
 }
 
+# Generate .minttyrc and .Xresources with specified color scheme
+"${DOTFILES_DIR}/templates/create_config_files" mywombat
+
 mkdir -p "$BACKUP_DIR"
 
 createlink ".bashrc"

@@ -36,25 +36,6 @@ fi
 
 FILE="$1"
 
-printf "# Don't update this file directly. Update\n"
-printf "# xresources2minttyrc.sh which can generate\n"
-printf "# the color scheme from an xresources file\n"
-printf "# -----------------------------------------\n"
-
-printf "\n"
-
-printf "BoldAsFont=no\n"
-printf "BoldAsColour=yes\n"
-printf "BellType=0\n"
-printf "Term=xterm-256color\n"
-printf "CursorBlinks=no\n"
-printf "Font=Courier New\n"
-printf "FontHeight=7\n"
-printf "Transparency=off\n"
-printf "BellFlash=no\n"
-printf "BellType=0\n"
-printf "BellPopup=no\n"
-
 printf "\n"
 
 printf "# The color codes are generated from the file: %s\n" $(basename "$1")
