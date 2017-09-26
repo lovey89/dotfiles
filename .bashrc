@@ -37,6 +37,8 @@ export PATH="$PATH":"$HOME"/dotfiles/scripts
 unset -v PROMPT_COMMAND
 # Options used by the 'less' command
 export LESS="-RS#3Mi"
+# Don't save bash commands to history that starts with space and don't save duplicates
+export HISTCONTROL="ignorespace:erasedups"
 
 if [ "$OSTYPE" != "cygwin" ]; then
   # It looks like cygwin handles this variable poorly
