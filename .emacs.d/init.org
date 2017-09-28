@@ -141,7 +141,8 @@ installed. To ensure we install missing packages if they are missing.
           ;councel
           ;swiper
           company              ; Modular text completion framework
-          company-anaconda     ; Anaconda (python) backand for company
+          company-anaconda     ; Anaconda (python) backend for company
+          company-shell        ; Shell script backend for company
           ;diminish             ; Diminished modes from modeline
           expand-region        ; Increase selected region by semantic units
           ;focus                ; Dim color of text in surrounding sections
@@ -224,7 +225,9 @@ We can set variables to whatever value we'd like using =setq=.
       dabbrev-check-all-buffers t
       windmove-wrap-around t             ; Windmove wraps around
       ;auto-revert-interval 1            ; Refresh buffers fast
-      ;custom-file (make-temp-file "")   ; Discard customization's
+      custom-file (concat
+		   user-emacs-directory
+		   "custom_auto.el")     ; Put customization here. But don't load it!
       ;default-input-method "TeX"        ; Use TeX when toggling input method
       echo-keystrokes 0.1                ; Show keystrokes asap in minibuffer
       inhibit-startup-message t          ; No splash screen in gui (a separate buffer)
@@ -671,6 +674,18 @@ function or a variable in the echo area.
       smie-indent-basic 2)
 #+END_SRC
 
+#+BEGIN_SRC emacs-lisp
+; From doc string of company-yasnippet
+(add-hook 'sh-mode-hook
+          (lambda ()
+            ; Company will show a merged list from these backends.
+            ; It looks like it is possible to show each backend one by one as well
+            (set (make-local-variable 'company-backends)
+                 '((:separate company-yasnippet company-dabbrev-code
+                              company-files company-shell)))
+            (company-mode)))
+#+END_SRC
+
 ** Python
 
 If using cygwin don't forget to also isntall python3-setuptools. I also had
@@ -702,6 +717,9 @@ occurences in the code with =Error=.
 (setq company-tooltip-limit 20        ; Maximum number of candidates in the tooltip
       company-idle-delay 0.3          ; Wait short time until presenting the list
       company-echo-delay 0
+      company-show-numbers t
+      ;company-dabbrev-downcase nil
+      ;company-auto-complete t
       company-minimum-prefix-length 2 ; Completion starts automatically after 2 chars
       company-selection-wrap-around t ; Wrap around list
       company-transformers '(company-sort-by-occurrence
