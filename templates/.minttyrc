@@ -9,3 +9,4 @@ Transparency=off
 BellFlash=no
 BellType=0
 BellPopup=no
+Scrollbar=None
