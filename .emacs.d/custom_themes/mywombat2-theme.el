@@ -1,5 +1,5 @@
 (deftheme mywombat2
-  "Created 2017-09-10.")
+  "Created 2017-10-01.")
 
 (custom-theme-set-variables
  'mywombat2
@@ -10,7 +10,7 @@
  '(cursor ((((class color) (min-colors 89)) (:background "#656565"))))
  '(fringe ((((class color) (min-colors 89)) (:background "#303030"))))
  '(highlight ((t (:background "#454545"))))
- '(region ((t (:background "color-165" :foreground "#f6f3e8"))))
+ '(region ((t (:background "#cd00cd" :foreground "#262626"))))
  '(secondary-selection ((((class color) (min-colors 89)) (:background "#333366" :foreground "#f6f3e8"))))
  '(isearch ((t (:background "color-208" :foreground "color-232"))))
  '(lazy-highlight ((t (:background "brightyellow" :foreground "black"))))
@@ -33,9 +33,9 @@
  '(header-line ((((class color) (min-colors 89)) (:background "#303030" :foreground "#e7f6da"))))
  '(show-paren-match ((t (:background "color-208" :foreground "black"))))
  '(show-paren-mismatch ((((class color)) (:background "purple" :foreground "white")) (t (:inverse-video t))))
- '(default ((((class color) (min-colors 89)) (:background "#242424" :foreground "#f6f3e8"))))
  '(org-block ((t (:background "color-234"))))
- '(org-block-begin-line ((t (:background "#92a65e" :foreground "color-235"))))
- '(org-block-end-line ((t (:inherit (org-block-begin-line))))))
+ '(org-block-begin-line ((t (:background "#92a65e" :foreground "#262626"))))
+ '(org-block-end-line ((t (:inherit (org-block-begin-line)))))
+ '(default ((((class color) (min-colors 89)) (:background "#242424" :foreground "#f6f3e8")))))
 
 (provide-theme 'mywombat2)

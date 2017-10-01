@@ -151,9 +151,6 @@ installed. To ensure we install missing packages if they are missing.
           git-gutter-fringe    ; Fringe version of git-gutter.el
           ;golden-ratio         ; Automatic resizing windows to golden ratio
           ;js2-mode             ; Improved JavaScript editing mode
-          ;magit                ; control Git from Emacs
-          ;markdown-mode        ; Emacs Major mode for Markdown-formatted files
-          ;material-theme       ; A Theme based on Google Material Design
           multiple-cursors     ; Multiple cursors for Emacs
           neotree              ; Shows the file system tree in a buffer
           ;olivetti             ; Minor mode for a nice writing environment
@@ -718,6 +715,11 @@ occurences in the code with =Error=.
       company-idle-delay 0.3          ; Wait short time until presenting the list
       company-echo-delay 0
       company-show-numbers t
+      company-tooltip-align-annotations t ; align annotations to the right tooltip border
+      company-tooltip-flip-when-above t
+      company-tooltip-margin 2          ; width of margin columns to show around
+                                        ; the tooltip
+      company-require-match nil
       ;company-dabbrev-downcase nil
       ;company-auto-complete t
       company-minimum-prefix-length 2 ; Completion starts automatically after 2 chars
@@ -848,7 +850,7 @@ visit that file and look at the settings.
 (eval-after-load "company"
   '(progn
      ; Manually start completion
-     (define-key custom-bindings-map (kbd "C-c C-SPC")  'company-complete)
+     (define-key custom-bindings-map (kbd "C-c C-SPC")  'company-manual-begin)
      (define-key company-active-map  (kbd "C-d")        'company-show-doc-buffer)
      (define-key company-active-map  (kbd "C-n")        'company-select-next)
      (define-key company-active-map  (kbd "C-p")        'company-select-previous)))
@@ -1203,17 +1205,6 @@ C++, Java, etc...). I like being able to quickly compile using =C-c C-c=
   (local-set-key (kbd "C-c C-c") 'compile))
 
 (add-hook 'c-mode-common-hook 'c-setup)
-#+END_SRC
-
-Some statements in Java appear often, and become tedious to write out. We can
-use abbrevs to speed this up.
-
-#+BEGIN_SRC emacs-lisp :tangle no
-; EXCLUDED BY ME
-(define-abbrev-table 'java-mode-abbrev-table
-  '(("psv" "public static void main(String[] args) {" nil 0)
-    ("sopl" "System.out.println" nil 0)
-    ("sop" "System.out.printf" nil 0)))
 #+END_SRC
 
 To be able to use the abbrev table defined above, =abbrev-mode= must be
