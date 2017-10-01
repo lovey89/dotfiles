@@ -909,7 +909,7 @@ visit that file and look at the settings.
                                                      (other-window 1)))
 #+END_SRC
 
-** Bindings for functions defined [[sec:defuns][above]]
+** Bindings for functions defined [[*Misc functions][above]]
 
 #+BEGIN_SRC emacs-lisp
 ;; Toggle the current window to dedicated. No buffer will open automatically in this window

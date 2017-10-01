@@ -19,9 +19,12 @@
     (find-file (concat user-emacs-directory "init.org"))
     ;; tangle it
     (org-babel-tangle)
+    ;; Load the generated file. Must be done before compile as all required
+    ;; packages needs to be downloaded
+    (load-file gen-file)
     ;; Compile it (create gen-init.elc)
     (byte-compile-file gen-file))
   )
 
-;; load the generated file
+;; load the compiled generated file
 (load-file compiled-gen-file)
