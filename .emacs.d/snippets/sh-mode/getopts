@@ -1,0 +1,18 @@
+# -*- mode: snippet -*-
+# name: getopts
+# key: yagetopts
+# --
+${3:$$(yas-choose-value '("" "OPTIND=1 # Needed when running getopts inside function\n"))}while getopts ":${2:ab:}" ${1:opt}; do
+  case \$$1 in$0${2:$(yas_my_getopts yas-text)}
+    \?)
+      # Unknown option
+      echo "Invalid option: -$OPTARG" >&2
+      exit 1
+      ;;
+    :)
+      # Argument missing. The option expects an argument
+      echo "Option -$OPTARG requires an argument." >&2
+      exit 1
+      ;;
+  esac
+done
