@@ -818,6 +818,16 @@ use more shortcuts for other type of blocks.
                                   "#+END_SRC\n")))
 #+END_SRC
 
+By default only =emacs-lisp= code blocks can be evaluated in =org-mode=. I also
+want to be able to evaluate python code.
+
+#+BEGIN_SRC emacs-lisp
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((python . t)
+   (emacs-lisp . t)))
+#+END_SRC
+
 ** NeoTree
 
 #+BEGIN_SRC emacs-lisp
