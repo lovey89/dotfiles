@@ -676,36 +676,33 @@ For getopts snippet:
 #+END_SRC
 
 * Mode specific
-** Lisp
+** Emacs Lisp
 
-Activate =Paredit= when editing lisp code, we enable this for all lisp-modes.
-
-#+BEGIN_SRC emacs-lisp
-(dolist (mode '(;lisp-mode
-                emacs-lisp-mode
-                ;lisp-interaction-mode
-                ))
-  ;; add paredit-mode to all mode-hooks
-  (add-hook (intern (concat (symbol-name mode) "-hook")) 'paredit-mode))
-#+END_SRC
-
-*** Emacs Lisp
-
-In =emacs-lisp-mode= we can enable =eldoc-mode= to display information about a
-function or a variable in the echo area.
+Activate =Company= and =Paredit= when editing elisp code. Also activate
+=eldoc-mode= to display information about a function or a variable in the echo
+area.
 
 #+BEGIN_SRC emacs-lisp
-(add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
-(add-hook 'lisp-interaction-mode-hook 'turn-on-eldoc-mode)
+(add-hook 'emacs-lisp-mode-hook
+          (lambda ()
+            (paredit-mode)
+            (eldoc-mode)
+            (set (make-local-variable 'company-backends)
+                 '((:separate company-elisp company-yasnippet)))
+            (company-mode)))
 #+END_SRC
 
 ** Sh mode
+
+Settings for indentation.
 
 #+BEGIN_SRC emacs-lisp
 (setq sh-basic-offset 2
       sh-indentation 2
       smie-indent-basic 2)
 #+END_SRC
+
+Activate =Company= for shell mode.
 
 #+BEGIN_SRC emacs-lisp
 ; From doc string of company-yasnippet
@@ -898,6 +895,7 @@ visit that file and look at the settings.
 (define-key custom-bindings-map (kbd "M-u")    'upcase-dwim)
 (define-key custom-bindings-map (kbd "M-c")    'capitalize-dwim)
 (define-key custom-bindings-map (kbd "M-l")    'downcase-dwim)
+(define-key custom-bindings-map (kbd "C-c r")  'revert-buffer)
 #+END_SRC
 
 ** Bindings for org mode
