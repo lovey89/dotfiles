@@ -828,6 +828,16 @@ want to be able to evaluate python code.
    (emacs-lisp . t)))
 #+END_SRC
 
+*** Troubleshooting
+
+When you have problems with running code blocks you might have to recompile the
+org files. Remove all ~.elc~ files in ~.emacs/elpa/org-xxxxx~ and then run the
+followinging command in emacs:
+
+#+BEGIN_SRC :tangle no
+C-u 0 M-x byte-recompile-directory <RET> ~/emacs.d/elpa/org-xxxxxx
+#+END_SRC
+
 ** NeoTree
 
 #+BEGIN_SRC emacs-lisp
