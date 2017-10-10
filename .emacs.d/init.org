@@ -158,6 +158,7 @@ installed. To ensure we install missing packages if they are missing.
           paredit              ; minor mode for editing parentheses
           ;pdf-tools            ; Emacs support library for PDF files
           ;projectile           ; Manage and navigate projects in Emacs easily
+          smartrep             ; Allow to repeat a keybinding without prefix
           which-key            ; Display available keybindings in popup
           yasnippet)))         ; Template system for Emacs
   (ignore-errors ;; This package is only relevant for Mac OS X.
@@ -198,6 +199,7 @@ for stuff you eventually want to load, but is not a high priority.
   (idle-require feature))
 
 (require 'view)
+(require 'smartrep)
 
 (setq idle-require-idle-delay 2)
 (idle-require-mode 1)
@@ -860,6 +862,8 @@ all my custom bindings. This map can be activated by toggling a simple
 =major-modes= to override these bindings. I keep this at the end of the
 init-file to make sure that all functions are actually defined.
 
+Also see this link: [[http://ergoemacs.org/emacs/emacs_keybinding_power_of_keys_sequence.html][http://ergoemacs.org/emacs/emacs_keybinding_power_of_keys_sequence.html]]
+
 #+BEGIN_SRC emacs-lisp
 (defvar custom-bindings-map (make-keymap)
   "A keymap for custom bindings.")
@@ -937,16 +941,22 @@ visit that file and look at the settings.
 (define-key custom-bindings-map (kbd "<S-right>") 'windmove-right)
 
 ;; Enlarge/shrink windows
-(define-key custom-bindings-map (kbd "<M-up>")    'enlarge-window)
-(define-key custom-bindings-map (kbd "<M-right>") 'enlarge-window-horizontally)
-(define-key custom-bindings-map (kbd "<M-left>")  'shrink-window-horizontally)
-(define-key custom-bindings-map (kbd "<M-down>")  'shrink-window)
+;(define-key custom-bindings-map (kbd "<M-up>")    'enlarge-window)
+;(define-key custom-bindings-map (kbd "<M-right>") 'enlarge-window-horizontally)
+;(define-key custom-bindings-map (kbd "<M-left>")  'shrink-window-horizontally)
+;(define-key custom-bindings-map (kbd "<M-down>")  'shrink-window)
+(smartrep-define-key 
+    custom-bindings-map "C-b" '(("w" . enlarge-window)
+                                ("d" . enlarge-window-horizontally)
+                                ("a" . shrink-window-horizontally)
+                                ("s" . shrink-window)))
 
 ;; Scrolling
 (define-key custom-bindings-map (kbd "M-v")       'View-scroll-half-page-backward)
 (define-key custom-bindings-map (kbd "C-v")       'View-scroll-half-page-forward)
-(define-key custom-bindings-map (kbd "M-b")       (lambda () (interactive) (scroll-down 1)))
-(define-key custom-bindings-map (kbd "C-b")       (lambda () (interactive) (scroll-up 1)))
+(smartrep-define-key
+    custom-bindings-map "C-b" '(("f" . (lambda () (interactive) (scroll-down 1)))
+                                ("r" . (lambda () (interactive) (scroll-up 1)))))
 
 ;; Search for the word under cursor position
 (define-key global-map          (kbd "M-p")       'jump-to-previous-like-this)
