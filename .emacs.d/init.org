@@ -650,25 +650,24 @@ Here I store all helper functions that are written to be used by YASnippet.
 For getopts snippet:
 
 #+BEGIN_SRC emacs-lisp
-;; My first attempt at elisp. Should be rewritten
+;; My first attempt at elisp
 (defun yas_my_getopts (getopts)
-  (setq resultstring "")
-  (setq i 0)
-  (setq stringlength (length getopts))
-  (while (< i stringlength)
-    (setq currchar (elt getopts i))
-    (if (eq i (1- stringlength)) ; Check if this is the last char
-        (setq subresult (yas_my_getopts_without_var currchar))
-      (progn
-        (setq nextchar (elt getopts (1+ i)))
-        (if (eq nextchar ?:)
-            (progn
-              (setq i (1+ i))
-              (setq subresult (yas_my_getopts_with_var currchar)))
-          (setq subresult (yas_my_getopts_without_var currchar)))))
-    (setq resultstring (concat resultstring "\n" subresult))
-    (setq i (1+ i)))
-  (identity resultstring))
+  (let ((resultstring "") (i 0) (stringlength) (currchar) (nextchar) (subresult))
+    (setq stringlength (length getopts))
+    (while (< i stringlength)
+      (setq currchar (elt getopts i))
+      (if (eq i (1- stringlength)) ; Check if this is the last char
+          (setq subresult (yas_my_getopts_without_var currchar))
+        (progn
+          (setq nextchar (elt getopts (1+ i)))
+          (if (eq nextchar ?:)
+              (progn
+                (setq i (1+ i))
+                (setq subresult (yas_my_getopts_with_var currchar)))
+            (setq subresult (yas_my_getopts_without_var currchar)))))
+      (setq resultstring (concat resultstring "\n" subresult))
+      (setq i (1+ i)))
+    (identity resultstring)))
 
 (defun yas_my_getopts_with_var (getoptschar)
   (format "%c)\necho \"Option '%c' with argument '$OPTARG'\"\n;;" getoptschar getoptschar))
