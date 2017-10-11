@@ -918,7 +918,9 @@ visit that file and look at the settings.
 (define-key custom-bindings-map (kbd "M-u")    'upcase-dwim)
 (define-key custom-bindings-map (kbd "M-c")    'capitalize-dwim)
 (define-key custom-bindings-map (kbd "M-l")    'downcase-dwim)
-(define-key custom-bindings-map (kbd "C-c r")  'revert-buffer)
+
+(define-key custom-bindings-map (kbd "C-b r")  'revert-buffer)
+(define-key custom-bindings-map (kbd "C-b t")  'delete-trailing-whitespace)
 #+END_SRC
 
 ** Bindings for org mode
@@ -944,7 +946,7 @@ visit that file and look at the settings.
 ;(define-key custom-bindings-map (kbd "<M-right>") 'enlarge-window-horizontally)
 ;(define-key custom-bindings-map (kbd "<M-left>")  'shrink-window-horizontally)
 ;(define-key custom-bindings-map (kbd "<M-down>")  'shrink-window)
-(smartrep-define-key 
+(smartrep-define-key
     custom-bindings-map "C-b" '(("w" . enlarge-window)
                                 ("d" . enlarge-window-horizontally)
                                 ("a" . shrink-window-horizontally)
@@ -954,8 +956,8 @@ visit that file and look at the settings.
 (define-key custom-bindings-map (kbd "M-v")       'View-scroll-half-page-backward)
 (define-key custom-bindings-map (kbd "C-v")       'View-scroll-half-page-forward)
 (smartrep-define-key
-    custom-bindings-map "C-b" '(("f" . (lambda () (interactive) (scroll-down 1)))
-                                ("r" . (lambda () (interactive) (scroll-up 1)))))
+    custom-bindings-map "C-b" '(("z" . (lambda () (interactive) (scroll-down 1)))
+                                ("x" . (lambda () (interactive) (scroll-up 1)))))
 
 ;; Search for the word under cursor position
 (define-key global-map          (kbd "M-p")       'jump-to-previous-like-this)
