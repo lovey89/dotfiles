@@ -147,12 +147,12 @@ installed. To ensure we install missing packages if they are missing.
           expand-region        ; Increase selected region by semantic units
           ;focus                ; Dim color of text in surrounding sections
           idle-require         ; load elisp libraries while Emacs is idle
-          ;geiser               ; GNU Emacs and Scheme talk to each other
           git-gutter-fringe    ; Fringe version of git-gutter.el
           ;golden-ratio         ; Automatic resizing windows to golden ratio
           ;js2-mode             ; Improved JavaScript editing mode
           multiple-cursors     ; Multiple cursors for Emacs
           neotree              ; Shows the file system tree in a buffer
+          nyan-mode            ; Mode that display nyan cat in mode bar
           ;olivetti             ; Minor mode for a nice writing environment
           org                  ; Outline-based notes management and organizer
           paredit              ; minor mode for editing parentheses
@@ -234,6 +234,7 @@ We can set variables to whatever value we'd like using =setq=.
       ;recentf-max-saved-items 100       ; Show more recent files
       ;ring-bell-function 'ignore        ; Quiet
       ;sentence-end-double-space nil     ; No double space
+      nyan-wavy-trail t                  ; Wavy rainbow in nyan-mode
 )
 #+END_SRC
 
@@ -316,7 +317,7 @@ default.
 (dolist (mode
          '(;abbrev-mode                  ; E.g. sopl -> System.out.println
            column-number-mode           ; Show column number in mode line
-           ;delete-selection-mode        ; Replace selected text
+           delete-selection-mode        ; Replace selected text
            ;dirtrack-mode                ; directory tracking in *shell*
            ;drag-stuff-global-mode       ; Drag stuff around
            ;global-company-mode          ; Auto-completion everywhere
@@ -428,6 +429,7 @@ even if running in terminal mode.
   ;; Only run this command in graphical mode
   (scroll-bar-mode 0)   ; No scroll bars
   (tool-bar-mode 0)     ; No tool bar
+  (nyan-mode 1)         ; Nyan cat mode
 )
 #+END_SRC
 
@@ -536,6 +538,30 @@ To tidy up a buffer we define this function borrowed from [[https://github.com/s
     (untabify beg (if (< end (point-max)) end (point-max)))))
 #+END_SRC
 
+These functions provide something close to ~text-scale-mode~, but for every
+buffer, including the minibuffer and mode line.
+
+#+BEGIN_SRC emacs-lisp
+(lexical-let* ((default (face-attribute 'default :height))
+               (size default))
+
+  (defun global-scale-default ()
+    (interactive)
+    (setq size default)
+    (global-scale-internal size))
+
+  (defun global-scale-up ()
+    (interactive)
+    (global-scale-internal (incf size 20)))
+
+  (defun global-scale-down ()
+    (interactive)
+    (global-scale-internal (decf size 20)))
+
+  (defun global-scale-internal (arg)
+    (set-face-attribute 'default (selected-frame) :height arg)))
+#+END_SRC
+
 ** Advice
 
 An advice can be given to a function to make it behave differently.
@@ -622,7 +648,7 @@ buffer.
 #+END_SRC
 
 When I was working with C programming I always had my windows arranged in a
-certain way. This is a naive way to get it to setup the windows but it works.
+certain way. This is a naive way to automatically setup the windows, but it works
 
 #+BEGIN_SRC emacs-lisp
 (defun battle-station ()
@@ -999,6 +1025,10 @@ visit that file and look at the settings.
 (define-key custom-bindings-map (kbd "C-c j")     'cycle-spacing-delete-newlines)
 (define-key custom-bindings-map (kbd "C-c d")     'duplicate-thing)
 (define-key custom-bindings-map (kbd "<C-tab>")   'tidy)
+
+(define-key custom-bindings-map (kbd "C-b 0")     'global-scale-default)
+(define-key custom-bindings-map (kbd "C-b +")     'global-scale-up)
+(define-key custom-bindings-map (kbd "C-b -")     'global-scale-down)
 #+END_SRC
 
 ** Create and activate minor mode
