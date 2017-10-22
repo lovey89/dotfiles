@@ -125,6 +125,7 @@ archive and is well maintained.
 ;; solution)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
 (add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/"))
+(add-to-list 'package-archives '("elpa" . "https://elpa.gnu.org/packages/"))
 
 ;(add-to-list 'package-pinned-packages '(cider . "melpa-stable") t)
 #+END_SRC
@@ -158,6 +159,7 @@ installed. To ensure we install missing packages if they are missing.
           paredit              ; minor mode for editing parentheses
           ;pdf-tools            ; Emacs support library for PDF files
           ;projectile           ; Manage and navigate projects in Emacs easily
+          rainbow-mode         ; Show the color of color codes in the buffer
           smartrep             ; Allow to repeat a keybinding without prefix
           which-key            ; Display available keybindings in popup
           yasnippet)))         ; Template system for Emacs
