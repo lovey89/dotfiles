@@ -409,14 +409,6 @@ I smuggled some configurations from [[https://github.com/torenord/.emacs.d/][tor
  '(git-gutter:added-sign "+")    ;; multiple characters is also OK
  '(git-gutter:deleted-sign "-"))
 
-;; Move these to custom theme?
-(dolist (p '((git-gutter:added    . "#0c0") ; Words are also ok e.g "purple"
-             (git-gutter:deleted  . "#c00")
-             (git-gutter:modified . "#8ac6f2")))
-  (set-face-foreground (car p) (cdr p))
-  ;(set-face-background (car p) (cdr p))
-  )
-
 (setq git-gutter:hide-gutter t  ; Hide gutter when there are no changes
       git-gutter:lighter " GG") ; Change name in mode bar
 #+END_SRC
