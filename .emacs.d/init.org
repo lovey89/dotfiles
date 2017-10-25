@@ -1020,9 +1020,10 @@ visit that file and look at the settings.
 (define-key custom-bindings-map (kbd "C-c d")     'duplicate-thing)
 (define-key custom-bindings-map (kbd "<C-tab>")   'tidy)
 
-(define-key custom-bindings-map (kbd "C-b 0")     'global-scale-default)
-(define-key custom-bindings-map (kbd "C-b +")     'global-scale-up)
-(define-key custom-bindings-map (kbd "C-b -")     'global-scale-down)
+(smartrep-define-key
+    custom-bindings-map "C-b" '(("0" . global-scale-default)
+                                ("+" . global-scale-up)
+                                ("-" . global-scale-down)))
 #+END_SRC
 
 ** Create and activate minor mode
