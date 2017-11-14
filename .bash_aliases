@@ -14,12 +14,12 @@ alias cfind='find -L . \( ! -name ".git" -a ! -name ".idea" -o -prune \) -type f
 alias sudo='sudo '
 
 # Functions
-ffind ()
+ffind()
 {
   find . -iname "*$1*"
 }
 
-afind () # Needs more testing!
+afind() # Needs more testing!
 {
   OPTIND=1 # Needed to get getopts to work
 
@@ -55,7 +55,7 @@ afind () # Needs more testing!
   #echo "find -L . $FILE_PATH $FILE_ENDING -type f -print0 | xargs -0 grep --color=auto -in $1"
 }
 
-sha1sumdir ()
+sha1sumdir()
 {
   for var in "$@"; do
     if [ -d "$var" ]; then
@@ -68,7 +68,7 @@ sha1sumdir ()
   done
 }
 
-charcount ()
+charcount()
 {
   wc -m <(echo -nE "$1") | cut --delimiter=' ' -f1
 }
@@ -86,3 +86,19 @@ if [ "$OSTYPE" == "cygwin" ]; then
   alias fwinkillall='taskkill /F /IM'
   alias start-ssh-agent='eval $(ssh-agent -s); ssh-add ~/.ssh/id_rsa'
 fi
+
+start-ssh-agent-if-necessary()
+{
+  grep -q ENCRYPTED $HOME/.ssh/id_rsa
+  if [ "$?" -eq 0 ]; then
+    if [ -z ${SSH_AGENT_PID+x} ]; then
+      start-ssh-agent
+    fi
+  fi
+}
+
+function tunnel()
+{
+  start-ssh-agent-if-necessary
+  ssh tunnel/"$1"
+}
