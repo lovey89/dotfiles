@@ -162,7 +162,8 @@ installed. To ensure we install missing packages if they are missing.
           rainbow-mode         ; Show the color of color codes in the buffer
           smartrep             ; Allow to repeat a keybinding without prefix
           which-key            ; Display available keybindings in popup
-          yasnippet)))         ; Template system for Emacs
+          yasnippet            ; Template system for Emacs
+          xcscope)))           ; Tool to find variables and functions in C
   (ignore-errors ;; This package is only relevant for Mac OS X.
     (when (memq window-system '(mac ns))
       (push 'exec-path-from-shell packages)
@@ -197,6 +198,7 @@ for stuff you eventually want to load, but is not a high priority.
            ;recentf                  ; recently opened files
            ;tex-mode                 ; TeX, LaTeX, and SliTeX mode commands
            yasnippet
+           xcscope
            ))
   (idle-require feature))
 
@@ -737,7 +739,7 @@ Activate =Company= for shell mode.
             (company-mode)))
 #+END_SRC
 
-** Python
+** Python mode
 
 If using cygwin don't forget to also isntall python3-setuptools. I also had
 problems with anaconda not fiding =NotFoundError= in the =jedi= module. I
@@ -754,6 +756,64 @@ occurences in the code with =Error=.
                  '((company-yasnippet company-anaconda)))
             (company-mode)
             (anaconda-mode)))
+#+END_SRC
+
+** C(++) mode
+
+*** Cscope
+
+#+BEGIN_SRC emacs-lisp
+(with-eval-after-load "xcscope"
+  (cscope-setup)
+  (setq cscope-option-do-not-update-database t)
+  (setq cscope-edit-single-match nil)
+)
+
+(defun cscope-find-this-symbol-no-prompting ()
+  "Locate a symbol in source code without prompting."
+  (interactive)
+  (let ((symbol (cscope-extract-symbol-at-cursor nil nil)))
+    (setq cscope-previous-user-search `(cscope-find-this-symbol-no-prompting ,symbol))
+    (cscope-call "Finding symbol:" 0 symbol)
+    ))
+
+(defun cscope-find-functions-calling-this-function-no-prompting ()
+  "Display functions calling a function without prompting."
+  (interactive)
+  (let ((symbol (cscope-extract-symbol-at-cursor nil nil)))
+    (setq cscope-previous-user-search `(cscope-find-this-symbol-no-prompting ,symbol))
+    (cscope-call "Finding functions calling:" 3 symbol)
+    ))
+
+(defun cscope-show-entry-br-window ()
+  "Display the entry at point in window located at bottom right corner.
+Point is not saved on mark ring."
+  (interactive)
+  (let ((navprops (cscope-get-navigation-properties))
+        (br-window (window-at (- (frame-width) 1) (- (frame-height) 2))))
+    (cscope-show-entry-internal navprops nil br-window t)
+    ))
+
+(defun cscope-select-entry-br-window ()
+  "Display the entry at point in window located at bottom right corner, select the window.
+Push current point on mark ring and select the entry window."
+  (interactive)
+  (let ((navprops (cscope-get-navigation-properties))
+        (br-window (window-at (- (frame-width) 1) (- (frame-height) 2)))
+        window)
+    (setq window (cscope-show-entry-internal navprops t br-window))
+    (if (windowp window)
+        (select-window window))
+    )
+  (if cscope-close-window-after-select
+    (delete-windows-on cscope-output-buffer-name)))
+#+END_SRC
+
+*** Arduino
+
+Open arduino =.ino= files in =c++-mode=
+#+BEGIN_SRC emacs-lisp
+(add-to-list 'auto-mode-alist '("\\.ino\\'" . c++-mode))
 #+END_SRC
 
 ** Company
@@ -930,6 +990,33 @@ visit that file and look at the settings.
      (define-key company-active-map  (kbd "C-d")        'company-show-doc-buffer)
      (define-key company-active-map  (kbd "C-n")        'company-select-next)
      (define-key company-active-map  (kbd "C-p")        'company-select-previous)))
+#+END_SRC
+
+** Bindings for cscope
+
+#+BEGIN_SRC emacs-lisp
+(with-eval-after-load "xcscope"
+  (define-key cscope-minor-mode-keymap (kbd "C-c s S")
+    'cscope-find-this-symbol)
+  (define-key cscope-minor-mode-keymap (kbd "C-c s s")
+    'cscope-find-this-symbol-no-prompting)
+  (define-key cscope-minor-mode-keymap (kbd "C-c s C")
+    'cscope-find-functions-calling-this-function)
+  (define-key cscope-minor-mode-keymap (kbd "C-c s c")
+    'cscope-find-functions-calling-this-function-no-prompting)
+  (define-key cscope-minor-mode-keymap (kbd "C-c s d")
+    'cscope-find-global-definition-no-prompting)
+  (define-key cscope-minor-mode-keymap (kbd "C-c s D")
+    'cscope-find-global-definition)
+
+  ; In Cscope menu use cscope-list-entry-keymap
+  (define-key cscope-list-entry-keymap " "
+    'cscope-show-entry-br-window)
+  (define-key cscope-list-entry-keymap "\r"
+    'cscope-select-entry-br-window)
+  (define-key cscope-list-entry-keymap [return]
+    'cscope-select-entry-br-window)
+  )
 #+END_SRC
 
 ** Bindings for built-ins
@@ -1609,18 +1696,6 @@ Set the dictionary accordingly. The markup is also sensitive to line breaks, so
 
 #+BEGIN_SRC emacs-lisp :tangle no
 ; EXCLUDED BY ME
-;; cscope settings
-(add-to-list 'load-path "~/.emacs.d/cscope")
-
-(require 'xcscope)
-(setq cscope-do-not-update-database 1)
-(setq cscope-edit-single-match nil)
-(define-key cscope:map "\C-csd" 'cscope-find-global-definition-no-prompting)
-(define-key cscope:map "\C-csD" 'cscope-find-global-definition)
-(define-key cscope:map "\C-csc" 'cscope-find-functions-calling-this-function-no-prompting)
-(define-key cscope:map "\C-csC" 'cscope-find-functions-calling-this-function)
-(define-key cscope:map "\C-css" 'cscope-find-this-symbol-no-prompting)
-(define-key cscope:map "\C-csS" 'cscope-find-this-symbol)
 
 ;(setq-default c-default-style "linux")
 (setq c-default-style "linux")
