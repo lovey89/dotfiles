@@ -13,7 +13,8 @@ date +%T
 find ${src} \
   \( ! -name ".git" -a ! \
        -path "./path/to/ignore" -o -prune \) \
-   -name "*.[chxsS]" -type f -print -or -name "*.cpp" -type f -print > ${src}/cscope.files
+  \( -name "*.[chxsS]" -o -name "*.cpp" -o -name "*.ino" \) \
+       -type f -print > ${src}/cscope.files
 
 echo -n "Start cscope command: "
 date +%T
