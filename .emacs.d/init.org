@@ -760,6 +760,47 @@ occurences in the code with =Error=.
 
 ** C(++) mode
 
+#+BEGIN_SRC emacs-lisp
+;(setq-default c-default-style "linux")
+;(setq c-default-style "linux")
+;(add-to-list c-default-style '(c-mode . "linux"))
+
+(add-hook 'c-mode-common-hook
+          '(lambda () ; You may also create a function (defun) and use here instead of lambda
+             (message "MINE: Loading c-mode-common-hook.")
+             (setq-default truncate-lines t      ; Don't truncate lines
+                           indent-tabs-mode nil)  ; Spaces instead of tabs when indenting
+             (setq c-basic-offset 2)
+             (setq c-default-style "linux")
+             ; Adds newline after e.g. ";". Also indents it and leaves trailing whitespaces
+             ;(c-toggle-auto-newline 1)
+             ;(define-key c-mode-base-map (kbd "RET") 'autopairs-ret)
+             (c-set-offset 'substatement-open '0) ; brackets should be at same indentation level as the statements they open
+             ;(c-set-offset 'inline-open '+)
+             ;(c-set-offset 'block-open '+)
+             ;(c-set-offset 'brace-list-open '+)   ; all "opens" should be indented by the c-indent-level
+             (c-set-offset 'case-label '+)       ; indent case labels by c-indent-level, too
+             (company-mode)
+             ; Looks like I have to enable advices before activating them.
+             ; Someone stated that "the function specified, ad-activate activates
+             ; all currently-enabled advice (not necessarily just one defined in
+             ; the previous expression), and will also deactivate any advice which
+             ; was previously active, but has since been disabled". Only seems to
+             ; work like this in hooks? Try if other modes were affected.
+             ;(ad-enable-advice 'c-electric-backspace 'before 'autopair)
+             ;(ad-enable-advice 'delete-backward-char 'before 'autopair)
+             ;(ad-activate 'c-electric-backspace)
+             ;(ad-activate 'delete-backward-char)
+             ;(local-set-key "(" 'autopair-insert)
+             ;(local-set-key ")" 'autopair-insert)
+             ;(local-set-key "[" 'autopair-insert)
+             ;(local-set-key "]" 'autopair-insert)
+             ;(local-set-key "{" 'autopair-insert)
+             ;(local-set-key "}" 'autopair-close-block)
+             ;(local-set-key "\"" 'autopair-insert)
+             ))
+#+END_SRC
+
 *** Cscope
 
 #+BEGIN_SRC emacs-lisp
