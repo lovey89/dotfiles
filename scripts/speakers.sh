@@ -1,7 +1,7 @@
 #!/bin/sh
 
 NAME=$(basename -- "$0")
-CARD=0
+CARD=1
 
 set_sound_source()
 {
@@ -14,13 +14,13 @@ set_sound_source()
   amixer -c$CARD set Headphone ${HEADPHONE_LEVEL}% > /dev/null
 }
 
-command -v amixer >/dev/null 2>&1 || { echo >&2 "amixer not installed"; exit 1; }
-command -v pacmd >/dev/null 2>&1 || { echo >&2 "pacmd not installed"; exit 1; }
+command -v amixer >/dev/null 2>&1 || { echo "amixer not installed" >&2; exit 1; }
+command -v pacmd >/dev/null 2>&1 || { echo "pacmd not installed" >&2; exit 1; }
 
 amixer -c$CARD sset "Auto-Mute Mode" Disabled > /dev/null
 
 if [ -z $1 ]; then
-  amixer -c 0 get Headphone | grep -q -F '[0%]'
+  amixer -c$CARD get Headphone | grep -q -F '[0%]'
   if [ "$?" -eq 0 ]; then
     # The headphones are off
     set_sound_source analog-output-headphones 0 100
