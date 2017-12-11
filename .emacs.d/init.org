@@ -251,9 +251,10 @@ buffer-local variable's default value.
               truncate-lines t                  ; Don't fold lines
               indent-tabs-mode nil              ; Use spaces instead of tabs
               word-wrap t                       ; When wrapping, do it at whitespace
-              ;split-width-threshold 160         ; Split verticly by default
-              ;split-height-threshold nil        ; Split verticly by default
-              auto-fill-function 'do-auto-fill) ; Auto-fill-mode everywhere
+              ;split-width-threshold 160        ; Split verticly by default
+              ;split-height-threshold nil       ; Split verticly by default
+              ;auto-fill-function 'do-auto-fill ; Auto-fill-mode everywhere
+)
 #+END_SRC
 
 The =load-path= specifies where Emacs should look for =.el=-files (or Emacs lisp
@@ -409,7 +410,9 @@ I smuggled some configurations from [[https://github.com/torenord/.emacs.d/][tor
 (custom-set-variables
  '(git-gutter:modified-sign "*")
  '(git-gutter:added-sign "+")    ;; multiple characters is also OK
- '(git-gutter:deleted-sign "-"))
+ '(git-gutter:deleted-sign "-")
+ '(git-gutter:unchanged-sign "|")
+)
 
 (setq git-gutter:hide-gutter t  ; Hide gutter when there are no changes
       git-gutter:lighter " GG") ; Change name in mode bar
@@ -699,6 +702,15 @@ For getopts snippet:
 #+END_SRC
 
 * Mode specific
+** Text mode
+
+#+BEGIN_SRC emacs-lisp
+(add-hook 'text-mode-hook
+          (lambda ()
+            (message "MINE: Loading text-mode-hook.")
+            (turn-on-auto-fill)))
+#+END_SRC
+
 ** Emacs Lisp
 
 Activate =Company= and =Paredit= when editing elisp code. Also activate
@@ -768,8 +780,8 @@ occurences in the code with =Error=.
 (add-hook 'c-mode-common-hook
           '(lambda () ; You may also create a function (defun) and use here instead of lambda
              (message "MINE: Loading c-mode-common-hook.")
-             (setq-default truncate-lines t      ; Don't truncate lines
-                           indent-tabs-mode nil)  ; Spaces instead of tabs when indenting
+             ;(setq-default truncate-lines t      ; Don't truncate lines
+             ;              indent-tabs-mode nil)  ; Spaces instead of tabs when indenting
              (setq c-basic-offset 2)
              (setq c-default-style "linux")
              ; Adds newline after e.g. ";". Also indents it and leaves trailing whitespaces
@@ -888,6 +900,7 @@ Open arduino =.ino= files in =c++-mode=
 #+BEGIN_SRC emacs-lisp
 (add-hook 'org-mode-hook
           (lambda ()
+            (turn-off-auto-fill)
             (set (make-local-variable 'company-backends)
                  '((company-yasnippet))) ; From doc string of company-yasnippet
             (company-mode)))

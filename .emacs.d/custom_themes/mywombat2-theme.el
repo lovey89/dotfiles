@@ -78,9 +78,10 @@
    `(company-tooltip-common-selection     ((,class (:foreground "#8b0000"))))
 
    ;; Git-gutter
-   `(git-gutter:added    ((,class (:foreground ,loved-green+1))))
-   `(git-gutter:deleted  ((,class (:foreground ,loved-red))))
-   `(git-gutter:modified ((,class (:foreground ,loved-blue))))
+   `(git-gutter:added     ((,class (:background ,loved-gray+1 :foreground ,loved-green+1))))
+   `(git-gutter:deleted   ((,class (:background ,loved-gray+1 :foreground ,loved-red))))
+   `(git-gutter:modified  ((,class (:background ,loved-gray+1 :foreground ,loved-blue))))
+   `(git-gutter:unchanged ((,class (:background ,loved-gray+1 :foreground ,loved-gray+1))))
    )
   )
 
