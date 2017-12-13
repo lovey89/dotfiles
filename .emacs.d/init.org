@@ -161,6 +161,7 @@ installed. To ensure we install missing packages if they are missing.
           ;projectile           ; Manage and navigate projects in Emacs easily
           rainbow-mode         ; Show the color of color codes in the buffer
           smartrep             ; Allow to repeat a keybinding without prefix
+          smartparens          ; Mode for editing parentheses
           which-key            ; Display available keybindings in popup
           yasnippet            ; Template system for Emacs
           xcscope)))           ; Tool to find variables and functions in C
@@ -204,8 +205,9 @@ for stuff you eventually want to load, but is not a high priority.
 
 (require 'view)
 (require 'smartrep)
+(require 'smartparens-config)
 
-(setq idle-require-idle-delay 2)
+(setq idle-require-idle-delay 1)
 (idle-require-mode 1)
 #+END_SRC
 
@@ -335,6 +337,7 @@ default.
                                         ; was visited
            show-paren-mode              ; Highlight matching parentheses
            which-key-mode               ; Available keybindings in popup
+           smartparens-global-mode
            yas-global-mode))            ; Activate yasnippet
   (funcall mode 1))
 
@@ -711,6 +714,15 @@ For getopts snippet:
             (turn-on-auto-fill)))
 #+END_SRC
 
+** Smartparens
+
+#+BEGIN_SRC emacs-lisp
+(sp-with-modes 'c-mode
+  (sp-local-pair "/*" "*/" :post-handlers '((" | " "SPC")
+                                            ("* ||\n[i]" "RET")))
+  (sp-local-pair "{" "}"   :post-handlers '(("||\n[i]" "RET"))))
+#+END_SRC
+
 ** Emacs Lisp
 
 Activate =Company= and =Paredit= when editing elisp code. Also activate
@@ -793,23 +805,6 @@ occurences in the code with =Error=.
              ;(c-set-offset 'brace-list-open '+)   ; all "opens" should be indented by the c-indent-level
              (c-set-offset 'case-label '+)       ; indent case labels by c-indent-level, too
              (company-mode)
-             ; Looks like I have to enable advices before activating them.
-             ; Someone stated that "the function specified, ad-activate activates
-             ; all currently-enabled advice (not necessarily just one defined in
-             ; the previous expression), and will also deactivate any advice which
-             ; was previously active, but has since been disabled". Only seems to
-             ; work like this in hooks? Try if other modes were affected.
-             ;(ad-enable-advice 'c-electric-backspace 'before 'autopair)
-             ;(ad-enable-advice 'delete-backward-char 'before 'autopair)
-             ;(ad-activate 'c-electric-backspace)
-             ;(ad-activate 'delete-backward-char)
-             ;(local-set-key "(" 'autopair-insert)
-             ;(local-set-key ")" 'autopair-insert)
-             ;(local-set-key "[" 'autopair-insert)
-             ;(local-set-key "]" 'autopair-insert)
-             ;(local-set-key "{" 'autopair-insert)
-             ;(local-set-key "}" 'autopair-close-block)
-             ;(local-set-key "\"" 'autopair-insert)
              ))
 #+END_SRC
 
@@ -1640,151 +1635,6 @@ Set the dictionary accordingly. The markup is also sensitive to line breaks, so
 ;; Fix problem with S-<up>
 (when (>= emacs-major-version 23)
   (define-key input-decode-map "\e[1;2A" [S-up]))
-#+END_SRC
-
-** Matching parentheses
-
-#+BEGIN_SRC emacs-lisp :tangle no
-; EXCLUDED BY ME
-;; Automatically close braces
-(setq skeleton-pair t)
-(setq skeleton-pair-alist
-      '((?\( _ ?\))
-        (?[  _ ?])
-        (?{  _ ?})
-        (?\" _ ?\"))) ;"
-(setq skeleton-newline-pair-alist
-      '((?{  _ ?})))
-
-(defun autopair-insert (arg)
-  (interactive "P")
-  (let (pair)
-    (cond
-     ((assq last-command-event skeleton-pair-alist)
-      (autopair-open arg))
-     (t
-      (autopair-close arg)))))
-
-(defun autopair-open (arg)
-  (interactive "P")
-  (let ((pair (assq last-command-event
-                    skeleton-pair-alist)))
-    (cond
-     ((and (not mark-active)
-           (eq (car pair) (car (last pair)))
-           (eq (car pair) (char-after)))
-      (autopair-close arg))
-     (t
-      (skeleton-pair-insert-maybe arg)))))
-
-(defun autopair-close (arg)
-  (interactive "P")
-  (cond
-   (mark-active
-    (let (pair open)
-      (dolist (pair skeleton-pair-alist)
-        (when (eq last-command-event (car (last pair)))
-          (setq open (car pair))))
-      (setq last-command-event open)
-      (skeleton-pair-insert-maybe arg)))
-   ((looking-at
-     (concat "[ \t\n]*"
-             (regexp-quote (string last-command-event))))
-    (replace-match (string last-command-event))
-    (indent-according-to-mode))
-   (t
-    (self-insert-command (prefix-numeric-value arg))
-    (indent-according-to-mode))))
-
-(defadvice delete-backward-char (before autopair disable); activate) ;Don't activate automatically
-  (when (and (char-after)
-             (eq this-command 'delete-backward-char)
-             (eq (char-after)
-                 (car (last (assq (char-before) skeleton-pair-alist)))))
-    (delete-char 1)))
-
-(defadvice c-electric-backspace (before autopair disable); activate) ;Don't activate automatically
-  (when (and (char-after)
-             (eq this-command 'c-electric-backspace)
-             (eq (char-after)
-                 (car (last (assq (char-before) skeleton-pair-alist)))))
-    (delete-char 1)))
-
-(defun autopair-close-block (arg)
-  (interactive "P")
-  (cond
-   (mark-active
-    (autopair-close arg))
-   ((not (looking-back "^[[:space:]]*"))
-    (newline-and-indent)
-    (autopair-close arg))
-   (t
-    (autopair-close arg))))
-
-(defun autopairs-ret (arg)
-  (interactive "P")
-  (let (pair)
-    (dolist (pair skeleton-newline-pair-alist)
-    ;(dolist (pair skeleton-pair-alist)
-      (when (eq (char-after) (car (last pair)))
-        (save-excursion (indent-newline-indent))))
-    ;(newline arg)
-    ;(indent-according-to-mode)))
-    (indent-newline-indent)))
-
-; To add more:
-;(add-to-list 'skeleton-pair-alist '(?<  _ ?>))
-
-; For global use:
-;(global-set-key "("  'autopair-insert)
-;(global-set-key ")"  'autopair-insert)
-;...
-
-(defun indent-newline-indent ()
-  (interactive)
-  (indent-according-to-mode)
-  (newline-and-indent))
-#+END_SRC
-
-** C-mode settings
-
-#+BEGIN_SRC emacs-lisp :tangle no
-; EXCLUDED BY ME
-
-;(setq-default c-default-style "linux")
-(setq c-default-style "linux")
-
-(add-hook 'c-mode-common-hook
-          '(lambda () ; You may also create a function (defun) and use here instead of lambda
-             (message "MINE: Loading c-mode-common-hook.")
-             (setq-default truncate-lines t      ; Don't truncate lines
-                           indent-tabs-mode nil)  ; Spaces instead of tabs when indenting
-             (setq c-basic-offset 2)
-             ; Adds newline after e.g. ";". Also indents it and leaves trailing whitespaces
-             ;(c-toggle-auto-newline 1)
-             (define-key c-mode-base-map (kbd "RET") 'autopairs-ret)
-             (c-set-offset 'substatement-open '0) ; brackets should be at same indentation level as the statements they open
-             ;(c-set-offset 'inline-open '+)
-             ;(c-set-offset 'block-open '+)
-             ;(c-set-offset 'brace-list-open '+)   ; all "opens" should be indented by the c-indent-level
-             (c-set-offset 'case-label '+)       ; indent case labels by c-indent-level, too
-             ; Looks like I have to enable advices before activating them.
-             ; Someone stated that "the function specified, ad-activate activates
-             ; all currently-enabled advice (not necessarily just one defined in
-             ; the previous expression), and will also deactivate any advice which
-             ; was previously active, but has since been disabled". Only seems to
-             ; work like this in hooks? Try if other modes were affected.
-             (ad-enable-advice 'c-electric-backspace 'before 'autopair)
-             (ad-enable-advice 'delete-backward-char 'before 'autopair)
-             (ad-activate 'c-electric-backspace)
-             (ad-activate 'delete-backward-char)
-             (local-set-key "(" 'autopair-insert)
-             (local-set-key ")" 'autopair-insert)
-             (local-set-key "[" 'autopair-insert)
-             (local-set-key "]" 'autopair-insert)
-             (local-set-key "{" 'autopair-insert)
-             (local-set-key "}" 'autopair-close-block)
-             (local-set-key "\"" 'autopair-insert)))
 #+END_SRC
 
 * License
