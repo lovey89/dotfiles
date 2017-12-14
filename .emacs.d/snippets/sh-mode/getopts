@@ -16,3 +16,4 @@ ${3:$$(yas-choose-value '("" "OPTIND=1 # Needed when running getopts inside func
       ;;
   esac
 done
+shift $((OPTIND-1))
