@@ -410,12 +410,10 @@ I smuggled some configurations from [[https://github.com/torenord/.emacs.d/][tor
 ;(require 'git-gutter-fringe)
 
 (require 'git-gutter)
-(custom-set-variables
- '(git-gutter:modified-sign "*")
- '(git-gutter:added-sign "+")    ;; multiple characters is also OK
- '(git-gutter:deleted-sign "-")
- '(git-gutter:unchanged-sign "|")
-)
+(setq git-gutter:modified-sign "*"
+      git-gutter:added-sign "+"    ;; multiple characters is also OK
+      git-gutter:deleted-sign "-"
+      git-gutter:separator-sign "│")
 
 (setq git-gutter:hide-gutter t  ; Hide gutter when there are no changes
       git-gutter:lighter " GG") ; Change name in mode bar
@@ -433,6 +431,14 @@ even if running in terminal mode.
   (tool-bar-mode 0)     ; No tool bar
   (nyan-mode 1)         ; Nyan cat mode
 )
+#+END_SRC
+
+Make the separator between the windows a fully drawn line.
+
+#+BEGIN_SRC emacs-lisp
+(let ((display-table (or standard-display-table (make-display-table))))
+  (set-display-table-slot display-table 'vertical-border (make-glyph-code ?│))
+  (setq standard-display-table display-table))
 #+END_SRC
 
 ** Interactive functions
@@ -896,6 +902,8 @@ Open arduino =.ino= files in =c++-mode=
 (add-hook 'org-mode-hook
           (lambda ()
             (turn-off-auto-fill)
+            ; This is needed or the code block headers/footers will have their color in the git fringe
+            (set (make-local-variable 'git-gutter:unchanged-sign) '" ")
             (set (make-local-variable 'company-backends)
                  '((company-yasnippet))) ; From doc string of company-yasnippet
             (company-mode)))
