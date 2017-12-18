@@ -17,7 +17,6 @@ xterm*saveLines:          512
 xterm*scrollKey:          true
 xterm*scrollTtyOutput:    false
 xterm*scrollBar:          false
-!xterm*rightScrollBar:     true
 xterm*jumpScroll:         true
 xterm*multiScroll:        true
 xterm*toolBar:            false
@@ -26,13 +25,15 @@ XTerm*VT100.cutNewLine: false
 XTerm*VT100.cutToBeginningOfLine: false
 XTerm*VT100.charClass: 33:48,35:48,37:48,42:48,45-47:48,64:48,95:48,126:48
 
+#define SMALLFONT
 #ifdef SMALLFONT
 xterm*boldMode: false
+!xterm*font: -*-fixed-medium-r-*-*-13-*-*-*-*-60-iso10646-1
 xterm*font: fixed
 xterm*boldFont: fixed
 !Bold fonts will not show up as bold since the 'fixed' font is hard to read then
 xterm*allowBoldFonts: false
-xterm*colorBDMode: true
+!xterm*colorBDMode: true
 #elif defined TERMINUS
 xterm*faceName:           Terminus:style=Regular:size=10
 #elif defined DINA
