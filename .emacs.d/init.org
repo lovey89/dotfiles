@@ -241,6 +241,8 @@ We can set variables to whatever value we'd like using =setq=.
       ;ring-bell-function 'ignore        ; Quiet
       ;sentence-end-double-space nil     ; No double space
       nyan-wavy-trail t                  ; Wavy rainbow in nyan-mode
+      mouse-yank-at-point t              ; When running in X mode you paste where the
+                                         ; cursor is currently at
 )
 #+END_SRC
 
