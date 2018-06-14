@@ -17,6 +17,12 @@ alias sudo='sudo '
 alias proxyauth='curl -sU "$USER" http://www.google.se > /dev/null'
 
 # Functions
+
+unzipbase64()
+{
+  echo "$1" | base64 -d | gunzip
+}
+
 ffind()
 {
   find . -iname "*$1*"
