@@ -89,11 +89,14 @@ pathreplace()
 
 if [ "$OSTYPE" == "cygwin" ]; then
   # Aliases for cygwin (Windows)
-  alias winkill='taskill /PID'
-  alias fwinkill='taskill /F /PID'
+  alias winkill='taskkill /PID'
+  alias fwinkill='taskkill /F /PID'
   alias winkillall='taskkill /IM'
   alias fwinkillall='taskkill /F /IM'
   alias start-ssh-agent='eval $(ssh-agent -s); ssh-add ~/.ssh/id_rsa'
+  alias killspringboot='fwinkillall java.exe'
+
+  # To list windows processes you should run 'ps aux -W'
 fi
 
 start-ssh-agent-if-necessary()
