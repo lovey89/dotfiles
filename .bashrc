@@ -36,7 +36,7 @@ export PATH="$PATH":"$HOME"/dotfiles/scripts
 #export PROMPT_COMMAND='printf "\033k%s@%s:%s\033\\" "${USER}" "${HOSTNAME%%.*}" "${PWD/#$HOME/\~}"'
 unset -v PROMPT_COMMAND
 # Options used by the 'less' command
-export LESS="-RS#3Mi"
+export LESS="-RS#.5MiJj.5Wz-4"
 # Don't save bash commands to history that starts with space and don't save duplicates
 export HISTCONTROL="ignorespace:erasedups"
 
