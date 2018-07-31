@@ -32,7 +32,7 @@ PS1='\[\e[0;32m\]\A\[\e[m\] \[\e[0;31m\]$HOSTNAME\[\e[m\]:\[\e[0;36m\]\W\[\e[m\]
 
 # Variables
 export VISUAL=vim
-export PATH="$PATH":"$HOME"/dotfiles/scripts
+export PATH="$PATH":"$HOME"/dotfiles/scripts:"$HOME"/dotfiles/configscripts
 #export PROMPT_COMMAND='printf "\033k%s@%s:%s\033\\" "${USER}" "${HOSTNAME%%.*}" "${PWD/#$HOME/\~}"'
 unset -v PROMPT_COMMAND
 # Options used by the 'less' command
