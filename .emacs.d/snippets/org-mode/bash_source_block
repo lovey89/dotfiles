@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: bash source block
+# key: yabash
+# --
+#+BEGIN_SRC bash :results output
+$0
+#+END_SRC

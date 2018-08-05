@@ -965,6 +965,7 @@ want to be able to evaluate python code.
 (org-babel-do-load-languages
  'org-babel-load-languages
  '((python . t)
+   (shell . t)
    (emacs-lisp . t)))
 #+END_SRC
 
