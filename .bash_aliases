@@ -23,6 +23,31 @@ unzipbase64()
   echo "$1" | base64 -d | gunzip
 }
 
+prettyunzipbase64()
+{
+  UNZIPPED=$(unzipbase64 "$1")
+
+  TYPE=$(echo $UNZIPPED | sed -r '
+    :a;$ ! b a
+    /^</ {
+      s/.*/XML/
+      q
+    }
+    /^\{/ {
+      s/.*/JSON/
+      q
+    }
+    /^[^<\{]/ s/.*/NONE/')
+
+  if [ "$TYPE" = "XML" ]; then
+    echo "$UNZIPPED" | xmllint --format -
+  elif [ "$TYPE" = "JSON" ]; then
+    echo "$UNZIPPED" | python -mjson.tool
+  else
+    echo "$UNZIPPED"
+  fi
+}
+
 ffind()
 {
   find . -iname "*$1*"
@@ -95,6 +120,7 @@ if [ "$OSTYPE" == "cygwin" ]; then
   alias fwinkillall='taskkill /F /IM'
   alias start-ssh-agent='eval $(ssh-agent -s); ssh-add ~/.ssh/id_rsa'
   alias killspringboot='fwinkillall java.exe'
+  alias ps='ps -W'
 
   # To list windows processes you should run 'ps aux -W'
 fi
