@@ -40,9 +40,19 @@ prettyunzipbase64()
     /^[^<\{]/ s/.*/NONE/')
 
   if [ "$TYPE" = "XML" ]; then
-    echo "$UNZIPPED" | xmllint --format -
+    RESULT=$(echo "$UNZIPPED" | xmllint --format - 2> /dev/null)
+    if [ "$?" != 0 ]; then
+      echo "$UNZIPPED"
+    else
+      echo "$RESULT"
+    fi
   elif [ "$TYPE" = "JSON" ]; then
-    echo "$UNZIPPED" | python -mjson.tool
+    RESULT=$(echo "$UNZIPPED" | python -mjson.tool 2> /dev/null)
+    if [ "$?" != 0 ]; then
+      echo "$UNZIPPED"
+    else
+      echo "$RESULT"
+    fi
   else
     echo "$UNZIPPED"
   fi
