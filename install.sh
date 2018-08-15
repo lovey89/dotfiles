@@ -30,6 +30,7 @@ createlink()
 mkdir -p "$BACKUP_DIR"
 
 createlink ".bashrc"
+createlink ".bash_logout"
 createlink ".bash_aliases"
 createlink ".gitconfig"
 createlink ".vimrc"

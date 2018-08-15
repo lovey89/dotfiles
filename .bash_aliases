@@ -122,18 +122,7 @@ pathreplace()
   find . \( ! -name ".git" -o -prune \) -type f -exec sed -b -i "s/$1/$2/g" {} \;
 }
 
-if [ "$OSTYPE" == "cygwin" ]; then
-  # Aliases for cygwin (Windows)
-  alias winkill='taskkill /PID'
-  alias fwinkill='taskkill /F /PID'
-  alias winkillall='taskkill /IM'
-  alias fwinkillall='taskkill /F /IM'
-  alias start-ssh-agent='eval $(ssh-agent -s); ssh-add ~/.ssh/id_rsa'
-  alias killspringboot='fwinkillall java.exe'
-  alias ps='ps -W'
-
-  # To list windows processes you should run 'ps aux -W'
-fi
+alias start-ssh-agent='eval $(ssh-agent -s); ssh-add ~/.ssh/id_rsa'
 
 start-ssh-agent-if-necessary()
 {
@@ -150,3 +139,52 @@ function tunnel()
   start-ssh-agent-if-necessary
   ssh tunnel/"$1"
 }
+
+
+if [ "$OSTYPE" == "cygwin" ]; then
+  # Aliases for cygwin (Windows)
+  alias winkill='taskkill /PID'
+  alias fwinkill='taskkill /F /PID'
+  alias winkillall='taskkill /IM'
+  alias fwinkillall='taskkill /F /IM'
+  #alias killspringboot='fwinkillall java.exe'
+  alias ps='ps -W'
+
+  killspringboot()
+  {
+    PORTS='12780|24180|10880|11180|42460|11280|19780'
+
+    PIDS=$(netstat -aon | sed -n -r '
+      s/^ *TCP +0.0.0.0:('"$PORTS"') +0.0.0.0:0 +LISTENING +([0-9]+).*/\2/
+      t a
+      b b
+      :a s/.*/\/PID &/
+      H
+      :b $ {
+        x
+        s/\n/ /gp
+      }')
+
+    if [ -n "$PIDS" ]; then
+      taskkill /F $PIDS
+    else
+      echo "Spring boot doesn't seem to run"
+    fi
+  }
+
+  runspringboot()
+  {
+    trap ' ' INT
+    GIT_ROOT_DIR=$(git rev-parse --show-toplevel 2> /dev/null)
+    if [ "$?" -ne 0 ]; then
+      echo "Not a git repository" 1>&2
+      return 1
+    fi
+    cd "${GIT_ROOT_DIR}/app"
+
+    mvn spring-boot:run
+    killspringboot
+    cd -
+    trap - INT
+  }
+fi
