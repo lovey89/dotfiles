@@ -140,6 +140,10 @@ function tunnel()
   ssh tunnel/"$1"
 }
 
+secondstodate()
+{
+  date --date "@${1:0:10}"
+}
 
 if [ "$OSTYPE" == "cygwin" ]; then
   # Aliases for cygwin (Windows)
@@ -152,7 +156,7 @@ if [ "$OSTYPE" == "cygwin" ]; then
 
   killspringboot()
   {
-    PORTS='12780|24180|10880|11180|42460|11280|19780'
+    PORTS='12780|24180|10880|11180|42460|11280|19780|14580|19780'
 
     PIDS=$(netstat -aon | sed -n -r '
       s/^ *TCP +0.0.0.0:('"$PORTS"') +0.0.0.0:0 +LISTENING +([0-9]+).*/\2/
