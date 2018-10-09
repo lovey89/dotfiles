@@ -16,6 +16,8 @@ alias sudo='sudo '
 # If you're behind a proxy and need to authenticate (better than saving your password in a file)
 alias proxyauth='curl -sU "$USER" http://www.google.se > /dev/null'
 
+alias genuuid="uuidgen | sed -r -e 's/-//g' -e 's/.*/\U&/'"
+
 # Functions
 
 unzipbase64()
