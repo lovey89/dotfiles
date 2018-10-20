@@ -5,96 +5,95 @@
 # Use the code however you want, and please spread it. Origin: https://github.com/sjoblomj/mvntree
 
 mvn dependency:tree -Ddetail=true | awk '
-        BEGIN {
-            # Preserve spaces
-            FPAT = "([[:space:]]*[^[:space:]]+)";
-            OFS = "";
-        }
-        {
-            hasprintedline = 0;
-            if (NF >= 3) {
-                # There are at least 3 text columns. See if it contains a tree.
+    BEGIN {
+        # Preserve spaces
+        FPAT = "([[:space:]]*[^[:space:]]+)";
+        OFS = "";
+    }
+    {
+        hasprintedline = 0;
+        if (NF >= 3) {
+            # There are at least 3 text columns. See if it contains a tree.
 
-                tree = substr($0, index($0, $2));
-                dep  = substr(tree,    match(tree, "[a-zA-Z0-9]"));
-                tree = substr(tree, 0, match(tree, "[a-zA-Z0-9]") - 1);
+            tree = substr($0, index($0, $2));
+            dep  = substr(tree,    match(tree, "[a-zA-Z0-9]"));
+            tree = substr(tree, 0, match(tree, "[a-zA-Z0-9]") - 1);
 
-                # tree now contains everything between the first column
-                # up until the first letter or number
+            # tree now contains everything between the first column
+            # up until the first letter or number
 
-                if (tree ~ "\\|" || tree ~ "+" || tree ~ "\\\\") {
-                    # tree contains at least one of the characters above.
-                    # We regard this as meaning that the variable tree
-                    # actually contains a dependency tree.
+            if (tree ~ "\\|" || tree ~ "+" || tree ~ "\\\\") {
+                # tree contains at least one of the characters above.
+                # We regard this as meaning that the variable tree
+                # actually contains a dependency tree.
 
-                    # Substitute the tree characters for something more pretty
-                    sub (" ",    "",  tree);
-                    gsub("\\|",  "│", tree);
-                    gsub("+",    "├", tree);
-                    gsub("\\\\", "└", tree);
-                    gsub("-",    "─", tree);
+                # Substitute the tree characters for something more pretty
+                sub (" ",    "",  tree);
+                gsub("\\|",  "│", tree);
+                gsub("+",    "├", tree);
+                gsub("\\\\", "└", tree);
+                gsub("-",    "─", tree);
 
-                    # Split the dependencies into columns so that they can be coloured.
-                    numberofcolumns = split(dep, deps, ":");
-
-
-                    # The last column of deps contains the scope, which is usually "compile" or "test".
-                    # In rare cases, there might be a message after it however. We need to apply some
-                    # messy logic to extract the message.
-                    scope = deps[5];
-                    msg = "";
-
-                    if (scope ~ " ") {
-                        # The last column contains a space. This is pretty uncommon.
-                        # Add everything after the space to msg.
-
-                        scope = substr(deps[5], 0, index(deps[5], " ")); # Everything before space
-                        sub(" ", "", scope);
-                        msg = substr(dep, index(dep, " ")); # Everything after space
-                    }
-                    if (numberofcolumns > 5) {
-                        # It seems there are more than 5 ":" characters. Add the rest of the string to msg.
-                        msg = substr(dep, length(deps[1] ":" deps[2] ":" deps[3] ":" deps[4] ":" scope) + 1);
-                    }
+                # Split the dependencies into columns so that they can be coloured.
+                numberofcolumns = split(dep, deps, ":");
 
 
-                    # Apply pretty colours!
-                    dep =  "\033[36m"   deps[1] "\033[0m" \
-                          ":\033[1;34m" deps[2] "\033[0m" \
-                          ":\033[35m"   deps[3] "\033[0m" \
-                          ":\033[1;31m" deps[4] "\033[0m" \
-                          ":\033[33m"   scope   "\033[0m" ;
+                # The last column of deps contains the scope, which is usually "compile" or "test".
+                # In rare cases, there might be a message after it however. We need to apply some
+                # messy logic to extract the message.
+                scope = deps[5];
+                msg = "";
 
-                    printf "%s%s%s\n", tree, dep, msg;
-                    hasprintedline = 1;
+                if (scope ~ " ") {
+                    # The last column contains a space. This is pretty uncommon.
+                    # Add everything after the space to msg.
+
+                    scope = substr(deps[5], 0, index(deps[5], " ")); # Everything before space
+                    sub(" ", "", scope);
+                    msg = substr(dep, index(dep, " ")); # Everything after space
                 }
-            }
-
-            if (NF == 2) {
-                # There are exactly 2 text columns
-
-                numberofcolumns = split($NF, deps, ":");
-                if (numberofcolumns == 4) {
-                    # There are exactly 4 ":" characters. We regard this as
-                    # meaning that this is the root of the tree.
-
-                    # Apply pretty colours!
-                    dep =  "\033[38;5;19;48;5;30m" deps[1] "\033[0m" \
-                          ":\033[1;48;5;4m"        deps[2] "\033[0m" \
-                          ":\033[45m"              deps[3] "\033[0m" \
-                          ":\033[1;41m"            deps[4] "\033[0m" ;
-                    sub(" ", "",  dep);
-
-                    printf "%s\n", dep;
-                    hasprintedline = 1;
+                if (numberofcolumns > 5) {
+                    # It seems there are more than 5 ":" characters. Add the rest of the string to msg.
+                    msg = substr(dep, length(deps[1] ":" deps[2] ":" deps[3] ":" deps[4] ":" scope) + 1);
                 }
-            }
 
-            if (!hasprintedline) {
-                # This line was not part of the tree. Remove "[INFO] " and print it
-                gsub("\\[INFO\\] ", "", $0);
-                printf "%s\n", $0;
+
+                # Apply pretty colours!
+                dep =  "\033[36m"   deps[1] "\033[0m" \
+                      ":\033[1;34m" deps[2] "\033[0m" \
+                      ":\033[35m"   deps[3] "\033[0m" \
+                      ":\033[1;31m" deps[4] "\033[0m" \
+                      ":\033[33m"   scope   "\033[0m" ;
+
+                printf "%s%s%s\n", tree, dep, msg;
+                hasprintedline = 1;
             }
         }
-    '
-    
+
+        if (NF == 2) {
+            # There are exactly 2 text columns
+
+            numberofcolumns = split($NF, deps, ":");
+            if (numberofcolumns == 4) {
+                # There are exactly 4 ":" characters. We regard this as
+                # meaning that this is the root of the tree.
+
+                # Apply pretty colours!
+                dep =  "\033[38;5;19;48;5;30m" deps[1] "\033[0m" \
+                      ":\033[1;48;5;4m"        deps[2] "\033[0m" \
+                      ":\033[45m"              deps[3] "\033[0m" \
+                      ":\033[1;41m"            deps[4] "\033[0m" ;
+                sub(" ", "",  dep);
+
+                printf "%s\n", dep;
+                hasprintedline = 1;
+            }
+        }
+
+        if (!hasprintedline) {
+            # This line was not part of the tree. Remove "[INFO] " and print it
+            gsub("\\[INFO\\] ", "", $0);
+            printf "%s\n", $0;
+        }
+    }
+'
