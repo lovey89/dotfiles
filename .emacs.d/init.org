@@ -7,6 +7,57 @@
 Major parts of this file comes from [[https://github.com/larstvei/dot-emacs][this]] github repository by the user
 [[https://github.com/larstvei][larstvei]]. I have then altered it to fit my way of working.
 
+* Table of contents :TOC:QUOTE:
+#+BEGIN_QUOTE
+- [[#about][About]]
+- [[#configurations][Configurations]]
+  - [[#meta][Meta]]
+  - [[#packages][Packages]]
+  - [[#require][Require]]
+  - [[#sane-defaults][Sane defaults]]
+  - [[#modes][Modes]]
+  - [[#visual][Visual]]
+  - [[#interactive-functions][Interactive functions]]
+  - [[#advice][Advice]]
+  - [[#misc-functions][Misc functions]]
+  - [[#yasnippet-helper-functions][YASnippet helper functions]]
+- [[#mode-specific][Mode specific]]
+  - [[#text-mode][Text mode]]
+  - [[#smartparens][Smartparens]]
+  - [[#emacs-lisp][Emacs Lisp]]
+  - [[#sh-mode][Sh mode]]
+  - [[#python-mode][Python mode]]
+  - [[#c-mode][C(++) mode]]
+  - [[#company][Company]]
+  - [[#org-mode][Org mode]]
+  - [[#neotree][NeoTree]]
+- [[#key-bindings][Key bindings]]
+  - [[#fixes-for-key-bindings][Fixes for key bindings]]
+  - [[#bindings-for-expand-region][Bindings for expand-region]]
+  - [[#bindings-for-multiple-cursors][Bindings for multiple-cursors]]
+  - [[#bindings-for-neotree][Bindings for NeoTree]]
+  - [[#bindings-for-company-mode][Bindings for company-mode]]
+  - [[#bindings-for-cscope][Bindings for cscope]]
+  - [[#bindings-for-built-ins][Bindings for built-ins]]
+  - [[#bindings-for-org-mode][Bindings for org mode]]
+  - [[#bindings-for-navigation][Bindings for navigation]]
+  - [[#bindings-for-functions-defined-above][Bindings for functions defined above]]
+  - [[#create-and-activate-minor-mode][Create and activate minor mode]]
+- [[#things-to-be-investigated][Things to be investigated]]
+  - [[#visual-1][Visual]]
+  - [[#defaults][Defaults]]
+  - [[#interactive-functions-1][Interactive functions]]
+  - [[#advice-1][Advice]]
+  - [[#helm][Helm]]
+  - [[#flyspell][Flyspell]]
+  - [[#global-scale-mode][global-scale-mode]]
+  - [[#mode-specific-1][Mode specific]]
+  - [[#key-bindings-1][Key bindings]]
+- [[#old-stuff][Old stuff]]
+  - [[#tmux][Tmux]]
+- [[#license][License]]
+#+END_QUOTE
+
 * Configurations
 ** Meta
 
@@ -162,6 +213,7 @@ installed. To ensure we install missing packages if they are missing.
           rainbow-mode         ; Show the color of color codes in the buffer
           smartrep             ; Allow to repeat a keybinding without prefix
           smartparens          ; Mode for editing parentheses
+          toc-org              ; Automatically generate table of contents in org-mode
           which-key            ; Display available keybindings in popup
           yasnippet            ; Template system for Emacs
           xcscope)))           ; Tool to find variables and functions in C
@@ -967,6 +1019,14 @@ want to be able to evaluate python code.
  '((python . t)
    (shell . t)
    (emacs-lisp . t)))
+#+END_SRC
+
+The following hook will generate table of contents in org-mode files when saved
+
+#+BEGIN_SRC emacs-lisp
+(if (require 'toc-org nil t)
+    (add-hook 'org-mode-hook 'toc-org-enable)
+  (warn "toc-org not found"))
 #+END_SRC
 
 *** Troubleshooting
