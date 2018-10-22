@@ -295,6 +295,8 @@ We can set variables to whatever value we'd like using =setq=.
       nyan-wavy-trail t                  ; Wavy rainbow in nyan-mode
       mouse-yank-at-point t              ; When running in X mode you paste where the
                                          ; cursor is currently at
+      process-connection-type nil        ; Needed when opening some files in org-mode or
+                                         ; xdg-open won't work properly
 )
 #+END_SRC
 
