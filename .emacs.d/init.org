@@ -295,8 +295,6 @@ We can set variables to whatever value we'd like using =setq=.
       nyan-wavy-trail t                  ; Wavy rainbow in nyan-mode
       mouse-yank-at-point t              ; When running in X mode you paste where the
                                          ; cursor is currently at
-      process-connection-type nil        ; Needed when opening some files in org-mode or
-                                         ; xdg-open won't work properly
 )
 #+END_SRC
 
@@ -922,6 +920,7 @@ Push current point on mark ring and select the entry window."
 *** Arduino
 
 Open arduino =.ino= files in =c++-mode=
+
 #+BEGIN_SRC emacs-lisp
 (add-to-list 'auto-mode-alist '("\\.ino\\'" . c++-mode))
 #+END_SRC
@@ -958,6 +957,8 @@ Open arduino =.ino= files in =c++-mode=
 (add-hook 'org-mode-hook
           (lambda ()
             (turn-off-auto-fill)
+            ; Needed when opening links to local html files or xdg-open won't work properly
+            (setq process-connection-type nil)
             ; This is needed or the code block headers/footers will have their color in the git fringe
             (set (make-local-variable 'git-gutter:unchanged-sign) '" ")
             (set (make-local-variable 'company-backends)
