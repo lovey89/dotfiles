@@ -20,6 +20,11 @@ alias genuuid="uuidgen | sed -r -e 's/-//g' -e 's/.*/\U&/'"
 
 # Functions
 
+extractline()
+{
+  sed "$2q;d" "$1"
+}
+
 unzipbase64()
 {
   echo "$1" | base64 -d | gunzip
