@@ -31,6 +31,7 @@ Major parts of this file comes from [[https://github.com/larstvei/dot-emacs][thi
   - [[#company][Company]]
   - [[#org-mode][Org mode]]
   - [[#neotree][NeoTree]]
+  - [[#web-mode][Web mode]]
 - [[#key-bindings][Key bindings]]
   - [[#fixes-for-key-bindings][Fixes for key bindings]]
   - [[#bindings-for-expand-region][Bindings for expand-region]]
@@ -195,6 +196,7 @@ installed. To ensure we install missing packages if they are missing.
           company              ; Modular text completion framework
           company-anaconda     ; Anaconda (python) backend for company
           company-shell        ; Shell script backend for company
+          company-web
           ;diminish             ; Diminished modes from modeline
           expand-region        ; Increase selected region by semantic units
           ;focus                ; Dim color of text in surrounding sections
@@ -214,6 +216,8 @@ installed. To ensure we install missing packages if they are missing.
           smartrep             ; Allow to repeat a keybinding without prefix
           smartparens          ; Mode for editing parentheses
           toc-org              ; Automatically generate table of contents in org-mode
+          web-mode             ; highlighting, indentation, closing tags, jumping tags, commenting
+          emmet-mode           ; emmet/zen coding
           which-key            ; Display available keybindings in popup
           yasnippet            ; Template system for Emacs
           xcscope)))           ; Tool to find variables and functions in C
@@ -258,6 +262,7 @@ for stuff you eventually want to load, but is not a high priority.
 (require 'view)
 (require 'smartrep)
 (require 'smartparens-config)
+(require 'web-mode)
 
 (setq idle-require-idle-delay 1)
 (idle-require-mode 1)
@@ -1054,6 +1059,59 @@ C-u 0 M-x byte-recompile-directory <RET> ~/emacs.d/elpa/org-xxxxxx
                                    ; is opened (we will still open the correct dir)
       neo-show-hidden-files t      ; Show hidden files
       neo-auto-indent-point nil)   ; When expanding a directory, stay with the cursor
+#+END_SRC
+
+** Web mode
+
+https://fransiska.github.io/emacs/2017/08/21/web-development-in-emacs
+
+#+BEGIN_SRC emacs-lisp
+(add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.[agj]sp\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.as[cp]x\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
+
+(add-to-list 'auto-mode-alist '("\\.html\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.css\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.js\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.jsx\\'" . web-mode))
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+(defun my-web-mode-hook ()
+  "Hooks for Web mode."
+  (message "MINE: Loading my-web-mode-hook.")
+  (setq web-mode-markup-indent-offset 2)
+  (setq web-mode-code-indent-offset 2)
+  (setq web-mode-css-indent-offset 2)
+  (setq tab-width 2)
+  (set (make-local-variable 'company-backends) '(company-css company-web-html company-yasnippet company-files))
+  (company-mode)
+  (emmet-mode)
+  ;;(emmet-preview-mode)
+)
+(add-hook 'web-mode-hook 'my-web-mode-hook)
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+(setq web-mode-enable-current-column-highlight t)
+(setq web-mode-enable-current-element-highlight t)
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+(add-hook 'web-mode-before-auto-complete-hooks
+          '(lambda ()
+             (let ((web-mode-cur-language
+                    (web-mode-language-at-pos)))
+               (if (string= web-mode-cur-language "php")
+                   (yas-activate-extra-mode 'php-mode)
+                 (yas-deactivate-extra-mode 'php-mode))
+               (if (string= web-mode-cur-language "css")
+                   (setq emmet-use-css-transform t)
+                 (setq emmet-use-css-transform nil)))))
 #+END_SRC
 
 * Key bindings
