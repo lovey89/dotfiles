@@ -32,6 +32,7 @@ Major parts of this file comes from [[https://github.com/larstvei/dot-emacs][thi
   - [[#org-mode][Org mode]]
   - [[#neotree][NeoTree]]
   - [[#web-mode][Web mode]]
+  - [[#yaml-mode][yaml mode]]
 - [[#key-bindings][Key bindings]]
   - [[#fixes-for-key-bindings][Fixes for key bindings]]
   - [[#bindings-for-expand-region][Bindings for expand-region]]
@@ -175,9 +176,9 @@ archive and is well maintained.
 ;; When behind a proxy I noticed that I couldn't connect without replacing https
 ;; with http. So if you get a problem try that solution (or try to find a proper
 ;; solution)
-(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
+(add-to-list 'package-archives '("melpa" .        "https://melpa.org/packages/"))
 (add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/"))
-(add-to-list 'package-archives '("elpa" . "https://elpa.gnu.org/packages/"))
+(add-to-list 'package-archives '("elpa" .         "https://elpa.gnu.org/packages/"))
 
 ;(add-to-list 'package-pinned-packages '(cider . "melpa-stable") t)
 #+END_SRC
@@ -220,6 +221,7 @@ installed. To ensure we install missing packages if they are missing.
           emmet-mode           ; emmet/zen coding
           which-key            ; Display available keybindings in popup
           yasnippet            ; Template system for Emacs
+          yaml-mode            ; Major mode for yaml files
           xcscope)))           ; Tool to find variables and functions in C
   (ignore-errors ;; This package is only relevant for Mac OS X.
     (when (memq window-system '(mac ns))
@@ -263,6 +265,7 @@ for stuff you eventually want to load, but is not a high priority.
 (require 'smartrep)
 (require 'smartparens-config)
 (require 'web-mode)
+(require 'yaml-mode)
 
 (setq idle-require-idle-delay 1)
 (idle-require-mode 1)
@@ -1112,6 +1115,16 @@ https://fransiska.github.io/emacs/2017/08/21/web-development-in-emacs
                (if (string= web-mode-cur-language "css")
                    (setq emmet-use-css-transform t)
                  (setq emmet-use-css-transform nil)))))
+#+END_SRC
+
+** yaml mode
+
+#+BEGIN_SRC emacs-lisp
+(add-to-list 'auto-mode-alist '("\\.yml\\'" . yaml-mode))
+
+(add-hook 'yaml-mode-hook
+          '(lambda ()
+             (define-key yaml-mode-map "\C-m" 'newline-and-indent)))
 #+END_SRC
 
 * Key bindings
