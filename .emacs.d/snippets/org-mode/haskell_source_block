@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: python (haskell executable) source block
+# key: yahas
+# --
+#+BEGIN_SRC python :python runghc :results output
+$0
+#+END_SRC
