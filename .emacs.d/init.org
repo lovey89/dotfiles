@@ -203,6 +203,7 @@ installed. To ensure we install missing packages if they are missing.
           ;focus                ; Dim color of text in surrounding sections
           idle-require         ; load elisp libraries while Emacs is idle
           git-gutter-fringe    ; Fringe version of git-gutter.el
+          haskell-mode
           ;golden-ratio         ; Automatic resizing windows to golden ratio
           ;js2-mode             ; Improved JavaScript editing mode
           multiple-cursors     ; Multiple cursors for Emacs
@@ -1029,6 +1030,7 @@ want to be able to evaluate python code.
  'org-babel-load-languages
  '((python . t)
    (shell . t)
+   (haskell . t)
    (emacs-lisp . t)))
 #+END_SRC
 
