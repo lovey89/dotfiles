@@ -193,7 +193,8 @@ if [ "$OSTYPE" == "cygwin" ]; then
     fi
     cd "${GIT_ROOT_DIR}/app"
 
-    mvn spring-boot:run
+    #mvn spring-boot:run
+    mvn verify -Pexec-jar
     killspringboot
     cd -
     trap - INT
