@@ -25,6 +25,11 @@ extractline()
   sed "$2q;d" "$1"
 }
 
+zipbase64()
+{
+  echo "$1" | gzip -c | base64
+}
+
 unzipbase64()
 {
   echo "$1" | base64 -d | gunzip
