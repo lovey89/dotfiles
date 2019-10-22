@@ -80,11 +80,13 @@ afind() # Needs more testing!
   OPTIND=1 # Needed to get getopts to work
 
   FILE_ENDING=""
+  IGNORE_PATH=""
   FILE_PATH="\( ! -name .git -a ! -name .idea -o -prune \)"
 
   while getopts ":i:t:" opt; do
     case $opt in
       i)
+        IGNORE_PATH="$IGNORE_PATH -a ! -path \*/$OPTARG"
         FILE_PATH="\( ! -name .git -a ! -name .idea -a ! -path \*/$OPTARG -o -prune \)"
         ;;
       t)
@@ -104,7 +106,8 @@ afind() # Needs more testing!
   shift $((OPTIND-1))
 
   # In order to treat the glob expression (*) correctly use the eval command
-  eval "find -L . $FILE_PATH $FILE_ENDING -type f -print0 | xargs -0 grep --color=auto -in \"$1\""
+  #eval "find -L . $FILE_PATH $FILE_ENDING -type f -print0 | xargs -0 grep --color=auto -in \"$1\""
+  eval "find -L . \( ! -name .git -a ! -name .idea $IGNORE_PATH -o -prune \) $FILE_ENDING -type f -print0 | xargs -0 grep --color=auto -in \"$1\""
   #echo $FILE_PATH
   #echo $FILE_ENDING
   #echo $1
