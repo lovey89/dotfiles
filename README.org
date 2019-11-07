@@ -1,0 +1,15 @@
+* dotfiles
+
+** Chrome
+
+[[https://www.if-not-true-then-false.com/2010/install-google-chrome-with-yum-on-fedora-red-hat-rhel/]]
+
+** Docker
+
+[[https://linuxconfig.org/how-to-install-docker-on-fedora-31]]
+
+There is a problem that you can't run docker in fedora 31 due to CGroupsV2
+
+This thread has some information how to solve it:
+
+https://www.reddit.com/r/linuxquestions/comments/dn2psl/upgraded_to_fedora_31_docker_will_not_work/

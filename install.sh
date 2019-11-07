@@ -45,3 +45,6 @@ if [ "$OSTYPE" == "cygwin" ]; then
 else
   createlink ".Xresources"
 fi
+
+# Create this empty directory because emacs won't do it automatically
+mkdir -p "${DOTFILES_DIR}/.emacs.d/autosaves"
