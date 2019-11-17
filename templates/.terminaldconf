@@ -15,3 +15,6 @@ use-system-font=false
 use-theme-colors=false
 use-transparent-background=false
 visible-name='my-custom'
+
+# Deprecated settings not visible in gnome terminal config (but still valid)
+allow-bold=false
