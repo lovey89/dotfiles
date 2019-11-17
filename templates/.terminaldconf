@@ -1,0 +1,17 @@
+[/]
+audible-bell=false
+bold-color-same-as-fg=false
+bold-is-bright=true
+cell-width-scale=1.0
+cursor-blink-mode='off'
+cursor-colors-set=false
+cursor-shape='ibeam'
+default-size-rows=24
+font='Source Code Pro Medium 9'
+login-shell=false
+scrollbar-policy='never'
+use-custom-command=false
+use-system-font=false
+use-theme-colors=false
+use-transparent-background=false
+visible-name='my-custom'

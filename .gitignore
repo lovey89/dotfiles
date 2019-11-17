@@ -15,7 +15,7 @@
 # Emacs bookmarks
 /.emacs.d/bookmarks
 
-# Generated file
+# Generated files
 /.Xresources
-# Generated file
 /.minttyrc
+/.terminaldconf

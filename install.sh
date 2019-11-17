@@ -46,5 +46,14 @@ else
   createlink ".Xresources"
 fi
 
+if [ -x "$(command -v dconf)" ]; then
+  # If dconf exists, load the settings. This will create (but not set) a profile for gnome terminal
+  # If you need to see the settings you run the 'dconf dump' command instead:
+  # dconf dump /org/gnome/terminal/legacy/profiles:/
+  # or
+  # dconf dump /org/gnome/terminal/legacy/profiles:/:3aa6ea65-20c8-456a-a98b-9f3b1c4b583c/
+  dconf load /org/gnome/terminal/legacy/profiles:/:3aa6ea65-20c8-456a-a98b-9f3b1c4b583c/ < "${DOTFILES_DIR}/.terminaldconf"
+fi
+
 # Create this empty directory because emacs won't do it automatically
 mkdir -p "${DOTFILES_DIR}/.emacs.d/autosaves"

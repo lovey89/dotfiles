@@ -4,6 +4,7 @@ SCRIPT_DIR=$(readlink -f `dirname $0`)
 DOTFILES_DIR="${SCRIPT_DIR}/.."
 MINTTYRC_FILE="${DOTFILES_DIR}/.minttyrc"
 XRESOURCES_FILE="${DOTFILES_DIR}/.Xresources"
+DCONF_FILE="${DOTFILES_DIR}/.terminaldconf"
 COLOR_DIR="${SCRIPT_DIR}/Xresources.colors"
 
 if [ "$#" != 1 ]; then
@@ -13,6 +14,22 @@ elif [ ! -r "${COLOR_DIR}/$1" ]; then
   echo "Can't read color file: ${COLOR_DIR}/$1" 1>&2
   exit 2
 fi
+
+# .terminaldconf file
+# Remove it if it exists
+rm -f "$DCONF_FILE"
+
+cat << DCONF_COMMENTS > "$DCONF_FILE"
+# Don't update this file directly. Update dotfiles/templates/.terminaldconf and run
+# the dotfiles/templates/create_config_files command to generate the new config
+# -----------------------------------------------------------------------------
+
+DCONF_COMMENTS
+cat "${SCRIPT_DIR}/.terminaldconf" >> "$DCONF_FILE"
+"${SCRIPT_DIR}/xresources2dconf.sh" "${COLOR_DIR}/$1" >> "$DCONF_FILE"
+
+# Make it not writable
+chmod 444 "$DCONF_FILE"
 
 # .minttyrc file
 # Remove it if it exists
