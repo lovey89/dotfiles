@@ -34,7 +34,6 @@ while getopts ":sd:u:h" opt; do
       DEPTH="$OPTARG"
       ;;
     u)
-      USERNAME="$OPTARG"
       ADDITIONNAL_WGET_OPTS="$ADDITIONNAL_WGET_OPTS --user=$OPTARG --ask-password"
       ;;
     h)
@@ -90,7 +89,7 @@ feed.php*,\
 *?do=
 EOM
 
-echo "[WGET] downloading: start: $PROTO://$HOSTNAME/$LOCATION (login=${USERNAME:-empty})"
+echo "[WGET] downloading: start: $PROTO://$HOSTNAME/$LOCATION"
 wget  --no-verbose \
       --recursive \
       --level="$DEPTH" \
