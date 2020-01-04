@@ -15,7 +15,7 @@ NAME
    $PROGNAME: make an offline export of a dokuwiki documentation
 
 SYNOPSIS
-   $PROGNAME <options> hostname path/to/start
+   $PROGNAME <options> hostname path/to/start/
 
 OPTIONS
    -u <username>   - The username if you need to authenticate
@@ -89,7 +89,7 @@ feed.php*,\
 *?do=
 EOM
 
-echo "[WGET] downloading: start: $PROTO://$HOSTNAME/$LOCATION"
+echo "[WGET] downloading: start: $PROTO://$HOST/$LOCATION"
 wget  --no-verbose \
       --recursive \
       --level="$DEPTH" \
