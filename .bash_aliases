@@ -82,8 +82,9 @@ afind() # Needs more testing!
   FILE_ENDING=""
   IGNORE_PATH=""
   FILE_PATH="\( ! -name .git -a ! -name .idea -o -prune \)"
+  REGEX_FLAG=""
 
-  while getopts ":i:t:" opt; do
+  while getopts ":i:t:r" opt; do
     case $opt in
       i)
         IGNORE_PATH="$IGNORE_PATH -a ! -path \*/$OPTARG"
@@ -91,6 +92,9 @@ afind() # Needs more testing!
         ;;
       t)
         FILE_ENDING="-iname *.$OPTARG"
+        ;;
+      r)
+        REGEX_FLAG="-E"
         ;;
       \?)
         echo "Invalid option: -$OPTARG" >&2
@@ -107,7 +111,7 @@ afind() # Needs more testing!
 
   # In order to treat the glob expression (*) correctly use the eval command
   #eval "find -L . $FILE_PATH $FILE_ENDING -type f -print0 | xargs -0 grep --color=auto -in \"$1\""
-  eval "find -L . \( ! -name .git -a ! -name .idea $IGNORE_PATH -o -prune \) $FILE_ENDING -type f -print0 | xargs -0 grep --color=auto -in \"$1\""
+  eval "find -L . \( ! -name .git -a ! -name .idea $IGNORE_PATH -o -prune \) $FILE_ENDING -type f -print0 | xargs -0 grep $REGEX_FLAG --color=auto -in \"$1\""
   #echo $FILE_PATH
   #echo $FILE_ENDING
   #echo $1
