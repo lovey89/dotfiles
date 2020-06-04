@@ -1,11 +1,11 @@
 #!/bin/bash
-# Add the following lines in the file ~/.ssh/config.
+# Add the following lines in the file ~/.ssh/config
 #
 # Host tunnel/*
-#     ProxyCommand ~/.ssh/getdb $(basename %h)
+#     ProxyCommand ~/.ssh/gettunnel $(basename %h)
 #
 # Host */tunnel
-#     ProxyCommand ~/.ssh/getdb $(dirname %h)
+#     ProxyCommand ~/.ssh/gettunnel $(dirname %h)
 
 # Use the command like:
 #  ssh tunnel/alias
