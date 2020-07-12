@@ -1,5 +1,9 @@
 #!/bin/bash
 shopt -s globstar
+shopt -s nullglob # If nothing is found this will prevent loop from running once
+#shopt -s nocaseglob # If you don't care about case of file extension
+
+#for file in **/*.{c,h,txt}; do
 for file in **/*.vmg; do
     echo "Converting file '$file'.."
     iconv -f UTF-16 -t utf-8 "$file" -o "${file%.vmg}.txt"
