@@ -25,6 +25,15 @@ extractline()
   sed "$2q;d" "$1"
 }
 
+countfiles()
+{
+  RES=$(find . -type f | sed -n 's/..*\.//p' | sort | uniq -c | sort -bnr)
+  COUNT=$(echo "$RES" | awk '{s+=$1} END {print s}')
+  echo "$RES"
+  echo "-----"
+  echo "Sum: $COUNT"
+}
+
 zipbase64()
 {
   echo "$1" | gzip -c | base64
