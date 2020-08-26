@@ -34,6 +34,12 @@ countfiles()
   echo "Sum: $COUNT"
 }
 
+removetrailingwhitespaces()
+{
+  # Update in place and save no backup
+  sed -i 's/[[:blank:]]*$//' "$1"
+}
+
 zipbase64()
 {
   echo "$1" | gzip -c | base64
