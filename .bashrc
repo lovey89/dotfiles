@@ -1,4 +1,4 @@
-#
+#!/bin/bash
 # ~/.bashrc
 #
 
@@ -12,6 +12,7 @@ fi
 
 MY_BASH_ALIASES="$HOME/.bash_aliases"
 MY_LOCAL_SETTINGS="$HOME/.bash_local"
+DOTFILES_DIR=$(dirname `readlink -f "$HOME/.bashrc"`)
 
 # Load aliases
 if [ -f "$MY_BASH_ALIASES" ]; then
@@ -32,11 +33,16 @@ PS1='\[\e[0;32m\]\A\[\e[m\] \[\e[0;31m\]$HOSTNAME\[\e[m\]:\[\e[0;36m\]\W\[\e[m\]
 
 # Variables
 export VISUAL=vim
-export PATH="$PATH":"$HOME"/dotfiles/scripts:"$HOME"/dotfiles/configscripts
+export PATH="$PATH":"$DOTFILES_DIR"/scripts:"$DOTFILES_DIR"/configscripts
 #export PROMPT_COMMAND='printf "\033k%s@%s:%s\033\\" "${USER}" "${HOSTNAME%%.*}" "${PWD/#$HOME/\~}"'
 unset -v PROMPT_COMMAND
 # Options used by the 'less' command
 export LESS="-RS#.5MiJj.5Wz-4"
+if [ -x $(command -v source-highlight) ]; then
+  # If source-highlight is available we can use it to syntax highlight in less
+  export LESSOPEN="||- $DOTFILES_DIR/scripts/my-src-hilite-lesspipe.sh %s"
+fi
+
 # Don't save bash commands to history that starts with space and don't save duplicates
 export HISTCONTROL="ignorespace:erasedups"
 
