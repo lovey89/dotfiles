@@ -38,7 +38,7 @@ export PATH="$PATH":"$DOTFILES_DIR"/scripts:"$DOTFILES_DIR"/configscripts
 unset -v PROMPT_COMMAND
 # Options used by the 'less' command
 export LESS="-RS#.5MiJj.5Wz-4"
-if [ -x $(command -v source-highlight) ]; then
+if [ -x "$(command -v source-highlight)" ]; then
   # If source-highlight is available we can use it to syntax highlight in less
   export LESSOPEN="||- $DOTFILES_DIR/scripts/my-src-hilite-lesspipe.sh %s"
 fi

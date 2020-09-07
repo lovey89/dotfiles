@@ -50,9 +50,9 @@ case "$1" in
     source-highlight --failsafe -f esc --lang-def=makefile.lang --style-file=esc.style -i "$1"
     ;;
   *.tar|*.tgz|*.gz|*.bz2|*.xz)
-    if [ -x $(command -v lesspipe.sh) ]; then
+    if [ -x "$(command -v lesspipe.sh)" ]; then
       lesspipe.sh "$1"
-    elif [ -x $(command -v lesspipe) ]; then
+    elif [ -x "$(command -v lesspipe)" ]; then
       lesspipe "$1"
     else
       exit 1
