@@ -184,6 +184,10 @@ secondstodate()
 }
 
 if [ "$OSTYPE" == "cygwin" ]; then
+  # Output of mvn is broken unless you run with TERM=cygwin
+  # http://cygwin.1069669.n5.nabble.com/3-1-x-Mangled-input-output-when-calling-non-cygwin-programs-td149577.html
+  alias mvn='TERM=cygwin mvn'
+
   # Aliases for cygwin (Windows)
   alias winkill='taskkill /PID'
   alias fwinkill='taskkill /F /PID'
