@@ -87,7 +87,7 @@ prettyunzipbase64()
 
 ffind()
 {
-  find . -iname "*$1*"
+  find . \( ! -name ".git" -a ! -name ".idea" -o -prune \) -iname "*$1*"
 }
 
 afind() # Needs more testing!
@@ -229,7 +229,7 @@ if [ "$OSTYPE" == "cygwin" ]; then
     cd "${GIT_ROOT_DIR}/app"
 
     #mvn spring-boot:run
-    mvn verify -Pexec-jar
+    TERM=cygwin mvn verify -Pexec-jar
     killspringboot
     cd -
     trap - INT
