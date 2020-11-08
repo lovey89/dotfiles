@@ -1,0 +1,21 @@
+#!/bin/bash
+
+RESULT_DIR="$HOME/remote-ssh"
+FILE_PREFIX="prefix"
+# Replace this variable with the command to be run on the remote server
+COMMAND="ls"
+
+mkdir -p "$RESULT_DIR"
+
+TMP_FILE=$(mktemp -p "$RESULT_DIR")
+
+# Replace this part with the actual ssh command
+(hostname; "$COMMAND") > "$TMP_FILE"
+
+REMOTE_HOST_NAME=$(head -n1 "$TMP_FILE")
+
+sed -i '1d' "$TMP_FILE"
+
+DATE_STRING=$(date '+%y_%m_%d__%H_%M_%S')
+
+mv "$TMP_FILE" "${RESULT_DIR}/${FILE_PREFIX}_${DATE_STRING}_${REMOTE_HOST_NAME}.txt"
