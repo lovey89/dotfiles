@@ -13,3 +13,11 @@ There is a problem that you can't run docker in fedora 31 due to CGroupsV2
 This thread has some information how to solve it:
 
 https://www.reddit.com/r/linuxquestions/comments/dn2psl/upgraded_to_fedora_31_docker_will_not_work/
+
+** IntelliJ
+
+[[https://technoref.wordpress.com/2016/01/19/install-idea-intellij-in-fedora-23/]]
+
+** Visual Studio code
+
+[[https://fedoramagazine.org/using-visual-studio-code-fedora/]]
