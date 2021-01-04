@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# Packages to install on Fedora: tesseract, ImageMagick, xclip
+
 BACKUP_DIR="$HOME/.dotfiles.backup"
 DOTFILES_DIR=$(readlink -f `dirname $0`)
 

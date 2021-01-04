@@ -1029,9 +1029,13 @@ want to be able to evaluate python code.
 (org-babel-do-load-languages
  'org-babel-load-languages
  '((python . t)
+   (js . t)
    (shell . t)
    (haskell . t)
    (emacs-lisp . t)))
+
+(setq org-babel-js-function-wrapper
+      "process.stdout.write(require('util').inspect(function(){\n%s\n}(), { maxArrayLength: null, maxStringLength: null, breakLength: Infinity, compact: true }))")
 #+END_SRC
 
 The following hook will generate table of contents in org-mode files when saved
