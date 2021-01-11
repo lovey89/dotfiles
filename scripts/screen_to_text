@@ -2,7 +2,7 @@
 
 # Need to install tesseract and ImageMagick
 
-SCR="$HOME/screen_to_text_tmp"
+SRC="/tmp/screen_to_text_tmp"
 TES_LANG_OPT=""
 
 usage() {
@@ -11,10 +11,9 @@ Description
   Mark a box of text which you want the text from. If you specify a
   language, that langauge needs to be installed for tesseract.
 
-  Temporary files will be created at (there is no automatic clean
-  up but you can remove them whenever you want):
-  - $SCR.png
-  - $SCR.txt
+  Temporary files will be created at:
+  - $SRC.png
+  - $SRC.txt
 
 Usage:
   $(basename $0)
@@ -38,12 +37,14 @@ elif [[ "$#" -eq 1 ]]; then
   TES_LANG_OPT="-l $1"
 fi
 
-gnome-screenshot -a -f $SCR.png
+gnome-screenshot -a -f $SRC.png
 
-mogrify -modulate 100,0 -resize 400% $SCR.png
+mogrify -modulate 100,0 -resize 400% $SRC.png
 #should increase detection rate
 
-tesseract $TES_LANG_OPT $SCR.png $SCR &> /dev/null
+tesseract $TES_LANG_OPT $SRC.png $SRC &> /dev/null
 
-cat $SCR.txt
-cat $SCR.txt | xclip
+sed -i -e 's/\x0c//' -e 's/—/-/g' $SRC.txt # Removes form feed character that tesseract sometimes adds
+
+cat $SRC.txt
+cat $SRC.txt | xclip
