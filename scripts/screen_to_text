@@ -44,7 +44,7 @@ mogrify -modulate 100,0 -resize 400% $SRC.png
 
 tesseract $TES_LANG_OPT $SRC.png $SRC &> /dev/null
 
-sed -i -e 's/\x0c//' -e 's/—/-/g' $SRC.txt # Removes form feed character that tesseract sometimes adds
+sed -i -e 's/\x0c//' -e 's/—/-/g' -e 's/[“”]/"/g' -e 's/^[>»\*]/-/' $SRC.txt # Removes form feed character that tesseract sometimes adds
 
 cat $SRC.txt
 cat $SRC.txt | xclip
