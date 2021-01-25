@@ -16,26 +16,52 @@ Description
   - $SRC.txt
 
 Usage:
-  $(basename $0)
-  $(basename $0) <lang>
+  $(basename $0) [options]
+
+Options:
+  -h:
+    Show this help
+  -l <lang>:
+    Use <lang> as language in tesseract
+  -w <line-width>:
+    Format the output in lines of length <line-width>
 END_HEREDOC
 }
 
-if [[ "$#" -gt 1 ]]; then
-  usage
-  exit 1
-elif [[ "$#" -eq 1 ]]; then
-  if [[ "$1" = "-h" ]]; then
-    usage
-    exit 1
-  fi
-  if ! tesseract --list-langs | grep -Eq "^$1$"; then
-    echo "'$1' is not among the installed languages for tesseract" 1>&2
-    tesseract --list-langs 1>&2
-    exit 2
-  fi
-  TES_LANG_OPT="-l $1"
-fi
+while getopts ":l:w:h" opt; do
+  case $opt in
+    l)
+      if ! tesseract --list-langs | grep -Eq "^${OPTARG}$"; then
+        echo "'$OPTARG' is not among the installed languages for tesseract" 1>&2
+        tesseract --list-langs 1>&2
+        exit 2
+      fi
+      TES_LANG_OPT="-l $OPTARG"
+      ;;
+    w)
+      if ! [[ "$OPTARG" =~ ^[0-9]+$ ]]; then
+        echo "'$OPTARG' is not a valid number. Use -h for usage"
+        exit 1
+      fi
+      WIDTH="$OPTARG"
+      ;;
+    h)
+      usage
+      exit 1
+      ;;
+    \?)
+      # Unknown option
+      echo "Invalid option: -$OPTARG. Use -h for usage" >&2
+      exit 1
+      ;;
+    :)
+      # Argument missing. The option expects an argument
+      echo "Option -$OPTARG requires an argument. Use -h for usage" >&2
+      exit 1
+      ;;
+  esac
+done
+shift $((OPTIND-1))
 
 gnome-screenshot -a -f $SRC.png
 
@@ -44,7 +70,19 @@ mogrify -modulate 100,0 -resize 400% $SRC.png
 
 tesseract $TES_LANG_OPT $SRC.png $SRC &> /dev/null
 
-sed -i -e 's/\x0c//' -e 's/—/-/g' -e 's/[“”]/"/g' -e 's/^[>»\*]/-/' $SRC.txt # Removes form feed character that tesseract sometimes adds
+sed -r -i\
+    -e 's/\$3/S3/g'\
+    -e 's/\x0c//'\
+    -e 's/—/-/g'\
+    -e 's/[“”]/"/g'\
+    -e 's/^[-e>«»\*]+/-/'\
+    $SRC.txt # Removes form feed character that tesseract sometimes adds
 
-cat $SRC.txt
-cat $SRC.txt | xclip
+if [ -z "${WIDTH+x}" ]; then
+  OUTPUT=$(cat $SRC.txt)
+else
+  OUTPUT=$(cat $SRC.txt | tr '\n' ' ' | fold -s -w$WIDTH)
+fi
+
+echo "$OUTPUT"
+echo "$OUTPUT" | xclip
