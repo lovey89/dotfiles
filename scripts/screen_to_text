@@ -72,11 +72,12 @@ tesseract $TES_LANG_OPT $SRC.png $SRC &> /dev/null
 
 sed -r -i\
     -e 's/\$3/S3/g'\
-    -e 's/\lf/If/g'\
+    -e 's/lf/If/g'\
+    -e 's/\|P/IP/g'\
     -e 's/\x0c//'\
     -e 's/—/-/g'\
     -e 's/[“”]/"/g'\
-    -e 's/^[-e>«»\*]+ /- /'\
+    -e 's/^[-e>«»\*¢]+ /- /'\
     $SRC.txt # Removes form feed character that tesseract sometimes adds
 
 if [ -z "${WIDTH+x}" ]; then
