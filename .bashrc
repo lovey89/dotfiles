@@ -14,6 +14,8 @@ MY_BASH_ALIASES="$HOME/.bash_aliases"
 MY_LOCAL_SETTINGS="$HOME/.bash_local"
 DOTFILES_DIR=$(dirname `readlink -f "$HOME/.bashrc"`)
 
+shopt -s histappend
+
 # Load aliases
 if [ -f "$MY_BASH_ALIASES" ]; then
   . "$MY_BASH_ALIASES"
