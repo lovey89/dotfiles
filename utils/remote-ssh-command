@@ -4,6 +4,9 @@ RESULT_DIR="$HOME/remote-ssh"
 FILE_PREFIX="prefix"
 # Replace this variable with the command to be run on the remote server
 COMMAND='ls'
+# If you want to run something as another user:
+#COMMAND='sudo -i -u user command'
+# where user should be replaced with the actual user
 
 if [[ "$#" -ne 1 || "$1" = '-h' ]]
   then
@@ -11,7 +14,7 @@ if [[ "$#" -ne 1 || "$1" = '-h' ]]
 Description
 
 Usage:
-  $(basename "$0") params
+  $(basename "$0") <ip_address>
 END_HEREDOC
     exit 1
 fi
