@@ -4,6 +4,7 @@
 
 SRC="/tmp/screen_to_text_tmp"
 TES_LANG_OPT=""
+TAKE_SCREENSHOT="TRUE"
 
 usage() {
   cat 1>&2 << END_HEREDOC
@@ -25,10 +26,12 @@ Options:
     Use <lang> as language in tesseract
   -w <line-width>:
     Format the output in lines of length <line-width>
+  -n:
+    Don't take a new screen shot. Use the previous one
 END_HEREDOC
 }
 
-while getopts ":l:w:h" opt; do
+while getopts ":l:w:hn" opt; do
   case $opt in
     l)
       if ! tesseract --list-langs | grep -Eq "^${OPTARG}$"; then
@@ -49,6 +52,9 @@ while getopts ":l:w:h" opt; do
       usage
       exit 1
       ;;
+    n)
+      TAKE_SCREENSHOT="FALSE"
+      ;;
     \?)
       # Unknown option
       echo "Invalid option: -$OPTARG. Use -h for usage" >&2
@@ -63,22 +69,28 @@ while getopts ":l:w:h" opt; do
 done
 shift $((OPTIND-1))
 
-gnome-screenshot -a -f $SRC.png
+if [ "$TAKE_SCREENSHOT" = "TRUE" ]; then
+  gnome-screenshot -a -f $SRC.png
 
-mogrify -modulate 100,0 -resize 400% $SRC.png
-#should increase detection rate
+  # To increase the detection rate we will first make the image bigger
+  mogrify -modulate 100,0 -resize 400% $SRC.png
+  # And then make it sharper
+  convert $SRC.png -sharpen 0x3 $SRC.png
+fi
 
 tesseract $TES_LANG_OPT $SRC.png $SRC &> /dev/null
 
 sed -r -i\
-    -e 's/\$3/S3/g'\
-    -e 's/lf/If/g'\
-    -e 's/\|P/IP/g'\
-    -e 's/\x0c//'\
-    -e 's/—/-/g'\
-    -e 's/[“”]/"/g'\
-    -e 's/^[-e>«»\*¢]+ /- /'\
-    $SRC.txt # Removes form feed character that tesseract sometimes adds
+ "s/\$3/S3/g
+  s/lf/If/g
+  s/\|/I/g
+  # Removes form feed character that tesseract sometimes adds
+  s/\x0c//
+  s/—/-/g
+  s/[“”]/\"/g
+  s/[’]/'/g
+  s/^[-e>«»\*¢©]+ /- /"\
+  $SRC.txt # Removes form feed character that tesseract sometimes adds
 
 if [ -z "${WIDTH+x}" ]; then
   OUTPUT=$(cat $SRC.txt)
