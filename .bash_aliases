@@ -37,8 +37,8 @@ lless()
 {
   # Every second row will be colored yellow. Also some sections will be highlighted
   sed -r $'
-    s/("?headers"?(:|=)[^,]*)/\033[0;31m\\1\033[0m/
-    s/("?payload"?(:|=)[^,]*)/\033[0;34m\\1\033[0m/
+    s/("headers":"([^"]|\\\\.)*")/\033[0;31m\\1\033[0m/
+    s/("payload":"([^"]|\\\\.)*")/\033[0;34m\\1\033[0m/
     0~2 {
       s/.*/\033[0;33m&\033[0m/
       s/\033\[0m/\033\[0;33m/g
