@@ -4,7 +4,7 @@
 # It will make the tree prettier, apply nice colours and remove the leading "[INFO] " from each line.
 # Use the code however you want, and please spread it. Origin: https://github.com/sjoblomj/mvntree
 
-mvn dependency:tree -Dverbose -Ddetail=true | awk '
+mvn dependency:tree -Ddetail=true | awk '
     BEGIN {
         # Preserve spaces
         FPAT = "([[:space:]]*[^[:space:]]+)";
