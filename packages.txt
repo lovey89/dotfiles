@@ -1,2 +1,10 @@
 sudo dnf install vim-enhanced
 
+# For syntax highlighting in less
+sudo dnf install highlight
+
+# For screen_to_text command
+sudo dnf install tesseract
+sudo dnf install tesseract-langpack-eng
+sudo dnf install tesseract-langpack-swe
+sudo dnf install imagemagick

@@ -6,6 +6,8 @@
 #     and "*" as an error when performing parameter expansion.
 set -eu
 
+highlight_command='highlight -s dusk -O truecolor --failsafe'
+
 guess_language() {
   lang=$(echo -e ${1:-} | file - | cut -d" " -f2)
   if [ "$lang" = "a" ]; then
@@ -33,21 +35,27 @@ check_language_is_known() {
   echo $lang
 }
 
-if [ ! -e "$1" ] ; then
+if [ "$1" != "-" -a ! -e "$1" ] ; then
   exit 1
 fi
 
-if [ -d "$1" ] ; then
+if [ "$1" != "-" -a -d "$1" ] ; then
   ls -alF -- "$1"
   exit $?
 fi
 
 case "$1" in
   *ChangeLog|*changelog)
-    source-highlight --failsafe -f esc --lang-def=changelog.lang --style-file=esc.style -i "$1"
+    if [ -x "$(command -v source-highlight)" ]; then
+      source-highlight --failsafe -f esc --lang-def=changelog.lang --style-file=esc.style -i "$1"
+    fi
     ;;
   *Makefile|*makefile)
-    source-highlight --failsafe -f esc --lang-def=makefile.lang --style-file=esc.style -i "$1"
+    if [ -x "$(command -v highlight)" ]; then
+      $highlight_command "$1"
+    else
+      source-highlight --failsafe -f esc --lang-def=makefile.lang --style-file=esc.style -i "$1"
+    fi
     ;;
   *.tar|*.tgz|*.gz|*.bz2|*.xz)
     if [ -x "$(command -v lesspipe.sh)" ]; then
@@ -59,18 +67,27 @@ case "$1" in
     fi
     ;;
   -) # standard in. When we pipe the output to less
-    IFS= file=$(cat)
-    lang=$(guess_language "$file")
-    #echo $lang
-    lang=$(check_language_is_known "$lang")
-    #echo "Confirmed $lang"
-    if [ -n "$lang" ]; then
-      echo $file | source-highlight --failsafe -f esc --src-lang=$lang --style-file=esc.style
+    if [ -x "$(command -v highlight)" ]; then
+      cat | $highlight_command
     else
-      echo $file
+      IFS= file=$(cat)
+      lang=$(guess_language "$file")
+      #echo $lang
+      lang=$(check_language_is_known "$lang")
+      #echo "Confirmed $lang"
+      if [ -n "$lang" ]; then
+        echo $file | source-highlight --failsafe -f esc --src-lang=$lang --style-file=esc.style
+      else
+        echo $file
+      fi
     fi
     ;;
-  *)
-    source-highlight --failsafe --infer-lang -f esc --style-file=esc.style -i "$1"
+  *) # Most files will be caught here
+    # the 'highlight' command seems to produce better result!
+    if [ -x "$(command -v highlight)" ]; then
+      $highlight_command "$1"
+    else
+      source-highlight --failsafe --infer-lang -f esc --style-file=esc.style -i "$1"
+    fi
     ;;
 esac

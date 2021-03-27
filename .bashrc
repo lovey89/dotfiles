@@ -40,15 +40,15 @@ export PATH="$PATH":"$DOTFILES_DIR"/scripts:"$DOTFILES_DIR"/configscripts
 unset -v PROMPT_COMMAND
 # Options used by the 'less' command
 # R:   Show control characters but still handle colors correctly
-# S:   Don't wrap long lines
+# S:   Don't wrap long lines (NOT USED!)
 # #.5: Horizontally scroll half page
 # M:   Long prompt
 # i:   Case insensitive search unless there are upper chase characters in search pattern
-# J:   Status column used by searches and by W option
+# J:   Status column used by searches and by W option (NOT USED!)
 # j.5: When jumping to a target (e.g. when searching). Place it in middle of screen
 # W:   Highlight first new line after forward movement larger than 1 line
 # z-4: When scrolling a full page, scroll so there are 4 lines left from previous page
-export LESS="-RS#.5MiJj.5Wz-4"
+export LESS="-R#.5Mij.5Wz-4"
 
 if [ "$OSTYPE" != "cygwin" ]; then
   # It looks like cygwin handles this variable poorly
@@ -56,8 +56,8 @@ if [ "$OSTYPE" != "cygwin" ]; then
   LESS="${LESS}F"
 fi
 
-if [ -x "$(command -v source-highlight)" ]; then
-  # If source-highlight is available we can use it to syntax highlight in less
+if [ -x "$(command -v highlight)" -o -x "$(command -v source-highlight)" ]; then
+  # If highlight or source-highlight is available we can use it to syntax highlight in less
   export LESSOPEN="||- $DOTFILES_DIR/scripts/my-src-hilite-lesspipe.sh %s"
 fi
 
