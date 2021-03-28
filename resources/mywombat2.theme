@@ -1,0 +1,23 @@
+Description = "My wombat"
+
+Categories = {"dark", "custom"}
+
+ Default	= { Colour="#f6f3e8" }
+Canvas	= { Colour="#1f3048" }
+Number	= { Colour="#eea9b8" }
+Escape	= { Colour="#ffbe25" }
+ String	= { Colour="#95e454" }
+ BlockComment	= { Colour="#99968b" }
+StringPreProc = String
+LineComment   = BlockComment
+ Operator      = { Colour="#cae682" }
+LineNum      = BlockComment
+PreProcessor      = { Colour="#e68bf0" }
+Interpolation  = { Colour="#C184DB" }
+
+Keywords = {
+   { Colour="#8ac6f2" },
+   { Colour="#e5786d" },
+  { Colour="#8bf0b3" },
+   { Colour="#f6f3e8" },
+}

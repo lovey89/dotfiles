@@ -6,7 +6,7 @@
 #     and "*" as an error when performing parameter expansion.
 set -eu
 
-highlight_command='highlight -s dusk -O truecolor --failsafe'
+highlight_command='highlight -s mywombat2 -O truecolor --failsafe'
 
 guess_language() {
   lang=$(echo -e ${1:-} | file - | cut -d" " -f2)
@@ -23,6 +23,9 @@ guess_language() {
     "posix")
       echo "sh"
       ;;
+    "perl5")
+      echo "java"
+      ;;
     *)
       echo "$lang"
       ;;
@@ -32,6 +35,12 @@ guess_language() {
 # check if the language passed as $1 is known to source-highlight
 check_language_is_known() {
   lang=$(source-highlight --lang-list | cut -d' ' -f1 | grep "^${1:-}$" || true)
+  echo $lang
+}
+
+# check if the language passed as $1 is known to highlight
+check_language_is_known_to_highlight() {
+  lang=$(ls -1 /usr/share/highlight/langDefs/ -1 | cut -d'.' -f1 | grep "^${1:-}$" || true)
   echo $lang
 }
 
@@ -67,14 +76,18 @@ case "$1" in
     fi
     ;;
   -) # standard in. When we pipe the output to less
+    IFS= file=$(cat)
+    lang=$(guess_language "$file")
+
     if [ -x "$(command -v highlight)" ]; then
-      cat | $highlight_command
+      lang=$(check_language_is_known_to_highlight "$lang")
+      if [ -n "$lang" ]; then
+        echo $file | highlight -s mywombat2 -O truecolor --failsafe --syntax-by-name=$lang
+      else
+        echo $file
+      fi
     else
-      IFS= file=$(cat)
-      lang=$(guess_language "$file")
-      #echo $lang
       lang=$(check_language_is_known "$lang")
-      #echo "Confirmed $lang"
       if [ -n "$lang" ]; then
         echo $file | source-highlight --failsafe -f esc --src-lang=$lang --style-file=esc.style
       else
