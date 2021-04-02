@@ -9,6 +9,11 @@ set -eu
 highlight_command='highlight -s mywombat2 -O truecolor --failsafe'
 
 guess_language() {
+  if echo -e "${1:-}" | grep -q $'\033'; then
+    echo "colorized"
+    return
+  fi
+  
   lang=$(echo -e ${1:-} | file - | cut -d" " -f2)
   if [ "$lang" = "a" ]; then
     # The output can be on the format: "/dev/stdin: a /usr/bin/sh script, ASCII text executable"
