@@ -168,7 +168,9 @@ done
 shift $((OPTIND-1))
 
 if [ "$TAKE_SCREENSHOT" = "TRUE" ]; then
-  rm ${SRC}*
+  if [ -f "${SRC}-0.png" ]; then
+    rm ${SRC}*
+  fi
 
   if [ "$MULTIPLE" = "TRUE" ]; then
     take_screenshots_until_esc
