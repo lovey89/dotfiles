@@ -6,6 +6,7 @@ SRC="/tmp/screen_to_text_tmp"
 TES_LANG_OPT=""
 TAKE_SCREENSHOT="TRUE"
 BULLETS="FALSE"
+MULTIPLE="FALSE"
 
 usage() {
   cat 1>&2 << END_HEREDOC
@@ -15,6 +16,8 @@ Description
 
   Temporary files will be created at:
   - $SRC-*.png
+  - $SRC-*.txt
+  - $SRC-*.txt.tmp
   - $SRC.txt
 
 Usage:
@@ -29,12 +32,98 @@ Options:
     Format the output in lines of length <line-width>
   -b:
     Bullets
+  -m:
+    Take multiple screenshots. When you're done just press ESC
   -n:
     Don't take a new screen shot. Use the previous one
 END_HEREDOC
 }
 
-while getopts ":l:w:hbn" opt; do
+take_screenshots_until_esc() {
+  i=0
+
+  while true; do
+    name="${SRC}-$i.png"
+    gnome-screenshot -a -f "$name"
+    if [ ! -f "$name" ]; then
+      break
+    fi
+    ((i++))
+  done
+}
+
+take_screenshot() {
+  gnome-screenshot -a -f "${SRC}-0.png"
+}
+
+increase_detection_rate() {
+  i=0
+
+  while true; do
+    name="${SRC}-$i.png"
+    if [ ! -f "$name" ]; then
+      break
+    fi
+
+    # To increase the detection rate we will first make the image bigger
+    mogrify -modulate 100,0 -resize 400% "$name"
+    # And then make it sharper
+    convert "$name" -sharpen 0x3 "$name"
+    ((i++))
+  done
+}
+
+produce_text() {
+  i=0
+
+  if [ -f "${SRC}.txt" ]; then
+    rm "${SRC}.txt"
+  fi
+
+  while true; do
+    name="${SRC}-$i"
+    if [ ! -f "${name}.png" ]; then
+      break
+    elif [ -f "${SRC}.txt" -a -n "${WIDTH+x}" ]; then
+      echo -e '\n' >> "${SRC}.txt"
+    elif [ -f "${SRC}.txt" -a "$BULLETS" != "TRUE" ]; then
+      echo >> "${SRC}.txt"
+    fi
+
+    tesseract $TES_LANG_OPT "${name}.png" "${name}" &> /dev/null
+
+    sed -r -i\
+        "s/\$3/S3/g
+         s/\blf/If/g
+         s/Il/I/g
+         s/\|/I/g
+         # Removes form feed character that tesseract sometimes adds
+         s/\x0c//
+         s/—/-/g
+         s/[“”]/\"/g
+         s/[‘’]/'/g
+         s/^[-e>«»\*¢©]+ /- /"\
+         "${name}.txt"
+
+    if [ "$BULLETS" = "TRUE" ]; then
+      sed -r -i\
+          "/^\s*$/d
+          s/.*/- &/"\
+          "${name}.txt"
+    fi
+
+    if [ -n "${WIDTH+x}" ]; then
+      cat "${name}.txt" | tr '\n' ' ' | sed -r 's/  +/ /g' | fold -s -w$WIDTH | sed -r 's/ *$//g' > "${name}.txt.tmp"
+      mv "${name}.txt.tmp" "${name}.txt"
+    fi
+
+    cat "${name}.txt" >> "${SRC}.txt"
+
+    ((i++))
+  done
+}
+
+while getopts ":l:w:hbmn" opt; do
   case $opt in
     l)
       if ! tesseract --list-langs | grep -Eq "^${OPTARG}$"; then
@@ -58,6 +147,9 @@ while getopts ":l:w:hbn" opt; do
     b)
       BULLETS="TRUE"
       ;;
+    m)
+      MULTIPLE="TRUE"
+      ;;
     n)
       TAKE_SCREENSHOT="FALSE"
       ;;
@@ -75,44 +167,20 @@ while getopts ":l:w:hbn" opt; do
 done
 shift $((OPTIND-1))
 
-rm ${SRC}*
-
 if [ "$TAKE_SCREENSHOT" = "TRUE" ]; then
-  gnome-screenshot -a -f $SRC.png
+  rm ${SRC}*
 
-  # To increase the detection rate we will first make the image bigger
-  mogrify -modulate 100,0 -resize 400% $SRC.png
-  # And then make it sharper
-  convert $SRC.png -sharpen 0x3 $SRC.png
+  if [ "$MULTIPLE" = "TRUE" ]; then
+    take_screenshots_until_esc
+  else
+    take_screenshot
+  fi
+  increase_detection_rate
 fi
 
-tesseract $TES_LANG_OPT $SRC.png $SRC &> /dev/null
+produce_text
 
-sed -r -i\
- "s/\$3/S3/g
-  s/\blf/If/g
-  s/Il/I/g
-  s/\|/I/g
-  # Removes form feed character that tesseract sometimes adds
-  s/\x0c//
-  s/—/-/g
-  s/[“”]/\"/g
-  s/[‘’]/'/g
-  s/^[-e>«»\*¢©]+ /- /"\
-  $SRC.txt
-
-if [ "$BULLETS" = "TRUE" ]; then
-  sed -r -i\
-      "/^\s*$/d
-       s/.*/- &/"\
-       $SRC.txt
-fi
-
-if [ -z "${WIDTH+x}" ]; then
-  OUTPUT=$(cat $SRC.txt)
-else
-  OUTPUT=$(cat $SRC.txt | tr '\n' ' ' | sed -r 's/  +/ /g' | fold -s -w$WIDTH | sed -r 's/ *$//g')
-fi
+OUTPUT=$(cat $SRC.txt)
 
 echo "$OUTPUT"
-echo "$OUTPUT" | xclip
+echo -n "$OUTPUT" | xclip
