@@ -182,6 +182,11 @@ fi
 
 produce_text
 
+if [ ! -f "$SRC.txt" ]; then
+  echo "No screenshot taken. Exiting.." >&2
+  exit 2
+fi
+
 OUTPUT=$(cat $SRC.txt)
 
 echo "$OUTPUT"
