@@ -5,6 +5,7 @@
 SRC="/tmp/screen_to_text_tmp"
 TES_LANG_OPT=""
 TAKE_SCREENSHOT="TRUE"
+BULLETS="FALSE"
 
 usage() {
   cat 1>&2 << END_HEREDOC
@@ -13,7 +14,7 @@ Description
   language, that langauge needs to be installed for tesseract.
 
   Temporary files will be created at:
-  - $SRC.png
+  - $SRC-*.png
   - $SRC.txt
 
 Usage:
@@ -26,12 +27,14 @@ Options:
     Use <lang> as language in tesseract
   -w <line-width>:
     Format the output in lines of length <line-width>
+  -b:
+    Bullets
   -n:
     Don't take a new screen shot. Use the previous one
 END_HEREDOC
 }
 
-while getopts ":l:w:hn" opt; do
+while getopts ":l:w:hbn" opt; do
   case $opt in
     l)
       if ! tesseract --list-langs | grep -Eq "^${OPTARG}$"; then
@@ -46,11 +49,14 @@ while getopts ":l:w:hn" opt; do
         echo "'$OPTARG' is not a valid number. Use -h for usage"
         exit 1
       fi
-      WIDTH="$OPTARG"
+      WIDTH=$(( OPTARG + 1 ))
       ;;
     h)
       usage
       exit 1
+      ;;
+    b)
+      BULLETS="TRUE"
       ;;
     n)
       TAKE_SCREENSHOT="FALSE"
@@ -69,6 +75,8 @@ while getopts ":l:w:hn" opt; do
 done
 shift $((OPTIND-1))
 
+rm ${SRC}*
+
 if [ "$TAKE_SCREENSHOT" = "TRUE" ]; then
   gnome-screenshot -a -f $SRC.png
 
@@ -82,15 +90,23 @@ tesseract $TES_LANG_OPT $SRC.png $SRC &> /dev/null
 
 sed -r -i\
  "s/\$3/S3/g
-  s/lf/If/g
+  s/\blf/If/g
+  s/Il/I/g
   s/\|/I/g
   # Removes form feed character that tesseract sometimes adds
   s/\x0c//
   s/—/-/g
   s/[“”]/\"/g
-  s/[’]/'/g
+  s/[‘’]/'/g
   s/^[-e>«»\*¢©]+ /- /"\
-  $SRC.txt # Removes form feed character that tesseract sometimes adds
+  $SRC.txt
+
+if [ "$BULLETS" = "TRUE" ]; then
+  sed -r -i\
+      "/^\s*$/d
+       s/.*/- &/"\
+       $SRC.txt
+fi
 
 if [ -z "${WIDTH+x}" ]; then
   OUTPUT=$(cat $SRC.txt)
