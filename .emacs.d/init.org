@@ -166,7 +166,7 @@ loaded, along with =package=, which is obviously needed.
 #+BEGIN_SRC emacs-lisp
 (require 'cl)
 (require 'package)
-(package-initialize)
+;(package-initialize)
 #+END_SRC
 
 Packages can be fetched from different mirrors, [[http://melpa.milkbox.net/#/][melpa]] is the largest

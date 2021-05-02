@@ -1,4 +1,5 @@
 sudo dnf install vim-enhanced
+sudo dnf install emacs
 
 # For syntax highlighting in less
 sudo dnf install highlight
@@ -7,4 +8,5 @@ sudo dnf install highlight
 sudo dnf install tesseract
 sudo dnf install tesseract-langpack-eng
 sudo dnf install tesseract-langpack-swe
-sudo dnf install imagemagick
+sudo dnf install ImageMagick
+sudo dnf install xclip
