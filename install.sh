@@ -56,10 +56,13 @@ if [ -x "$(command -v dconf)" ]; then
   # dconf dump /org/gnome/terminal/legacy/profiles:/:3aa6ea65-20c8-456a-a98b-9f3b1c4b583c/
   dconf load /org/gnome/terminal/legacy/profiles:/:3aa6ea65-20c8-456a-a98b-9f3b1c4b583c/ < "${DOTFILES_DIR}/.terminaldconf"
   # dconf read /org/gnome/terminal/legacy/profiles:/list  # Lists available profiles. Add here
-  # dfonf write /org/gnome/terminal/legacy/profiles:/list "['3aa6ea65-20c8-456a-a98b-9f3b1c4b583c']"
-  # dfonf write /org/gnome/terminal/legacy/profiles:/default "'3aa6ea65-20c8-456a-a98b-9f3b1c4b583c'"
+  dconf write /org/gnome/terminal/legacy/profiles:/list "['3aa6ea65-20c8-456a-a98b-9f3b1c4b583c']"
+  dconf write /org/gnome/terminal/legacy/profiles:/default "'3aa6ea65-20c8-456a-a98b-9f3b1c4b583c'"
   # Deactivate 2 finger and 3 finger clicks (to right click and middle click). Instead use the dedicated areas
   dconf write /org/gnome/desktop/peripherals/touchpad/click-method "'areas'"
+  # Enable tap-to-click on touchpad
+  dconf write /org/gnome/desktop/peripherals/touchpad/tap-to-click "true"
+  # dconf dump /org/gnome/desktop/peripherals/touchpad/
 fi
 
 # Create this empty directory because emacs won't do it automatically

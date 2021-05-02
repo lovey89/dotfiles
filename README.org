@@ -21,3 +21,7 @@ https://www.reddit.com/r/linuxquestions/comments/dn2psl/upgraded_to_fedora_31_do
 ** Visual Studio code
 
 [[https://fedoramagazine.org/using-visual-studio-code-fedora/]]
+
+** Teams
+
+https://docs.microsoft.com/en-us/answers/questions/3746/provide-repository-installation-instructions-inste.html
