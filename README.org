@@ -6,6 +6,10 @@
 
 ** Docker
 
+For new versions if Fedora (>= 32): https://docs.docker.com/engine/install/fedora/
+
+For older versions (<= 31):
+
 [[https://linuxconfig.org/how-to-install-docker-on-fedora-31]]
 
 There is a problem that you can't run docker in fedora 31 due to CGroupsV2
@@ -14,9 +18,28 @@ This thread has some information how to solve it:
 
 https://www.reddit.com/r/linuxquestions/comments/dn2psl/upgraded_to_fedora_31_docker_will_not_work/
 
-** IntelliJ
+** Install Java
+
+https://phoenixnap.com/kb/fedora-install-java
+
+#+BEGIN_SRC bash
+sudo update-alternatives --install "/usr/bin/java" "java" "/usr/local/java/jdk-16.0.1/bin/java" 1
+sudo update-alternatives --install "/usr/bin/javac" "javac" "/usr/local/java/jdk-16.0.1/bin/javac" 1
+
+sudo update-alternatives --config java
+sudo update-alternatives --config javac
+#+END_SRC
+
+*** Install maven
+
+https://tecadmin.net/install-apache-maven-on-fedora/
+
+*** IntelliJ
 
 [[https://technoref.wordpress.com/2016/01/19/install-idea-intellij-in-fedora-23/]]
+
+The desktop laucher file should be placed in
+~/usr/share/applications/idea.desktop~, not in ~$HOME/Desktop~.
 
 ** Visual Studio code
 
@@ -25,3 +48,7 @@ https://www.reddit.com/r/linuxquestions/comments/dn2psl/upgraded_to_fedora_31_do
 ** Teams
 
 https://docs.microsoft.com/en-us/answers/questions/3746/provide-repository-installation-instructions-inste.html
+
+** Slack
+
+https://slack.com/intl/en-se/help/articles/212924728-Download-Slack-for-Linux--beta-#fedora-2
