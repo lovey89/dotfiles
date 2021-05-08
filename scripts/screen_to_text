@@ -32,6 +32,8 @@ Options:
     Format the output in lines of length <line-width>
   -b:
     Bullets
+    Handle the input as if it was a bullet list. Will automatically
+    insert "- " before each row
   -m:
     Take multiple screenshots. When you're done just press ESC
   -n:
