@@ -10,3 +10,6 @@ sudo dnf install tesseract-langpack-eng
 sudo dnf install tesseract-langpack-swe
 sudo dnf install ImageMagick
 sudo dnf install xclip
+
+# For backups
+sudo dnf install rmlint
