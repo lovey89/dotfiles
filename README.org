@@ -4,6 +4,14 @@
 
 [[https://www.if-not-true-then-false.com/2010/install-google-chrome-with-yum-on-fedora-red-hat-rhel/]]
 
+Basically
+
+#+BEGIN_SRC bash
+sudo dnf install fedora-workstation-repositories
+sudo dnf config-manager --set-enabled google-chrome
+sudo dnf install google-chrome-stable
+#+END_SRC
+
 ** Docker
 
 For new versions if Fedora (>= 32): https://docs.docker.com/engine/install/fedora/
@@ -22,17 +30,48 @@ https://www.reddit.com/r/linuxquestions/comments/dn2psl/upgraded_to_fedora_31_do
 
 https://phoenixnap.com/kb/fedora-install-java
 
+To install latest (see version in the description when searching):
+
 #+BEGIN_SRC bash
+dnf search openjdk
+sudo dnf install java-latest-openjdk-devel.x86_64
+#+END_SRC
+
+#+BEGIN_SRC bash
+# These steps isn't necessary it seems. Also the path is probably wrong
 sudo update-alternatives --install "/usr/bin/java" "java" "/usr/local/java/jdk-16.0.1/bin/java" 1
 sudo update-alternatives --install "/usr/bin/javac" "javac" "/usr/local/java/jdk-16.0.1/bin/javac" 1
 
+# You should still run these
 sudo update-alternatives --config java
 sudo update-alternatives --config javac
+#+END_SRC
+
+Also add the following line to ~.bashrc~:
+
+#+BEGIN_SRC bash
+export JAVA_HOME="/usr/lib/jvm/jre" # Should be a soft link managed by alternatives
 #+END_SRC
 
 *** Install maven
 
 https://tecadmin.net/install-apache-maven-on-fedora/
+
+Download, extract and create softlink for maven
+
+#+BEGIN_SRC bash
+cd /opt
+sudo wget https://www-us.apache.org/dist/maven/maven-3/3.8.1/binaries/apache-maven-3.8.1-bin.tar.gz
+sudo tar xzf apache-maven-3.8.1-bin.tar.gz
+sudo ln -s apache-maven-3.8.1 maven
+#+END_SRC
+
+Then add to your ~.bashrc~ file:
+
+#+BEGIN_SRC bash
+export M2_HOME="/opt/maven"
+PATH="$PATH":"$M2_HOME/bin"
+#+END_SRC
 
 *** IntelliJ
 
