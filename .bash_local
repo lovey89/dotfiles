@@ -7,7 +7,7 @@
 
 #export no_proxy="localhost,192.168.0.14,otherhost"
 
-#export JAVA_HOME="$APP_DIR/Java/jdk8"
-#export M2_HOME="$APP_DIR/apache-maven-3.3.9"
+#export JAVA_HOME="/usr/lib/jvm/java-openjdk"
+#export M2_HOME="/opt/maven"
 #PATH="$PATH":"$M2_HOME/bin"
 #export MAVEN_OPTS="-Dfile.encoding=UTF-8 -XX:MaxPermSize=512m -Xms256m -Xmx1024m"

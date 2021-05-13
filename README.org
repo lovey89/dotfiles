@@ -50,7 +50,7 @@ sudo update-alternatives --config javac
 Also add the following line to ~.bashrc~:
 
 #+BEGIN_SRC bash
-export JAVA_HOME="/usr/lib/jvm/jre" # Should be a soft link managed by alternatives
+export JAVA_HOME="/usr/lib/jvm/java-openjdk" # Should be a soft link managed by alternatives
 #+END_SRC
 
 *** Install maven
