@@ -16,6 +16,13 @@ sudo dnf install google-chrome-stable
 
 For new versions if Fedora (>= 32): https://docs.docker.com/engine/install/fedora/
 
+So you don't have to write ~sudo~ before every ~docker~ command add you user to
+a docker group (suggested when starting ~minikube~):
+
+#+BEGIN_SRC bash
+sudo usermod -aG docker $USER && newgrp docker
+#+END_SRC
+
 For older versions (<= 31):
 
 [[https://linuxconfig.org/how-to-install-docker-on-fedora-31]]
@@ -25,6 +32,25 @@ There is a problem that you can't run docker in fedora 31 due to CGroupsV2
 This thread has some information how to solve it:
 
 https://www.reddit.com/r/linuxquestions/comments/dn2psl/upgraded_to_fedora_31_docker_will_not_work/
+
+*** Kubectl
+
+https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/
+
+*** Minikube
+
+https://minikube.sigs.k8s.io/docs/start/
+
+#+BEGIN_SRC bash
+minikube config set driver docker
+minikube start
+
+# Verify that it started and we can connect
+kubectl cluster-info
+
+# See dashboard
+minikube dashboard
+#+END_SRC
 
 ** Install Java
 
