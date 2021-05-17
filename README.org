@@ -52,6 +52,19 @@ kubectl cluster-info
 minikube dashboard
 #+END_SRC
 
+*** Helm
+
+Install helm: https://helm.sh/docs/intro/install/
+
+#+BEGIN_SRC bash
+# Needed for verification during running get_helm.sh
+sudo dnf install openssl
+
+curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3
+chmod 700 get_helm.sh
+./get_helm.sh
+#+END_SRC
+
 ** Install Java
 
 https://phoenixnap.com/kb/fedora-install-java
