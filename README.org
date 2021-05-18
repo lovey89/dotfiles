@@ -37,6 +37,13 @@ https://www.reddit.com/r/linuxquestions/comments/dn2psl/upgraded_to_fedora_31_do
 
 https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/
 
+To activate bash auto completion
+
+#+BEGIN_SRC bash
+sudo su -
+kubectl completion bash >/etc/bash_completion.d/kubectl
+#+END_SRC
+
 *** Minikube
 
 https://minikube.sigs.k8s.io/docs/start/
