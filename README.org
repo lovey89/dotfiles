@@ -148,3 +148,50 @@ https://www.reddit.com/r/discordapp/comments/7euehr/need_some_help_with_my_insta
 #+BEGIN_SRC bash
 sudo dnf install libatomic
 #+END_SRC
+
+** Nvidia drivers
+
+https://linuxconfig.org/how-to-install-the-nvidia-drivers-on-fedora-32 (tried on v 34 as well)
+
+Open up the terminal and identify your Nvidia graphic card model by executing:
+
+#+BEGIN_SRC bash
+lspci -vnn | grep VGA
+ 01:00.0 VGA compatible controller [0300]: NVIDIA Corporation GM204 [GeForce GTX 970] [10de:13c2] (rev a1) (prog-if 00 [VGA controller])
+#+END_SRC
+
+Fully update your system.
+
+#+BEGIN_SRC bash
+sudo dnf update
+#+END_SRC
+
+Failing to fully update your system may result in a kernel version mismatch
+producing the "NVIDIA kernel module missing. Falling back to nouveau." error
+message after the nvidia driver installation and system reboot.
+
+Enable RPM fusion:
+
+#+BEGIN_SRC bash
+sudo dnf install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm 
+sudo dnf install https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+#+END_SRC
+
+Install drivers. This works for GeForce GTX 970:
+
+#+BEGIN_SRC bash
+sudo dnf install akmod-nvidia
+#+END_SRC
+
+Reboot system
+
+#+BEGIN_SRC bash
+sudo reboot
+#+END_SRC
+
+After boot, check the version for the installed kernel module:
+
+#+BEGIN_SRC bash
+modinfo -F version nvidia
+# As long as it finds something we should be fine
+#+END_SRC
