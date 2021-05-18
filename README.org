@@ -137,3 +137,14 @@ https://docs.microsoft.com/en-us/answers/questions/3746/provide-repository-insta
 ** Slack
 
 https://slack.com/intl/en-se/help/articles/212924728-Download-Slack-for-Linux--beta-#fedora-2
+
+** Discord
+
+Install discord by downloading the ~.tar.gz~ file and untar it. https://discord.com/api/download?platform=linux&format=tar.gz
+
+Install ~libatomic~ or you will have microphone problems! From
+https://www.reddit.com/r/discordapp/comments/7euehr/need_some_help_with_my_installation_on_linux/
+
+#+BEGIN_SRC bash
+sudo dnf install libatomic
+#+END_SRC
