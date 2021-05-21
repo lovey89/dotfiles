@@ -13,3 +13,6 @@ sudo dnf install xclip
 
 # For backups
 sudo dnf install rmlint
+
+# For system information
+sudo dnf install neofetch
