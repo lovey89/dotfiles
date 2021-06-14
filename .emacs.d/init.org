@@ -206,6 +206,7 @@ installed. To ensure we install missing packages if they are missing.
           haskell-mode
           ;golden-ratio         ; Automatic resizing windows to golden ratio
           ;js2-mode             ; Improved JavaScript editing mode
+          markdown-mode
           multiple-cursors     ; Multiple cursors for Emacs
           neotree              ; Shows the file system tree in a buffer
           nyan-mode            ; Mode that display nyan cat in mode bar
