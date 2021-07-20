@@ -5,6 +5,8 @@
 	default = tracking
 [merge]
 	tool = kdiff3
+[diff]
+	tool = meld
 [color]
 	ui = true
 [alias]

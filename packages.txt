@@ -1,5 +1,6 @@
 sudo dnf install vim-enhanced
 sudo dnf install emacs
+sudo dnf install meld
 
 # For syntax highlighting in less
 sudo dnf install highlight
