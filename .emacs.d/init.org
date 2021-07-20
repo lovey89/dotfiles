@@ -203,6 +203,8 @@ installed. To ensure we install missing packages if they are missing.
           ;focus                ; Dim color of text in surrounding sections
           idle-require         ; load elisp libraries while Emacs is idle
           git-gutter-fringe    ; Fringe version of git-gutter.el
+          go-mode
+          ob-go
           haskell-mode
           ;golden-ratio         ; Automatic resizing windows to golden ratio
           ;js2-mode             ; Improved JavaScript editing mode
@@ -1033,7 +1035,8 @@ want to be able to evaluate python code.
    (js . t)
    (shell . t)
    (haskell . t)
-   (emacs-lisp . t)))
+   (emacs-lisp . t)
+   (go . t)))
 
 (setq org-babel-js-function-wrapper
       "process.stdout.write(require('util').inspect(function(){\n%s\n}(), { maxArrayLength: null, maxStringLength: null, breakLength: Infinity, compact: true }))")
