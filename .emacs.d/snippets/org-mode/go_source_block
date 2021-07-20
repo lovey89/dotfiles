@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: go source block
+# key: yago
+# --
+#+BEGIN_SRC go :results output
+$0
+#+END_SRC
