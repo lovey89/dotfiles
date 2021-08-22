@@ -31,7 +31,17 @@ git_prompt ()
   git_branch=$(git branch 2>/dev/null | sed -n '/^\*/s/^\* //p')
   echo "($git_branch)"
 }
-PS1='\[\e[0;32m\]\A\[\e[m\] \[\e[0;31m\]$HOSTNAME\[\e[m\]:\[\e[0;36m\]\W\[\e[m\]\[\e[0;33m\]$(git_prompt)\[\e[m\]\[\e[0;36m\]>\[\e[m\]'
+export VIRTUAL_ENV_DISABLE_PROMPT=1
+virtualenv_info()
+{
+  if [[ -n "$VIRTUAL_ENV" ]]; then
+    venv="${VIRTUAL_ENV##*/}"
+  else
+    venv=''
+  fi
+  [ -n "$venv" ] && echo "(venv:$venv)"
+}
+PS1='\[\e[0;32m\]\A\[\e[m\] \[\e[0;31m\]$HOSTNAME\[\e[m\]:\[\e[0;36m\]\W\[\e[m\]\[\e[0;33m\]$(git_prompt)\[\e[m\]\[\e[0;35m\]$(virtualenv_info)\[\e[m\]\[\e[0;36m\]>\[\e[m\]'
 # See for more color codes http://misc.flogisoft.com/bash/tip_colors_and_formatting
 
 # Variables
