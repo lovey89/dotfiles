@@ -37,7 +37,7 @@ create_new_component() {
 }
 
 clone_git_repo() {
-  NEW_DIR=$(basename $1)
+  NEW_DIR=$(basename $1 ".git")
   if [ -d "$NEW_DIR" ]; then
     echo -e "\033[0;35mRepo \033[0;36m$1\033[0;35m already cloned in \033[0;33m${CURRENT_DIR}/${NEW_DIR}\033[0m"
     return

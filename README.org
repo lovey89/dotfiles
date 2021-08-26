@@ -146,6 +146,9 @@ Install ~libatomic~ or you will have microphone problems! From
 https://www.reddit.com/r/discordapp/comments/7euehr/need_some_help_with_my_installation_on_linux/
 
 #+BEGIN_SRC bash
+cd /opt
+sudo wget --content-disposition "https://discord.com/api/download?platform=linux&format=tar.gz"
+sudo tar xzf discord-0.*.tar.gz
 sudo dnf install libatomic
 #+END_SRC
 
