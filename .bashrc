@@ -23,7 +23,7 @@ if [ -f "$MY_BASH_ALIASES" ]; then
 fi
 
 # Prompt
-git_prompt ()
+git_prompt()
 {
   if ! git rev-parse --git-dir > /dev/null 2>&1; then
     return 0
@@ -39,9 +39,18 @@ virtualenv_info()
   else
     venv=''
   fi
-  [ -n "$venv" ] && echo "(venv:$venv)"
+  [ -n "$venv" ] && echo -e "(\U0001f40d$venv)"
 }
-PS1='\[\e[0;32m\]\A\[\e[m\] \[\e[0;31m\]$HOSTNAME\[\e[m\]:\[\e[0;36m\]\W\[\e[m\]\[\e[0;33m\]$(git_prompt)\[\e[m\]\[\e[0;35m\]$(virtualenv_info)\[\e[m\]\[\e[0;36m\]>\[\e[m\]'
+k8s_prompt()
+{
+  if command -v "kubectl" > /dev/null 2>&1; then
+    k8s_context=$(kubectl config current-context)
+  else
+    k8s_context=''
+  fi
+  [ -n "$k8s_context" ] && echo -e "(\u2638 $k8s_context)"
+}
+PS1='\[\e[0;32m\]\A\[\e[m\] \[\e[0;31m\]$HOSTNAME\[\e[m\]:\[\e[0;36m\]\W\[\e[m\]\[\e[0;33m\]$(git_prompt)\[\e[m\]\[\e[0;35m\]$(virtualenv_info)\[\e[m\]\[\e[0;32m\]$(k8s_prompt)\[\e[m\]\[\e[0;36m\]>\[\e[m\]'
 # See for more color codes http://misc.flogisoft.com/bash/tip_colors_and_formatting
 
 # Variables
