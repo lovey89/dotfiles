@@ -1,0 +1,12 @@
+#!/bin/bash
+
+if [ -z ${!1+x} ]; then
+  echo "Variable '$1' was not set." 1>&2
+  if [ ! -z ${2+x} ]; then
+    echo -e "$2" 1>&2
+  fi
+  exit 1
+fi
+
+exit 0
+
