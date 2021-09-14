@@ -28,8 +28,9 @@ git_prompt()
   if ! git rev-parse --git-dir > /dev/null 2>&1; then
     return 0
   fi
+  project=$(basename $(git rev-parse --show-toplevel))
   git_branch=$(git branch 2>/dev/null | sed -n '/^\*/s/^\* //p')
-  echo "($git_branch)"
+  echo "($project:$git_branch)"
 }
 export VIRTUAL_ENV_DISABLE_PROMPT=1
 virtualenv_info()
