@@ -19,4 +19,6 @@ sudo dnf install rmlint
 sudo dnf install neofetch
 
 # Latex
-sudo dnf install texlive-xetex texlive-textpos texlive-graphbox texlive-academicons texlive-fontawesome5 texlive-xhfill texlive-microtype texlive-clearsans texlive-smartdiagram
+sudo dnf install texlive-xetex texlive-textpos texlive-graphbox \
+  texlive-academicons texlive-fontawesome5 texlive-xhfill texlive-microtype \
+  texlive-clearsans texlive-smartdiagram texlive-babel-swedish
