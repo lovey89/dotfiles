@@ -56,7 +56,10 @@ PS1='\[\e[0;32m\]\A\[\e[m\] \[\e[0;31m\]$HOSTNAME\[\e[m\]:\[\e[0;36m\]\W\[\e[m\]
 
 # Variables
 export VISUAL=vim
+
 export PATH="$PATH":"$DOTFILES_DIR"/scripts:"$DOTFILES_DIR"/configscripts
+PATH="$PATH":"$HOME"/.cargo/bin
+
 #export PROMPT_COMMAND='printf "\033k%s@%s:%s\033\\" "${USER}" "${HOSTNAME%%.*}" "${PWD/#$HOME/\~}"'
 unset -v PROMPT_COMMAND
 
