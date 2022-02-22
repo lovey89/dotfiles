@@ -87,16 +87,16 @@ case "$1" in
     if [ -x "$(command -v highlight)" ]; then
       lang=$(check_language_is_known_to_highlight "$lang")
       if [ -n "$lang" ]; then
-        echo $file | highlight -s mywombat2 -O truecolor --failsafe --syntax-by-name=$lang
+        echo "$file" | highlight -s mywombat2 -O truecolor --failsafe --syntax-by-name=$lang
       else
-        echo $file
+        echo "$file"
       fi
     else
       lang=$(check_language_is_known "$lang")
       if [ -n "$lang" ]; then
-        echo $file | source-highlight --failsafe -f esc --src-lang=$lang --style-file=esc.style
+        echo "$file" | source-highlight --failsafe -f esc --src-lang=$lang --style-file=esc.style
       else
-        echo $file
+        echo "$file"
       fi
     fi
     ;;
