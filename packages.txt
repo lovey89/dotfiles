@@ -1,6 +1,7 @@
 sudo dnf install vim-enhanced
 sudo dnf install emacs
 sudo dnf install meld
+sudo dnf install tmux
 
 # For syntax highlighting in less
 sudo dnf install highlight

@@ -1,4 +1,4 @@
-#!/usr/bin/sh
+#!/usr/bin/bash
 
 # -e: Exit immediately if a pipeline, a list, or a compound command, exits with
 #     a non-zero status.
@@ -87,7 +87,7 @@ case "$1" in
     if [ -x "$(command -v highlight)" ]; then
       lang=$(check_language_is_known_to_highlight "$lang")
       if [ -n "$lang" ]; then
-        echo "$file" | highlight -s mywombat2 -O truecolor --failsafe --syntax-by-name=$lang
+        echo "$file" | highlight -s mywombat2 -O truecolor --failsafe --syntax=$lang
       else
         echo "$file"
       fi

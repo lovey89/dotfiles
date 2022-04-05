@@ -28,7 +28,12 @@ git_prompt()
   if ! git rev-parse --git-dir > /dev/null 2>&1; then
     return 0
   fi
-  project=$(basename $(git rev-parse --show-toplevel))
+  top_level=$(git rev-parse --show-toplevel 2> /dev/null)
+  if [ $? -eq 0 ]; then
+    project=$(basename "$top_level")
+  else
+    project=$(echo "$PWD" | sed -rn 's#.*/([^/]+)/.git/?.*#\1#p')
+  fi
   git_branch=$(git branch 2>/dev/null | sed -n '/^\*/s/^\* //p')
   echo "($project:$git_branch)"
 }
@@ -45,7 +50,10 @@ virtualenv_info()
 k8s_prompt()
 {
   if command -v "kubectl" > /dev/null 2>&1; then
-    k8s_context=$(kubectl config current-context)
+    k8s_context=$(kubectl config current-context 2> /dev/null)
+    if [ "$?" != 0 ]; then
+       k8s_context="NONE"
+    fi
   else
     k8s_context=''
   fi
@@ -67,7 +75,11 @@ unset -v PROMPT_COMMAND
 export HISTCONTROL="ignorespace:erasedups"
 
 #Use more colors if possible
+LINUX_DIST=$(sed -rn 's/^NAME="(.*)"$/\1/p' /etc/os-release)
 if [ -e /usr/share/terminfo/x/xterm-256color ]; then
+  export TERM='xterm-256color'
+elif [ "$LINUX_DIST" == "Ubuntu" ]; then
+  # The file /usr/share/terminfo/x/xterm-256color doesn't exists on Ubuntu but the variable still works
   export TERM='xterm-256color'
 elif [ "$OSTYPE" == "cygwin" ]; then
   export TERM='xterm-256color'

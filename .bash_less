@@ -16,6 +16,7 @@ if [ "$OSTYPE" != "cygwin" ]; then
   # It looks like cygwin handles this variable poorly
   # Close less automatically if file fits on one screen
   LESS="${LESS}F"
+  alias fless='less -+F'
 fi
 
 # Settings for colors in man pages
