@@ -68,4 +68,4 @@ fi
 # Create this empty directory because emacs won't do it automatically
 mkdir -p "${DOTFILES_DIR}/.emacs.d/autosaves"
 
-#sudo ln -s "${DOTFILES_DIR}/resources/mywombat2.theme" "/usr/share/highlight/themes/mywombat2.theme"
+sudo ln -s "${DOTFILES_DIR}/resources/mywombat2.theme" "/usr/share/highlight/themes/mywombat2.theme"

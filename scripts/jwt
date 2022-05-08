@@ -1,0 +1,16 @@
+#!/bin/bash
+if [ "${1}" == "" ]; then
+    echo "Usage:
+  $(basename $0) jwt-token" >&2
+    exit 1
+fi
+
+if ! command -v "jq" > /dev/null 2>&1; then
+  echo "Command 'jq' is not available" >&2
+  exit 2
+fi
+
+jq -R 'split(".") | .[0],.[1] | @base64d | fromjson' <<< "${1}"
+echo "Expires (exp): " $(date -d @$(jq -R 'split(".") | .[1] | @base64d | fromjson| .exp' <<< "${1}"))
+echo "Issued  (iat): " $(date -d @$(jq -R 'split(".") | .[1] | @base64d | fromjson| .iat' <<< "${1}"))
+echo "Signature: $(echo "${1}" | awk -F'.' '{print $3}')"

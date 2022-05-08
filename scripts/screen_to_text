@@ -10,7 +10,7 @@ MULTIPLE="FALSE"
 
 usage() {
   cat 1>&2 << END_HEREDOC
-Description
+Description:
   Mark a box of text which you want the text from. If you specify a
   language, that langauge needs to be installed for tesseract.
 
@@ -168,6 +168,16 @@ while getopts ":l:w:hbmn" opt; do
   esac
 done
 shift $((OPTIND-1))
+
+if ! command -v "tesseract" > /dev/null 2>&1; then
+  echo "Command 'tesseract' is not available. Install 'tesseract-ocr' package" >&2
+  exit 2
+fi
+
+if ! command -v "mogrify" > /dev/null 2>&1; then
+  echo "Command 'mogrify' is not available. Install 'imagemagick' package" >&2
+  exit 2
+fi
 
 if [ "$TAKE_SCREENSHOT" = "TRUE" ]; then
   if [ -f "${SRC}-0.png" ]; then
