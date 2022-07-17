@@ -18,6 +18,11 @@ alias proxyauth='curl -sU "$USER" http://www.google.se > /dev/null'
 
 alias genuuid="uuidgen | sed -r -e 's/-//g' -e 's/.*/\U&/'"
 
+# Without --no-x-resources it will get problems with some colors when running
+# without -nw. I can't see any difference so I add it by default
+
+alias emacs="emacs --no-x-resources"
+
 # Functions
 
 cless()
