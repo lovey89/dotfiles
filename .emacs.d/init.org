@@ -457,6 +457,16 @@ margin to top and bottom
 (setq scroll-step 1)
 #+END_SRC
 
+Make org code block background extend beyond EOL. This behaviour was changed in
+Emacs 27. You can easily customize a face interactively with ~M-x customize-face~
+
+#+BEGIN_SRC emacs-lisp
+(custom-set-faces
+ '(org-block ((t (:extend t))))
+ '(org-block-begin-line ((t (:extend t))))
+ '(org-block-end-line ((t (:extend t)))))
+#+END_SRC
+
 Use the [[http://www.levien.com/type/myfonts/inconsolata.html][Inconsolata]] font if it's installed on the system.
 
 #+BEGIN_SRC emacs-lisp
@@ -1244,6 +1254,14 @@ visit that file and look at the settings.
 (global-set-key "\C-ca" 'org-agenda)
 (global-set-key "\C-cc" 'org-capture)
 (global-set-key "\C-cb" 'org-iswitchb)
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+; Send prefix with C-o (same as C-u C-o). Otherwise some files weren't opened
+; for some reason. For some files it would just say "Running less <file>" in the
+; status bar
+(with-eval-after-load "org"
+  (define-key org-mode-map (kbd "C-c C-o") (lambda () (interactive) (org-open-at-point t))))
 #+END_SRC
 
 ** Bindings for navigation
