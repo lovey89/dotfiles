@@ -91,6 +91,8 @@ EOM
 
 echo "[WGET] downloading: start: $PROTO://$HOST/$LOCATION"
 wget  --no-verbose \
+      -H --domains="$HOST,www.$HOST" \
+      -np \
       --recursive \
       --level="$DEPTH" \
       --execute robots=off \
