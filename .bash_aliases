@@ -25,6 +25,20 @@ alias emacs="emacs --no-x-resources"
 
 # Functions
 
+alert()
+{
+  success="$?"
+  command="$(history|tail -n1|sed -re 's/^\s*[0-9]+\s*//;s/[;&|]\s*alert$//')"
+  # icons can be provided with an absolute path, otherwise they are found under /usr/share/icons
+  image="$([ $success = 0 ] && echo terminal || echo error)"
+  title="$([ $success = 0 ] && echo Success || echo Failure)"
+  body="$([ $success = 0 ] && echo 'Command returned <b>successfully</b>' || echo 'Command returned <b>with an error</b>')"
+  # Critical urgency makes the message stay until you click it. the expire-time option doesn't work
+  notify-send -u critical -t "0" -i "$image" "$command" "$body"
+  # Also see: https://specifications.freedesktop.org/icon-naming-spec/latest/ar01s04.html
+  # and https://specifications.freedesktop.org/notification-spec/notification-spec-latest.html
+}
+
 cless()
 {
   # Every second row will be colored yellow
