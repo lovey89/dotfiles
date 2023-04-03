@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-if [ "$0" = "$BASH_SOURCE" ]; then
+if [ "$0" = "${BASH_SOURCE[0]}" ]; then
   cat <<EOF >&2
 This script can't be run. This script must be sourced from other script.
 
@@ -36,6 +36,8 @@ C_INFO='\033[0;37;1m'
 C_HIGHLIGHT='\033[0;34;1m'
 C_NO_C='\033[0m'
 
+long_running_commands=()
+
 activate_command_printer() {
   end_report='true'
   print_script_result='true'
@@ -59,7 +61,7 @@ activate_command_printer() {
     esac
     shift
   done
-  long_running_commands=()
+
   # Pass LINENO and BASH_SOURCE as variables or they
   # will evaluate to wrong values
   trap 'exit_command' EXIT
@@ -83,7 +85,7 @@ print_final_time() {
   since_last_prompt=$(seconds_to_human $seconds_since_last_prompt)
   if [ $seconds_since_last_prompt -gt 0 ]; then
     echo -e "${C_TIME}Time since last prompt: $since_last_prompt${C_NO_C}"
-    if [ $seconds_since_last_prompt -ge $long_command_time_threshold ]; then
+    if [ "$seconds_since_last_prompt" -ge "$long_command_time_threshold" ]; then
       long_running_commands+=("${seconds_since_last_prompt}:$last_command")
     fi
   fi
@@ -102,7 +104,7 @@ print_report() {
       long_running_commands_with_time+=("${C_TIME}${human_time}${C_INFO} ${padded_percent_string}: $command")
     done
 
-    echo -e "\n${C_INFO}Commands in script running for longer than ${C_HIGHLIGHT}$long_command_time_threshold${C_INFO} seconds (sorted by running time)${C_NO_C}"
+    echo -e "\n${C_INFO}+--- Commands in script running for longer than ${C_HIGHLIGHT}$long_command_time_threshold${C_INFO} seconds (sorted by running time)${C_NO_C}"
     #https://stackoverflow.com/questions/7442417/how-to-sort-an-array-in-bash
     IFS=$'\n' sorted=($(sort -r <<<"${long_running_commands_with_time[*]}")); unset IFS
     for long_running_command in "${sorted[@]}"; do
@@ -198,7 +200,7 @@ command_printer() {
   if [ $seconds_since_last_prompt -gt 0 ]; then
     echo -e "${C_TIME}Time since last prompt: $since_last_prompt${C_NO_C}"
     echo -e "${C_TIME}Time since start:       $since_start${C_NO_C}"
-    if [ $seconds_since_last_prompt -ge $long_command_time_threshold ]; then
+    if [ "$seconds_since_last_prompt" -ge "$long_command_time_threshold" ]; then
       # Replace all backslashes followed by newline (and leading and trailing whitespaces around it)
       # with single space. The final report will have problems sorting the result otherwise
       last_command=$(echo "$last_command" | sed -r ':a;N;$!ba;s/ *\\\n[\t ]*/ /g')
