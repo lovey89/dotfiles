@@ -23,6 +23,13 @@ alias genuuid="uuidgen | sed -r -e 's/-//g' -e 's/.*/\U&/'"
 
 alias emacs="emacs --no-x-resources"
 
+if command -v kubectl &> /dev/null; then
+  # Only configure this alias if kubectl is installed
+  alias k=kubectl
+  # Also set up autocompletion for the k command
+  complete -F __start_kubectl k
+fi
+
 # Functions
 
 alert()
