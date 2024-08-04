@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: rust source block
+# key: yarust
+# --
+#+BEGIN_SRC rust :results output
+$0
+#+END_SRC
