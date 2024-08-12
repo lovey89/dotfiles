@@ -37,6 +37,10 @@ createlink ".bash_aliases"
 createlink ".gitconfig"
 createlink ".vimrc"
 createlink ".tmux.conf"
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  createlink ".bash_profile"
+fi
+
 
 # directories
 createlink ".emacs.d"
