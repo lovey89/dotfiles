@@ -15,3 +15,4 @@ set wildmode=longest:full,full
 set whichwrap+=<,>,[,]
 
 set mouse-=a
+set ruler
