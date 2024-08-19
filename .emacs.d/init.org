@@ -1245,6 +1245,7 @@ visit that file and look at the settings.
 
 (define-key custom-bindings-map (kbd "C-b r")  'revert-buffer)
 (define-key custom-bindings-map (kbd "C-b t")  'delete-trailing-whitespace)
+(define-key custom-bindings-map (kbd "C-b c")  'comment-or-uncomment-region)
 #+END_SRC
 
 ** Bindings for org mode

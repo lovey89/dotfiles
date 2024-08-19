@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/usr/bin/env bash
 
 # -e: Exit immediately if a pipeline, a list, or a compound command, exits with
 #     a non-zero status.
