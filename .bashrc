@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # ~/.bashrc
 #
 
@@ -62,6 +62,16 @@ k8s_prompt()
 PS1='\[\e[0;32m\]\A\[\e[m\] \[\e[0;31m\]$HOSTNAME\[\e[m\]:\[\e[0;36m\]\W\[\e[m\]\[\e[0;33m\]$(git_prompt)\[\e[m\]\[\e[0;35m\]$(virtualenv_info)\[\e[m\]\[\e[0;32m\]$(k8s_prompt)\[\e[m\]\[\e[0;36m\]>\[\e[m\]'
 # See for more color codes http://misc.flogisoft.com/bash/tip_colors_and_formatting
 
+if [ -f /opt/homebrew/bin/brew ]; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+  [[ -r "$(brew --prefix)/etc/profile.d/bash_completion.sh" ]] && . "$(brew --prefix)/etc/profile.d/bash_completion.sh"
+  # The location where bash completion files should be placed. Prefixed with
+  # CUSTOM_ to avoid eventual conflicts with bash
+  CUSTOM_BASH_COMPLETION_DIR="$(brew --prefix)/etc/bash_completion.d"
+fi
+# For osx to disable message to use zsh
+export BASH_SILENCE_DEPRECATION_WARNING=1
+
 # Variables
 export VISUAL=vim
 
@@ -75,13 +85,17 @@ unset -v PROMPT_COMMAND
 export HISTCONTROL="ignorespace:erasedups"
 
 #Use more colors if possible
-LINUX_DIST=$(sed -rn 's/^NAME="(.*)"$/\1/p' /etc/os-release)
+if [ -f /etc/os-release ]; then
+  LINUX_DIST=$(sed -rn 's/^NAME="(.*)"$/\1/p' /etc/os-release)
+fi
 if [ -e /usr/share/terminfo/x/xterm-256color ]; then
   export TERM='xterm-256color'
 elif [ "$LINUX_DIST" == "Ubuntu" ]; then
   # The file /usr/share/terminfo/x/xterm-256color doesn't exists on Ubuntu but the variable still works
   export TERM='xterm-256color'
 elif [ "$OSTYPE" == "cygwin" ]; then
+  export TERM='xterm-256color'
+elif [[ "$OSTYPE" == "darwin"* ]]; then
   export TERM='xterm-256color'
 else
   export TERM='xterm-color'
