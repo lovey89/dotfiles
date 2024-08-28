@@ -101,12 +101,12 @@ else
   export TERM='xterm-color'
 fi
 
-# Load local settings
-if [ -f "$MY_LOCAL_SETTINGS" ]; then
-  . "$MY_LOCAL_SETTINGS"
-fi
-
 # Load less settings
 if [ -f "$MY_LESS_SETTINGS" ]; then
   . "$MY_LESS_SETTINGS"
+fi
+
+# Load local settings
+if [ -f "$MY_LOCAL_SETTINGS" ]; then
+  . "$MY_LOCAL_SETTINGS"
 fi

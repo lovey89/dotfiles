@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Packages to install on Fedora: tesseract, ImageMagick, xclip
 
@@ -37,16 +37,15 @@ createlink ".bash_aliases"
 createlink ".gitconfig"
 createlink ".vimrc"
 createlink ".tmux.conf"
-if [[ "$OSTYPE" == "darwin"* ]]; then
-  createlink ".bash_profile"
-fi
-
+createlink ".wezterm.lua"
 
 # directories
 createlink ".emacs.d"
 createlink ".vim"
 
-if [ "$OSTYPE" == "cygwin" ]; then
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  createlink ".bash_profile"
+elif [ "$OSTYPE" == "cygwin" ]; then
   createlink ".minttyrc"
 else
   createlink ".Xresources"
