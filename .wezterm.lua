@@ -11,6 +11,8 @@ config.enable_tab_bar = false
 -- Without this there is no titlebar of the window in fedora
 config.enable_wayland = false
 
+config.audible_bell = 'Disabled'
+
 config.keys = {
   {
     key = 'w',
