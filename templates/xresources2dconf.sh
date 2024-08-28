@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Script to convert a color scheme in xresources to dfonf format (for
 # gnome terminal). Can also handle when the colors are located in a variable

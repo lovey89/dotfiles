@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Script to convert a color scheme in xresources to .minttyrc format (for
 # cygwin). Can also handle when the colors are located in a variable

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 SCRIPT_DIR=$(readlink -f `dirname $0`)
 DOTFILES_DIR="${SCRIPT_DIR}/.."
