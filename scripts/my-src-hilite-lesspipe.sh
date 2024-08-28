@@ -6,7 +6,7 @@
 #     and "*" as an error when performing parameter expansion.
 set -eu
 
-highlight_command='highlight -s mywombat2 -O truecolor --failsafe'
+highlight_command='highlight -s mywombat2 -O truecolor --force'
 
 guess_language() {
   if echo -e "${1:-}" | grep -q $'\033'; then
@@ -87,7 +87,7 @@ case "$1" in
     if [ -x "$(command -v highlight)" ]; then
       lang=$(check_language_is_known_to_highlight "$lang")
       if [ -n "$lang" ]; then
-        echo "$file" | highlight -s mywombat2 -O truecolor --failsafe --syntax=$lang
+        echo "$file" | highlight -s mywombat2 -O truecolor --force --syntax=$lang
       else
         echo "$file"
       fi
