@@ -8,8 +8,28 @@ local config = wezterm.config_builder()
 
 config.enable_tab_bar = false
 
--- For example, changing the color scheme:
--- config.color_scheme = 'AdventureTime'
+config.keys = {
+  {
+    key = 'w',
+    mods = 'CMD',
+    action = wezterm.action.DisableDefaultAssignment,
+  },
+  {
+    key = '-',
+    mods = 'CTRL|SHIFT',
+    action = wezterm.action.DisableDefaultAssignment,
+  },
+  {
+    key = '_',
+    mods = 'CTRL|SHIFT',
+    action = wezterm.action.DisableDefaultAssignment,
+  },
+  {
+    key = '+',
+    mods = 'CTRL|SHIFT',
+    action = wezterm.action.DisableDefaultAssignment,
+  },
+}
 
 -- and finally, return the configuration to wezterm
 return config
