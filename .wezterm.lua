@@ -35,6 +35,7 @@ config.keys = {
 }
 
 config.color_scheme = 'mywombat'
+config.font_size = 9.0
 
 -- and finally, return the configuration to wezterm
 return config
