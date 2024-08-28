@@ -15,6 +15,9 @@ elif [ ! -r "${COLOR_DIR}/$1" ]; then
   exit 2
 fi
 
+WEZTERM_FILE="${DOTFILES_DIR}/.config/wezterm/colors/$1.toml"
+
+# ------
 # .terminaldconf file
 # Remove it if it exists
 rm -f "$DCONF_FILE"
@@ -31,6 +34,7 @@ cat "${SCRIPT_DIR}/.terminaldconf" >> "$DCONF_FILE"
 # Make it not writable
 chmod 444 "$DCONF_FILE"
 
+# ------
 # .minttyrc file
 # Remove it if it exists
 rm -f "$MINTTYRC_FILE"
@@ -47,6 +51,7 @@ cat "${SCRIPT_DIR}/.minttyrc" >> "$MINTTYRC_FILE"
 # Make it not writable
 chmod 444 "$MINTTYRC_FILE"
 
+# ------
 # .Xresources file
 # Remove it if it exists
 rm -f "$XRESOURCES_FILE"
@@ -67,3 +72,23 @@ cat "${COLOR_DIR}/$1" >> "$XRESOURCES_FILE"
 
 # Make it not writable
 chmod 444 "$XRESOURCES_FILE"
+
+# ------
+# wezterm file
+# Remove it if it exists
+rm -f "$WEZTERM_FILE"
+mkdir -p "$(dirname $WEZTERM_FILE)"
+
+cat << WEZTERM_COMMENTS > "$WEZTERM_FILE"
+# Dont update this file directly. Update dotfiles/templates/xresources2wezterm.sh
+# and run the dotfiles/templates/create_config_files command to generate the new
+# config
+# -------------------------------------------------------------------------------
+
+# The color codes are fetched from the file: $1
+WEZTERM_COMMENTS
+
+"${SCRIPT_DIR}/xresources2wezterm.sh" "${COLOR_DIR}/$1" >> "$WEZTERM_FILE"
+
+# Make it not writable
+chmod 444 "$WEZTERM_FILE"

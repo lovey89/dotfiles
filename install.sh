@@ -7,23 +7,35 @@ DOTFILES_DIR=$(readlink -f `dirname $0`)
 
 createlink()
 {
-  HOME_DIR_POSITION="$HOME/$1"
+  ORIG_PATH="$1"
+  PATH_RELATIVE_HOME="$2"
+  if [ -n "$PATH_RELATIVE_HOME" ]; then
+    mkdir -p "$HOME/$PATH_RELATIVE_HOME"
+    HOME_DIR_POSITION="$HOME/$PATH_RELATIVE_HOME/$(basename $ORIG_PATH)"
+  else
+    HOME_DIR_POSITION="$HOME/$ORIG_PATH"
+  fi
+
   if [ -h "$HOME_DIR_POSITION" ]; then
     # Check if this link is pointing to the dotfiles directory
     LINK_PATH=$(dirname $(readlink -f "$HOME_DIR_POSITION"))
-    if [ "$LINK_PATH" = "$DOTFILES_DIR" ]; then
-      echo -e "\033[0;32mSym link for \033[1;34m$1\033[0;32m already exists\033[0m"
+
+    if [ -z "$PATH_RELATIVE_HOME" ] && [ "$LINK_PATH" = "$DOTFILES_DIR" ]; then
+      echo -e "\033[0;32mSym link for \033[1;34m$ORIG_PATH\033[0;32m already exists\033[0m"
+      return
+    elif [ "$LINK_PATH" = "$DOTFILES_DIR/$(dirname $ORIG_PATH)" ]; then
+      echo -e "\033[0;32mSym link for \033[1;34m$ORIG_PATH\033[0;32m already exists\033[0m"
       return
     else
-      echo -e "\033[0;31mRemoving old symlink \033[1;34m$1 -> $(readlink -f $HOME_DIR_POSITION)\033[0m"
+      echo -e "\033[0;31mRemoving old symlink \033[1;34m$ORIG_PATH -> $(readlink -f $HOME_DIR_POSITION)\033[0m"
       rm "$HOME_DIR_POSITION"
     fi
   elif [ -e "$HOME_DIR_POSITION" ]; then
-    echo -e "\033[0;36mCreating backup of \033[1;34m$1\033[0m"
+    echo -e "\033[0;36mCreating backup of \033[1;34m$ORIG_PATH\033[0m"
     mv "$HOME_DIR_POSITION" "$BACKUP_DIR"
   fi
-  echo -e "\033[0;33mCreating symlink for \033[1;34m$1\033[0m"
-  ln -s "$DOTFILES_DIR/$1" "$HOME_DIR_POSITION"
+  echo -e "\033[0;33mCreating symlink for \033[1;34m$ORIG_PATH\033[0m"
+  ln -s "$DOTFILES_DIR/$ORIG_PATH" "$HOME_DIR_POSITION"
 }
 
 # Generate .minttyrc and .Xresources with specified color scheme
@@ -42,6 +54,7 @@ createlink ".wezterm.lua"
 # directories
 createlink ".emacs.d"
 createlink ".vim"
+createlink ".config/wezterm" ".config"
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
   createlink ".bash_profile"
@@ -71,4 +84,6 @@ fi
 # Create this empty directory because emacs won't do it automatically
 mkdir -p "${DOTFILES_DIR}/.emacs.d/autosaves"
 
-sudo ln -s "${DOTFILES_DIR}/resources/mywombat2.theme" "/usr/share/highlight/themes/mywombat2.theme"
+if [ -d "/usr/share/highlight/themes" ] && [ ! -f "/usr/share/highlight/themes/mywombat2.theme" ]; then
+  sudo ln -s "${DOTFILES_DIR}/resources/mywombat2.theme" "/usr/share/highlight/themes/mywombat2.theme"
+fi

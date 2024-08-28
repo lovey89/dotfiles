@@ -8,6 +8,9 @@ local config = wezterm.config_builder()
 
 config.enable_tab_bar = false
 
+-- Without this there is no titlebar of the window in fedora
+config.enable_wayland = false
+
 config.keys = {
   {
     key = 'w',
@@ -30,6 +33,8 @@ config.keys = {
     action = wezterm.action.DisableDefaultAssignment,
   },
 }
+
+config.color_scheme = 'mywombat'
 
 -- and finally, return the configuration to wezterm
 return config
