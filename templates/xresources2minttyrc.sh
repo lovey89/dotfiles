@@ -4,9 +4,9 @@
 # cygwin). Can also handle when the colors are located in a variable
 
 getColor() {
-  POSSIBLE_COLOR=$(sed -rn 's/.*'$1':\s*([^\s]*)/\1/p' $FILE)
+  POSSIBLE_COLOR=$(sed -rn "s/.*$1: *([^ ]*)/\1/p" $FILE)
 
-  if [ ${POSSIBLE_COLOR:0:1} = "#" ]; then
+  if [ "${POSSIBLE_COLOR:0:1}" = "#" ]; then
     # The color code should start with "#"
     echo $POSSIBLE_COLOR
   else
@@ -16,8 +16,8 @@ getColor() {
 }
 
 getColorVar() {
-  POSSIBLE_COLOR=$(sed -rn 's/\s*#define\s+'$1'\s+([^\s]*)/\1/p' $FILE)
-  if [ ${POSSIBLE_COLOR:0:1} = "#" ]; then
+  POSSIBLE_COLOR=$(sed -rn "s/ *#define +$1 +([^ ]*)/\1/p" $FILE)
+  if [ "${POSSIBLE_COLOR:0:1}" = "#" ]; then
     # The color code should start with "#"
     echo $POSSIBLE_COLOR
   else

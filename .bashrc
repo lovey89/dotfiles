@@ -97,6 +97,8 @@ elif [ "$OSTYPE" == "cygwin" ]; then
   export TERM='xterm-256color'
 elif [[ "$OSTYPE" == "darwin"* ]]; then
   export TERM='xterm-256color'
+  # Make e.g. ls output colorized
+  export CLICOLOR=1
 else
   export TERM='xterm-color'
 fi
