@@ -38,7 +38,7 @@ createlink()
   ln -s "$DOTFILES_DIR/$ORIG_PATH" "$HOME_DIR_POSITION"
 }
 
-# Generate .minttyrc and .Xresources with specified color scheme
+# Generate .minttyrc, .wezterm and .Xresources with specified color scheme
 "${DOTFILES_DIR}/templates/create_config_files" mywombat
 
 mkdir -p "$BACKUP_DIR"
@@ -86,4 +86,7 @@ mkdir -p "${DOTFILES_DIR}/.emacs.d/autosaves"
 
 if [ -d "/usr/share/highlight/themes" ] && [ ! -f "/usr/share/highlight/themes/mywombat2.theme" ]; then
   sudo ln -s "${DOTFILES_DIR}/resources/mywombat2.theme" "/usr/share/highlight/themes/mywombat2.theme"
+fi
+if [ -d "/opt/homebrew/share/highlight/themes" ] && [ ! -f "/opt/homebrew/share/highlight/themes/mywombat2.theme" ]; then
+  sudo ln -s "${DOTFILES_DIR}/resources/mywombat2.theme" "/opt/homebrew/share/highlight/themes/mywombat2.theme"
 fi
