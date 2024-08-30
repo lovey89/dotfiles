@@ -33,6 +33,8 @@ Major parts of this file comes from [[https://github.com/larstvei/dot-emacs][thi
   - [[#neotree][NeoTree]]
   - [[#web-mode][Web mode]]
   - [[#yaml-mode][yaml mode]]
+  - [[#rust-mode][rust mode]]
+  - [[#lsp-mode][lsp mode]]
 - [[#key-bindings][Key bindings]]
   - [[#fixes-for-key-bindings][Fixes for key bindings]]
   - [[#bindings-for-expand-region][Bindings for expand-region]]
@@ -228,6 +230,7 @@ installed. To ensure we install missing packages if they are missing.
           which-key            ; Display available keybindings in popup
           yasnippet            ; Template system for Emacs
           yaml-mode            ; Major mode for yaml files
+          lsp-mode             ; Language server protocol
           xcscope)))           ; Tool to find variables and functions in C
   (ignore-errors ;; This package is only relevant for Mac OS X.
     (when (memq window-system '(mac ns))
@@ -272,6 +275,7 @@ for stuff you eventually want to load, but is not a high priority.
 (require 'smartparens-config)
 (require 'web-mode)
 (require 'yaml-mode)
+(require 'lsp-mode)
 
 (setq idle-require-idle-delay 1)
 (idle-require-mode 1)
@@ -1148,6 +1152,20 @@ https://fransiska.github.io/emacs/2017/08/21/web-development-in-emacs
 (add-hook 'yaml-mode-hook
           '(lambda ()
              (define-key yaml-mode-map "\C-m" 'newline-and-indent)))
+#+END_SRC
+
+** rust mode
+
+#+BEGIN_SRC emacs-lisp
+(add-hook 'rust-mode-hook 'lsp)
+#+END_SRC
+
+** lsp mode
+
+#+BEGIN_SRC emacs-lisp
+;(define-key lsp-mode-map (kbd "C-c k") lsp-command-map)
+(define-key lsp-mode-map (kbd "C-f") lsp-command-map)
+;(setq lsp-keymap-prefix "C-c k")
 #+END_SRC
 
 * Key bindings
