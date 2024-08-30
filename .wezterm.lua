@@ -41,5 +41,18 @@ config.font_size = 9.0
 -- Disable ligatures
 config.harfbuzz_features = { 'calt=0', 'clig=0', 'liga=0' }
 
+config.font_rules = {
+	{
+		intensity = "Bold",
+		italic = false,
+		font = wezterm.font("JetBrains Mono", { weight = "Bold", stretch = "Normal", style = "Normal", foreground="#ffffff" }),
+	},
+	{
+		intensity = "Bold",
+		italic = true,
+		font = wezterm.font("JetBrains Mono", { weight = "Bold", stretch = "Normal", style = "Italic", foreground="#ffffff" }),
+	},
+}
+
 -- and finally, return the configuration to wezterm
 return config
