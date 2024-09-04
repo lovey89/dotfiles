@@ -23,10 +23,10 @@ guess_language() {
   lang="${lang##*/}" # in the case of something like "/usr/bin/sh" it will be replaced with "sh"
   case "$lang" in
     "bourne-again")
-      echo "bash"
+      echo "shellscript"
       ;;
     "posix")
-      echo "sh"
+      echo "shellscript"
       ;;
     "perl5")
       echo "java"
@@ -45,8 +45,14 @@ check_language_is_known() {
 
 # check if the language passed as $1 is known to highlight
 check_language_is_known_to_highlight() {
-  lang=$(ls -1 /usr/share/highlight/langDefs/ | cut -d'.' -f1 | grep "^${1:-}$" || true)
-  #lang=$(ls -1 /opt/homebrew/share/highlight/langDefs/ | cut -d'.' -f1 | grep "^${1:-}$" || true)
+  lang=""
+  if [ -d "/usr/share/highlight/langDefs" ]; then
+    lang=$(ls -1 /usr/share/highlight/langDefs/ | cut -d'.' -f1 | grep "^${1:-}$" || true)
+  elif [ -d "/opt/homebrew/share/highlight/langDefs" ]; then
+    lang=$(ls -1 /opt/homebrew/share/highlight/langDefs/ | cut -d'.' -f1 | grep "^${1:-}$" || true)
+  else
+    echo -e "ERROR: No langDefs dir found. highlight is probably not installed. Check my-src-hilite-lesspipe.sh for more info\n" >&2
+  fi
   echo $lang
 }
 
