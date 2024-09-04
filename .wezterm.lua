@@ -40,6 +40,7 @@ config.color_scheme = 'mywombat'
 config.font_size = 9.0
 -- Disable ligatures
 config.harfbuzz_features = { 'calt=0', 'clig=0', 'liga=0' }
+config.default_cursor_style = 'SteadyBar'
 
 config.font_rules = {
 	{

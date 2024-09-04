@@ -45,7 +45,8 @@ check_language_is_known() {
 
 # check if the language passed as $1 is known to highlight
 check_language_is_known_to_highlight() {
-  lang=$(ls -1 /usr/share/highlight/langDefs/ -1 | cut -d'.' -f1 | grep "^${1:-}$" || true)
+  lang=$(ls -1 /usr/share/highlight/langDefs/ | cut -d'.' -f1 | grep "^${1:-}$" || true)
+  #lang=$(ls -1 /opt/homebrew/share/highlight/langDefs/ | cut -d'.' -f1 | grep "^${1:-}$" || true)
   echo $lang
 }
 
