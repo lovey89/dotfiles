@@ -88,8 +88,8 @@ countfiles()
 
 removetrailingwhitespaces()
 {
-  # Update in place and save no backup
-  sed -i 's/[[:blank:]]*$//' "$1"
+  # Update in place and save no backup (use -i"" to make macos happy)
+  sed -i"" 's/[[:blank:]]*$//' "$1"
 }
 
 zipbase64()
