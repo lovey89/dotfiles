@@ -76,7 +76,9 @@ export BASH_SILENCE_DEPRECATION_WARNING=1
 export VISUAL=vim
 
 export PATH="$PATH":"$DOTFILES_DIR"/scripts:"$DOTFILES_DIR"/configscripts
-PATH="$PATH":"$HOME"/.cargo/bin
+if [ -f "$HOME/.cargo/env" ]; then
+  . "$HOME/.cargo/env"
+fi
 
 #export PROMPT_COMMAND='printf "\033k%s@%s:%s\033\\" "${USER}" "${HOSTNAME%%.*}" "${PWD/#$HOME/\~}"'
 unset -v PROMPT_COMMAND
