@@ -88,8 +88,11 @@ countfiles()
 
 removetrailingwhitespaces()
 {
-  # Update in place and save no backup (use -i="" to make macos happy)
-  sed -i="" 's/[[:blank:]]*$//' "$1"
+  if [[ "$OSTYPE" == "darwin"* ]]; then
+    sed -i "" 's/[[:blank:]]*$//' "$1"
+  else
+    sed -i 's/[[:blank:]]*$//' "$1"
+  fi
 }
 
 zipbase64()
