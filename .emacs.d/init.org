@@ -1281,6 +1281,8 @@ visit that file and look at the settings.
 ; status bar
 (with-eval-after-load "org"
   (define-key org-mode-map (kbd "C-c C-o") (lambda () (interactive) (org-open-at-point t))))
+(with-eval-after-load "org"
+  (define-key org-mode-map (kbd "C-c o") (lambda () (interactive) (org-open-at-point nil))))
 #+END_SRC
 
 ** Bindings for navigation
