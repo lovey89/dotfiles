@@ -313,6 +313,7 @@ We can set variables to whatever value we'd like using =setq=.
       nyan-wavy-trail t                  ; Wavy rainbow in nyan-mode
       mouse-yank-at-point t              ; When running in X mode you paste where the
                                          ; cursor is currently at
+      require-final-newline t            ; Add trailing newline one files
 )
 #+END_SRC
 
