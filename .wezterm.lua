@@ -41,6 +41,7 @@ config.font_size = 9.0
 -- Disable ligatures
 config.harfbuzz_features = { 'calt=0', 'clig=0', 'liga=0' }
 config.default_cursor_style = 'SteadyBar'
+config.selection_word_boundary = " \t\n{}[]()<>\"'`│|="
 
 config.font_rules = {
 	{
