@@ -43,6 +43,10 @@ config.harfbuzz_features = { 'calt=0', 'clig=0', 'liga=0' }
 config.default_cursor_style = 'SteadyBar'
 config.selection_word_boundary = " \t\n{}[]()<>\"'`│|="
 
+config.colors = {
+  selection_bg = 'rgba("#eea9b8",70%)'
+}
+
 config.font_rules = {
 	{
 		intensity = "Bold",
