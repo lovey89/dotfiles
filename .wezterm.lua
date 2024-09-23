@@ -44,7 +44,8 @@ config.default_cursor_style = 'SteadyBar'
 config.selection_word_boundary = " \t\n{}[]()<>\"'`│|="
 
 config.colors = {
-  selection_bg = 'rgba("#eea9b8",70%)'
+  selection_bg = "rgba(238, 169, 184, 70%)"
+--  selection_bg = "#eea9b8"
 }
 
 config.font_rules = {
