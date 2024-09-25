@@ -7,8 +7,8 @@ alias ll='ls -la'
 alias ..='cd ..'
 alias cd..="cd .."
 
-alias efind='find -L . \( ! -name ".git" -a ! -name ".idea" -o -prune \) -type f -print0 | xargs -0 grep --color=auto -in --'
-alias cfind='find -L . \( ! -name ".git" -a ! -name ".idea" -o -prune \) -type f -print0 | xargs -0 grep -C 10 --color=auto -in --'
+alias efind='find -L . \( ! -name ".git" -a ! -name ".idea" -o -prune \) -type f -print0 | xargs -0 grep -I --color=auto -in --'
+alias cfind='find -L . \( ! -name ".git" -a ! -name ".idea" -o -prune \) -type f -print0 | xargs -0 grep -I -C 10 --color=auto -in --'
 
 # This will make sudo available for aliases as well
 alias sudo='sudo '
@@ -188,7 +188,7 @@ afind() # Needs more testing!
 
   # In order to treat the glob expression (*) correctly use the eval command
   #eval "find -L . $FILE_PATH $FILE_ENDING -type f -print0 | xargs -0 grep --color=auto -in \"$1\""
-  eval "find -L . \( ! -name .git -a ! -name .idea $IGNORE_PATH -o -prune \) $FILE_ENDING -type f -print0 | xargs -0 grep $REGEX_FLAG --color=auto $CONTEXT $IGNORE_CASE -n -- \"$1\""
+  eval "find -L . \( ! -name .git -a ! -name .idea $IGNORE_PATH -o -prune \) $FILE_ENDING -type f -print0 | xargs -0 grep -I $REGEX_FLAG --color=auto $CONTEXT $IGNORE_CASE -n -- \"$1\""
   #echo $FILE_PATH
   #echo $FILE_ENDING
   #echo $1
