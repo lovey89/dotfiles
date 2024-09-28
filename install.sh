@@ -81,6 +81,14 @@ if [ -x "$(command -v dconf)" ]; then
   # dconf dump /org/gnome/desktop/peripherals/touchpad/
 fi
 
+if [ -x "$(command -v gsettings)" ]; then
+  # Defaults
+  # gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-left ['<Super>Page_Up', '<Super><Alt>Left', '<Control><Alt>Left']
+  # gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-right "['<Super>Page_Down', '<Super><Alt>Right', '<Control><Alt>Right']"
+  gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-left "['<Super>Page_Up', '<Super><Alt>Left']"
+  gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-right "['<Super>Page_Down', '<Super><Alt>Right']"
+fi
+
 # Create this empty directory because emacs won't do it automatically
 mkdir -p "${DOTFILES_DIR}/.emacs.d/autosaves"
 
