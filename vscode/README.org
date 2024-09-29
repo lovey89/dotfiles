@@ -1,0 +1,18 @@
+* Keybindings
+** Terminal
+
+| Keybinding Linux | Keybinding Mac | Command                                    | Description      |
+|------------------+----------------+--------------------------------------------+------------------|
+| ~Alt~ + ~F12~    |                | ~workbench.action.terminal.toggleTerminal~ | Toggles terminal |
+
+** Navigation
+
+| Keybinding Linux         | Keybinding Mac | Command                  | Description                    |
+|--------------------------+----------------+--------------------------+--------------------------------|
+| ~Ctrl~ + ~Alt~ + ~Arrow~ |                | ~Go Back~ / ~Go Forward~ | Navigate backwards and forward |
+
+** Documentation
+
+| Keybinding Linux            | Keybinding Mac | Command               | Description             |
+|-----------------------------+----------------+-----------------------+-------------------------|
+| ~Ctrl~ + ~k~ - ~Ctrl~ + ~i~ |                | ~Show or Focus Hover~ | Show documentation peek |
