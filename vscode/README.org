@@ -7,12 +7,16 @@
 
 ** Navigation
 
-| Keybinding Linux         | Keybinding Mac | Command                  | Description                    |
-|--------------------------+----------------+--------------------------+--------------------------------|
-| ~Ctrl~ + ~Alt~ + ~Arrow~ |                | ~Go Back~ / ~Go Forward~ | Navigate backwards and forward |
+| Keybinding Linux         | Keybinding Mac      | Command                  | Description                    |
+|--------------------------+---------------------+--------------------------+--------------------------------|
+| ~Ctrl~ + ~Alt~ + ~Arrow~ | ~⌥~ + ~⌘~ + ~Arrow~ | ~Go Back~ / ~Go Forward~ | Navigate backwards and forward |
 
 ** Documentation
 
 | Keybinding Linux            | Keybinding Mac | Command               | Description             |
 |-----------------------------+----------------+-----------------------+-------------------------|
 | ~Ctrl~ + ~k~ - ~Ctrl~ + ~i~ |                | ~Show or Focus Hover~ | Show documentation peek |
+
+* Links
+
+https://anhari.dev/blog/saving-vscode-settings-in-your-dotfiles
