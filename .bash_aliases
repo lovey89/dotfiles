@@ -7,8 +7,8 @@ alias ll='ls -la'
 alias ..='cd ..'
 alias cd..="cd .."
 
-alias efind='find -L . \( ! -name ".git" -a ! -name ".idea" -o -prune \) -type f -print0 | xargs -0 grep -I --color=auto -in --'
-alias cfind='find -L . \( ! -name ".git" -a ! -name ".idea" -o -prune \) -type f -print0 | xargs -0 grep -I -C 10 --color=auto -in --'
+alias efind='find -L . \( ! -name ".git" -a ! -name ".idea" -a ! -path "*/target/debug" -a ! -path "*/target/release" -o -prune \) -type f -print0 | xargs -0 grep -I --color=auto -in --'
+alias cfind='find -L . \( ! -name ".git" -a ! -name ".idea" -a ! -path "*/target/debug" -a ! -path "*/target/release" -o -prune \) -type f -print0 | xargs -0 grep -I -C 10 --color=auto -in --'
 
 # This will make sudo available for aliases as well
 alias sudo='sudo '
@@ -151,7 +151,7 @@ afind() # Needs more testing!
   CONTEXT=""
   FILE_ENDING=""
   IGNORE_PATH=""
-  FILE_PATH="\( ! -name .git -a ! -name .idea -o -prune \)"
+  FILE_PATH="\( ! -name .git -a ! -name .idea -a ! -path \"*/target/debug\" -a ! -path \"*/target/release\" -o -prune \)"
   REGEX_FLAG=""
   IGNORE_CASE="-i"
 
