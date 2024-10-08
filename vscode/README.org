@@ -1,9 +1,9 @@
 * Keybindings
 ** Terminal
 
-| Keybinding Linux | Keybinding Mac | Command                                    | Description      |
-|------------------+----------------+--------------------------------------------+------------------|
-| ~Alt~ + ~F12~    |                | ~workbench.action.terminal.toggleTerminal~ | Toggles terminal |
+| Keybinding Linux | Keybinding Mac       | Command                                    | Description      |
+|------------------+----------------------+--------------------------------------------+------------------|
+| ~Alt~ + ~F12~    | ~⌥~ (+ ~Fn~) + ~F12~ | ~workbench.action.terminal.toggleTerminal~ | Toggles terminal |
 
 ** Navigation
 
@@ -16,6 +16,13 @@
 | Keybinding Linux            | Keybinding Mac | Command               | Description             |
 |-----------------------------+----------------+-----------------------+-------------------------|
 | ~Ctrl~ + ~k~ - ~Ctrl~ + ~i~ |                | ~Show or Focus Hover~ | Show documentation peek |
+
+* Search and open a file in the terminal
+
+Sometimes the search functionality of vscode is a bit unreliable. You can also
+open a terminal (see above). Search for your string (using e.g. the ~egrep~
+alias) and then ~Ctrl~ / ~⌘~ click the location and it will open the file at the
+given location in your editor.
 
 * Links
 
