@@ -7,8 +7,38 @@ alias ll='ls -la'
 alias ..='cd ..'
 alias cd..="cd .."
 
-alias efind='find -L . \( ! -name ".git" -a ! -name ".idea" -a ! -path "*/target/debug" -a ! -path "*/target/release" -o -prune \) -type f -print0 | xargs -0 grep -I --color=auto -in --'
-alias cfind='find -L . \( ! -name ".git" -a ! -name ".idea" -a ! -path "*/target/debug" -a ! -path "*/target/release" -o -prune \) -type f -print0 | xargs -0 grep -I -C 10 --color=auto -in --'
+alias efind="find -L . \
+    \( \
+        ! -type d \
+        -o \( \
+            ! -name '.git' \
+            ! -name '.idea' \
+            ! \( \
+                -name 'target' \
+                -exec test -e '{}/CACHEDIR.TAG' \; \
+            \) \
+            -o -prune \
+        \) \
+    \) \
+    -type f \
+    ! -name '*.ipynb' \
+    -print0 | xargs -0 grep -I --color=auto -in --"
+alias cfind="find -L . \
+    \( \
+        ! -type d \
+        -o \( \
+            ! -name '.git' \
+            ! -name '.idea' \
+            ! \( \
+                -name 'target' \
+                -exec test -e '{}/CACHEDIR.TAG' \; \
+            \) \
+            -o -prune \
+        \) \
+    \) \
+    -type f \
+    ! -name '*.ipynb' \
+    -print0 | xargs -0 grep -I -C 10 --color=auto -in --"
 
 # This will make sudo available for aliases as well
 alias sudo='sudo '
