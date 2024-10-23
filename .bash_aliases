@@ -60,7 +60,34 @@ if command -v kubectl &> /dev/null; then
   complete -F __start_kubectl k
 fi
 
+if command -v cargo &> /dev/null; then
+  alias rust_lint_crate='cargo clippy -- -D warnings -W clippy::all -W clippy::correctness -W clippy::complexity -W clippy::style -W clippy::suspicious -W clippy::perf -W clippy::pedantic'
+  alias rust_lint_crate_fix='cargo clippy --fix -- -D warnings -W clippy::all -W clippy::correctness -W clippy::complexity -W clippy::style -W clippy::suspicious -W clippy::perf -W clippy::pedantic'
+  alias rust_fmt_crate='cargo fmt --check'
+  alias rust_fmt_crate_fix='cargo fmt'
+fi
+
 # Functions
+
+decode_base64_url() {
+  local len=$((${#1} % 4))
+  local result="$1"
+  if [ $len -eq 2 ]; then result="$1"'=='
+  elif [ $len -eq 3 ]; then result="$1"'='
+  fi
+  echo "$result" | tr '_-' '/+' | openssl enc -d -base64
+}
+
+decode_jwt2() {
+  # Decode JWT header
+  decode_base64_url $(echo -n $1 | cut -d "." -f 1) | jq .
+  # Decode JWT Payload
+  decode_base64_url $(echo -n $1 | cut -d "." -f 2) | jq .
+}
+
+decode_jwt() {
+  echo -n "$1" | jq -R 'split(".") | .[0],.[1] | @base64d | fromjson'
+}
 
 alert()
 {
