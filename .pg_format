@@ -5,4 +5,5 @@
 no-extra-line=1
 
 # Replace the input file with the formatted result
-inplace=1
+#  Use --inplace or -i instead
+#inplace=1
