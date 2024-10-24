@@ -50,6 +50,7 @@ createlink ".gitconfig"
 createlink ".vimrc"
 createlink ".tmux.conf"
 createlink ".wezterm.lua"
+createlink ".pg_format"
 
 # directories
 createlink ".emacs.d"

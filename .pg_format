@@ -1,0 +1,8 @@
+# For more examples see:
+# https://github.com/darold/pgFormatter/blob/master/doc/pg_format.conf.sample
+
+# Do not add an extra empty line at end of the output.
+no-extra-line=1
+
+# Replace the input file with the formatted result
+inplace=1
