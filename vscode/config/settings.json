@@ -1,0 +1,10 @@
+{
+    "editor.tabSize": 2,
+    "telemetry.telemetryLevel": "off",
+    "files.readonlyInclude": {
+        "**/.cargo/registry/src/**/*.rs": true,
+        "**/lib/rustlib/src/rust/library/**/*.rs": true
+    },
+    "terminal.integrated.fontSize": 11,
+    "files.insertFinalNewline": true
+}

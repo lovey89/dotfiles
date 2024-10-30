@@ -10,8 +10,8 @@ createlink()
   ORIG_PATH="$1"
   PATH_RELATIVE_HOME="$2"
   if [ -n "$PATH_RELATIVE_HOME" ]; then
-    mkdir -p "$HOME/$PATH_RELATIVE_HOME"
-    HOME_DIR_POSITION="$HOME/$PATH_RELATIVE_HOME/$(basename $ORIG_PATH)"
+    mkdir -p $(dirname "$HOME/$PATH_RELATIVE_HOME")
+    HOME_DIR_POSITION="$HOME/$PATH_RELATIVE_HOME"
   else
     HOME_DIR_POSITION="$HOME/$ORIG_PATH"
   fi
@@ -55,14 +55,21 @@ createlink ".pg_format"
 # directories
 createlink ".emacs.d"
 createlink ".vim"
-createlink ".config/wezterm" ".config"
+createlink ".config/wezterm" ".config/wezterm"
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
   createlink ".bash_profile"
+  VS_CODE_CONFIG_DIR_PATH="Library/Application Support/Code/User"
+  VS_CODE_KEY_BINDING_FILE="macos-keybindings.json"
 elif [ "$OSTYPE" == "cygwin" ]; then
   createlink ".minttyrc"
 else
   createlink ".Xresources"
+fi
+
+if [ -d "${HOME}/${VS_CODE_CONFIG_DIR_PATH}" ]; then
+  createlink "vscode/config/settings.json" "${VS_CODE_CONFIG_DIR_PATH}/settings.json"
+  createlink "vscode/config/${VS_CODE_KEY_BINDING_FILE}" "${VS_CODE_CONFIG_DIR_PATH}/keybindings.json"
 fi
 
 if [ -x "$(command -v dconf)" ]; then
