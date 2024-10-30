@@ -65,6 +65,8 @@ elif [ "$OSTYPE" == "cygwin" ]; then
   createlink ".minttyrc"
 else
   createlink ".Xresources"
+  VS_CODE_CONFIG_DIR_PATH=".config/Code/User"
+  VS_CODE_KEY_BINDING_FILE="linux-keybindings.json"
 fi
 
 if [ -d "${HOME}/${VS_CODE_CONFIG_DIR_PATH}" ]; then
