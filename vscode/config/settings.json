@@ -6,5 +6,6 @@
         "**/lib/rustlib/src/rust/library/**/*.rs": true
     },
     "terminal.integrated.fontSize": 11,
-    "files.insertFinalNewline": true
+    "files.insertFinalNewline": true,
+    "files.trimTrailingWhitespace": true
 }
