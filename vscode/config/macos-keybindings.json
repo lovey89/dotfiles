@@ -1,12 +1,35 @@
 [
   {
-    "key": "ctrl+shift+s t",
+    "key": "cmd+shift+s t",
     "command": "workbench.action.focusActiveEditorGroup",
     "when": "terminalFocus"
   },
   {
-    "key": "ctrl+shift+s t",
+    "key": "cmd+shift+s t",
     "command": "workbench.action.terminal.focus",
     "when": "!terminalFocus"
+  },
+  {
+    "key": "cmd+shift+s b",
+    "command": "bookmarks.listFromAllFiles"
+  },
+  {
+    "key": "cmd+shift+s n",
+    "command": "bookmarks.toggle",
+    "when": "editorTextFocus"
+  },
+  {
+    "key": "cmd+shift+s m",
+    "command": "bookmarks.toggleLabeled",
+    "when": "editorTextFocus"
+  },
+  {
+    "key": "shift+cmd+s",
+    "command": "-workbench.action.files.saveAs"
+  },
+  {
+    "key": "shift+cmd+s",
+    "command": "-workbench.action.files.saveLocalFile",
+    "when": "remoteFileDialogVisible"
   }
 ]

@@ -18,6 +18,7 @@
 | Keybinding Linux         | Keybinding Mac      | Command                  | Description                    |
 |--------------------------+---------------------+--------------------------+--------------------------------|
 | ~Ctrl~ + ~Alt~ + ~Arrow~ | ~⌥~ + ~⌘~ + ~Arrow~ | ~Go Back~ / ~Go Forward~ | Navigate backwards and forward |
+|                          | ~shift~ + ~shift~   |                          | Open file in workspace         |
 
 ** Documentation
 
