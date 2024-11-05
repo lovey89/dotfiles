@@ -1,2 +1,26 @@
 [
+  {
+    "key": "alt+shift+s t",
+    "command": "workbench.action.focusActiveEditorGroup",
+    "when": "terminalFocus"
+  },
+  {
+    "key": "alt+shift+s t",
+    "command": "workbench.action.terminal.focus",
+    "when": "!terminalFocus"
+  },
+  {
+    "key": "alt+shift+s b",
+    "command": "bookmarks.listFromAllFiles"
+  },
+  {
+    "key": "alt+shift+s n",
+    "command": "bookmarks.toggle",
+    "when": "editorTextFocus"
+  },
+  {
+    "key": "alt+shift+s m",
+    "command": "bookmarks.toggleLabeled",
+    "when": "editorTextFocus"
+  }
 ]
