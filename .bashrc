@@ -101,6 +101,9 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
   export TERM='xterm-256color'
   # Make e.g. ls output colorized
   export CLICOLOR=1
+  # Green executable       v
+  # Cyan sym link    v     |
+  export LSCOLORS="exGxcxdxCxegedabagacad"
 else
   export TERM='xterm-color'
 fi
