@@ -28,10 +28,11 @@
 
 ** Refactoring
 
-| Keybinding Linux | Keybinding Mac      | Command         | Description          |
-|------------------+---------------------+-----------------+----------------------|
-|                  | ~Shift~ + ~F6~      | ~Rename Symbol~ | Rename a symbol      |
-|                  | ~Shift~ + ~⌥~ + ~A~ |                 | Toggle block comment |
+| Keybinding Linux | Keybinding Mac      | Command         | Description           |
+|------------------+---------------------+-----------------+-----------------------|
+|                  | ~Shift~ + ~F6~      | ~Rename Symbol~ | Rename a symbol       |
+|                  | ~Ctrl~ + ~T~        |                 | Open refactoring menu |
+|                  | ~Shift~ + ~⌥~ + ~A~ |                 | Toggle block comment  |
 
 * Search and open a file in the terminal
 
