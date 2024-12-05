@@ -18,7 +18,7 @@
 | Keybinding Linux         | Keybinding Mac      | Command                  | Description                    |
 |--------------------------+---------------------+--------------------------+--------------------------------|
 | ~Ctrl~ + ~Alt~ + ~Arrow~ | ~⌥~ + ~⌘~ + ~Arrow~ | ~Go Back~ / ~Go Forward~ | Navigate backwards and forward |
-|                          | ~shift~ + ~shift~   |                          | Open file in workspace         |
+|                          | ~Shift~ + ~Shift~   |                          | Open file in workspace         |
 
 ** Documentation
 
@@ -28,11 +28,20 @@
 
 ** Refactoring
 
-| Keybinding Linux | Keybinding Mac      | Command         | Description           |
-|------------------+---------------------+-----------------+-----------------------|
-|                  | ~Shift~ + ~F6~      | ~Rename Symbol~ | Rename a symbol       |
-|                  | ~Ctrl~ + ~T~        |                 | Open refactoring menu |
-|                  | ~Shift~ + ~⌥~ + ~A~ |                 | Toggle block comment  |
+| Keybinding Linux | Keybinding Mac          | Command             | Description           |
+|------------------+-------------------------+---------------------+-----------------------|
+|                  | ~Shift~ + ~F6~          | ~Rename Symbol~     | Rename a symbol       |
+|                  | ~Ctrl~ + ~T~            |                     | Open refactoring menu |
+|                  | ~Shift~ + ~⌥~ + ~A~     |                     | Toggle block comment  |
+|                  | ~⌥~ + ~Shift~ + ~Arrow~ | ~Move Line Up/Down~ | Move Line Up/Down     |
+
+** Other
+
+| Keybinding Linux | Keybinding Mac      | Command               | Description                                        |
+|------------------+---------------------+-----------------------+----------------------------------------------------|
+|                  | ~⌘~ + ~D~           | ~Duplicate selection~ | Also duplicates current row if nothing is selected |
+|                  | ~Ctrl~ + ~K~        | ~Delete All Right~    |                                                    |
+|                  | ~⌘~ + ~Shift~ + ~K~ | ~Delete Line~         |                                                    |
 
 * Search and open a file in the terminal
 

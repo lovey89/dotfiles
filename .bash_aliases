@@ -63,11 +63,11 @@ if command -v kubectl &> /dev/null; then
 fi
 
 if command -v cargo &> /dev/null; then
-  alias rust_lint_crate='cargo clippy -- -D warnings -W clippy::all -W clippy::correctness -W clippy::complexity -W clippy::style -W clippy::suspicious -W clippy::perf -W clippy::pedantic'
-  alias rust_lint_crate_fix='cargo clippy --fix --allow-staged -- -D warnings -W clippy::all -W clippy::correctness -W clippy::complexity -W clippy::style -W clippy::suspicious -W clippy::perf -W clippy::pedantic'
-  alias rust_lint_crate_fix_dirty='cargo clippy --fix --allow-staged --allow-dirty -- -D warnings -W clippy::all -W clippy::correctness -W clippy::complexity -W clippy::style -W clippy::suspicious -W clippy::perf -W clippy::pedantic'
-  alias rust_fmt_crate='cargo fmt --check'
-  alias rust_fmt_crate_fix='cargo fmt'
+  alias rust_lint_crate='cargo clippy --all-targets -- -D warnings -W clippy::all -W clippy::correctness -W clippy::complexity -W clippy::style -W clippy::suspicious -W clippy::perf' # -W clippy::pedantic
+  alias rust_lint_crate_fix='cargo clippy --all-targets --fix --allow-staged -- -D warnings -W clippy::all -W clippy::correctness -W clippy::complexity -W clippy::style -W clippy::suspicious -W clippy::perf' # -W clippy::pedantic
+  alias rust_lint_crate_fix_dirty='cargo clippy --all-targets --fix --allow-staged --allow-dirty -- -D warnings -W clippy::all -W clippy::correctness -W clippy::complexity -W clippy::style -W clippy::suspicious -W clippy::perf' # -W clippy::pedantic
+  alias rust_fmt_crate='cargo fmt --check -- --config comment_width=100 --config format_code_in_doc_comments=true --config group_imports=StdExternalCrate --config imports_granularity=Module --config imports_layout=Vertical --config wrap_comments=true'
+  alias rust_fmt_crate_fix='cargo fmt -- --config comment_width=100 --config format_code_in_doc_comments=true --config group_imports=StdExternalCrate --config imports_granularity=Module --config imports_layout=Vertical --config wrap_comments=true'
 fi
 
 # Functions
