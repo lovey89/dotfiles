@@ -36,5 +36,71 @@
     "key": "shift+cmd+s r",
     "command": "rust-analyzer.run",
     "when": "editorTextFocus && editorLangId == 'rust'"
+  },
+  {
+    "key": "ctrl+a",
+    "command": "-cursorLineStart",
+    "when": "textInputFocus"
+  },
+  {
+    "key": "ctrl+a h",
+    "command": "workbench.action.splitEditorOrthogonal",
+    "when": "editorTextFocus"
+  },
+  {
+    "key": "ctrl+a v",
+    "command": "workbench.action.splitEditorRight",
+    "when": "editorTextFocus"
+  },
+  {
+    "key": "ctrl+a left",
+    "command": "workbench.action.navigateLeft"
+  },
+  {
+    "key": "ctrl+a right",
+    "command": "workbench.action.navigateRight"
+  },
+  {
+    "key": "ctrl+a up",
+    "command": "workbench.action.navigateUp"
+  },
+  {
+    "key": "ctrl+a down",
+    "command": "workbench.action.navigateDown"
+  },
+  {
+    "key": "ctrl+a ctrl+cmd+right",
+    "command": "workbench.action.increaseViewWidth"
+  },
+  {
+    "key": "ctrl+a ctrl+cmd+left",
+    "command": "workbench.action.decreaseViewWidth"
+  },
+  {
+    "key": "ctrl+a ctrl+cmd+up",
+    "command": "workbench.action.increaseViewHeight"
+  },
+  {
+    "key": "ctrl+a ctrl+cmd+down",
+    "command": "workbench.action.decreaseViewHeight"
+  },
+  {
+    "key": "ctrl+a ctrl+a",
+    "command": "cursorHome",
+    "when": "textInputFocus"
+  },
+  {
+    "key": "ctrl+a x",
+    "command": "workbench.action.closeUnmodifiedEditors"
+  },
+  {
+    "key": "tab",
+    "command": "-tab",
+    "when": "editorTextFocus && !editorReadonly && !editorTabMovesFocus"
+  },
+  {
+    "key": "tab",
+    "command": "editor.action.indentLines",
+    "when": "editorTextFocus && !editorReadonly"
   }
 ]
