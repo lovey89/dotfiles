@@ -28,12 +28,12 @@
 
 ** Refactoring
 
-| Keybinding Linux | Keybinding Mac          | Command             | Description           |
-|------------------+-------------------------+---------------------+-----------------------|
-|                  | ~Shift~ + ~F6~          | ~Rename Symbol~     | Rename a symbol       |
-|                  | ~Ctrl~ + ~T~            |                     | Open refactoring menu |
-|                  | ~Shift~ + ~⌥~ + ~A~     |                     | Toggle block comment  |
-|                  | ~⌥~ + ~Shift~ + ~Arrow~ | ~Move Line Up/Down~ | Move Line Up/Down     |
+| Keybinding Linux       | Keybinding Mac          | Command             | Description           |
+|------------------------+-------------------------+---------------------+-----------------------|
+|                        | ~Shift~ + ~F6~          | ~Rename Symbol~     | Rename a symbol       |
+|                        | ~Ctrl~ + ~T~            |                     | Open refactoring menu |
+| ~Ctrl~ + ~Shift~ + ~+~ | ~Shift~ + ~⌥~ + ~A~     |                     | Toggle block comment  |
+|                        | ~⌥~ + ~Shift~ + ~Arrow~ | ~Move Line Up/Down~ | Move Line Up/Down     |
 
 ** Other
 

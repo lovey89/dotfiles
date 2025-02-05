@@ -12,6 +12,7 @@ alias efind="find -L . \
         ! -type d \
         -o \( \
             ! -name '.git' \
+            ! -name 'node_modules' \
             ! -name '.idea' \
             ! \( \
                 -name 'target' \
@@ -28,6 +29,7 @@ alias cfind="find -L . \
         ! -type d \
         -o \( \
             ! -name '.git' \
+            ! -name 'node_modules' \
             ! -name '.idea' \
             ! \( \
                 -name 'target' \
