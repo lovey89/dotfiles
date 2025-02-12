@@ -4,6 +4,9 @@
 # Do not add an extra empty line at end of the output.
 no-extra-line=1
 
+# In insert statement, add a newline after each comma.
+comma-break=1
+
 # Replace the input file with the formatted result
 #  Use --inplace or -i instead
 #inplace=1
