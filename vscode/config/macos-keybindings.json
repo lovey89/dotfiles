@@ -94,13 +94,8 @@
     "command": "workbench.action.closeUnmodifiedEditors"
   },
   {
-    "key": "tab",
-    "command": "-tab",
-    "when": "editorTextFocus && !editorReadonly && !editorTabMovesFocus"
-  },
-  {
-    "key": "tab",
-    "command": "editor.action.indentLines",
-    "when": "editorTextFocus && !editorReadonly"
+    "key": "shift+cmd+right",
+    "command": "editor.action.inlineSuggest.acceptNextLine",
+    "when": "inlineSuggestionVisible && !editorReadonly"
   }
 ]

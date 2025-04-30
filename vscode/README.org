@@ -35,6 +35,13 @@
 | ~Ctrl~ + ~Shift~ + ~+~ | ~Shift~ + ~⌥~ + ~A~     |                     | Toggle block comment  |
 |                        | ~⌥~ + ~Shift~ + ~Arrow~ | ~Move Line Up/Down~ | Move Line Up/Down     |
 
+** Autocompletion
+
+| Keybinding Linux | Keybinding Mac         | Command                                      | Description                         |
+|------------------+------------------------+----------------------------------------------+-------------------------------------|
+|                  | ~⌘~ + ~Left~           | ~editor.action.inlineSuggest.acceptNextWord~ | Accept next word in auto completion |
+|                  | ~⌘~ + ~Shift~ + ~Left~ | ~editor.action.inlineSuggest.acceptNextLine~ | Accept next line in auto completion |
+
 ** Other
 
 | Keybinding Linux | Keybinding Mac      | Command               | Description                                        |

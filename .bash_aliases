@@ -52,6 +52,9 @@ alias genuuid="uuidgen | sed -r -e 's/-//g' -e 's/.*/\U&/'"
 
 alias genrandom="tr -dc a-z0-9 </dev/urandom | head -c 14; echo"
 
+# call with number of characters to produce e.g. "genrandomhex 16"
+alias genrandomhex="openssl rand -hex"
+
 # Without --no-x-resources it will get problems with some colors when running
 # without -nw. I can't see any difference so I add it by default
 
