@@ -75,6 +75,11 @@ if command -v cargo &> /dev/null; then
   alias rust_fmt_crate_fix='cargo fmt -- --config comment_width=100 --config format_code_in_doc_comments=true --config group_imports=StdExternalCrate --config imports_granularity=Module --config imports_layout=Vertical --config wrap_comments=true'
 fi
 
+if [ -f ~/.kube/config ] && command -v docker &> /dev/null; then
+  # --network host is necessary if you are using an ssh tunnel to communicate with the cluster
+  alias dk9s='docker run --network host --rm -it -v ~/.kube/config:/root/.kube/config:ro quay.io/derailed/k9s'
+fi
+
 # Functions
 
 decode_base64_url() {
