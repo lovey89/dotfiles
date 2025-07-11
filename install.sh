@@ -57,7 +57,17 @@ createlink ".emacs.d"
 createlink ".vim"
 createlink ".config/wezterm" ".config/wezterm"
 
-if [[ "$OSTYPE" == "darwin"* ]]; then
+if grep -q "microsoft" /proc/sys/kernel/osrelease; then
+  # WSL
+  #sudo apt install --no-install-recommends wslu
+  WINHOME=$(wslpath "$(wslvar USERPROFILE)")
+  # Looks like as if you can't create a link from windows to wsl so we copy the
+  # files instead
+  cp "$DOTFILES_DIR/.wezterm.lua" "$WINHOME/.wezterm.lua"
+  mkdir -p "$WINHOME/weztermcolors"
+  cp "$DOTFILES_DIR/.config/wezterm/colors/"* "$WINHOME/weztermcolors"
+elif [[ "$OSTYPE" == "darwin"* ]]; then
+  # MacOS
   createlink ".bash_profile"
   VS_CODE_CONFIG_DIR_PATH="Library/Application Support/Code/User"
   VS_CODE_KEY_BINDING_FILE="macos-keybindings.json"

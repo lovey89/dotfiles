@@ -4,8 +4,13 @@ local wezterm = require 'wezterm'
 -- This will hold the configuration.
 local config = wezterm.config_builder()
 
--- This is where you actually apply your config choices
+-- Only for windows
+if wezterm.target_triple:find("windows") ~= nil then
+   config.default_domain = 'WSL:Ubuntu'
+   config.color_scheme_dirs = { './weztermcolors' }
+end
 
+-- This is where you actually apply your config choices
 config.enable_tab_bar = false
 
 -- Without this there is no titlebar of the window in fedora
