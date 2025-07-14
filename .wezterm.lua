@@ -7,7 +7,6 @@ local config = wezterm.config_builder()
 -- Only for windows
 if wezterm.target_triple:find("windows") ~= nil then
    config.default_domain = 'WSL:Ubuntu'
-   config.color_scheme_dirs = { './weztermcolors' }
 end
 
 -- This is where you actually apply your config choices

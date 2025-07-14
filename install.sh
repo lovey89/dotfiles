@@ -63,9 +63,9 @@ if grep -q "microsoft" /proc/sys/kernel/osrelease; then
   WINHOME=$(wslpath "$(wslvar USERPROFILE)")
   # Looks like as if you can't create a link from windows to wsl so we copy the
   # files instead
-  cp "$DOTFILES_DIR/.wezterm.lua" "$WINHOME/.wezterm.lua"
-  mkdir -p "$WINHOME/weztermcolors"
-  cp "$DOTFILES_DIR/.config/wezterm/colors/"* "$WINHOME/weztermcolors"
+  mkdir -p "$WINHOME/.config/wezterm/colors"
+  cp "$DOTFILES_DIR/.wezterm.lua" "$WINHOME/.config/wezterm/wezterm.lua"
+  cp "$DOTFILES_DIR/.config/wezterm/colors/"* "$WINHOME/.config/wezterm/colors"
 elif [[ "$OSTYPE" == "darwin"* ]]; then
   # MacOS
   createlink ".bash_profile"
