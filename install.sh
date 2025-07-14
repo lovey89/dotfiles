@@ -38,6 +38,29 @@ createlink()
   ln -s "$DOTFILES_DIR/$ORIG_PATH" "$HOME_DIR_POSITION"
 }
 
+createcopy()
+{
+  ORIG_PATH="$1"
+  COPY_PATH="$2"
+
+  if [ -z ${COPY_PATH} ]; then
+    COPY_PATH="$HOME/$ORIG_PATH"
+  elif [[ ${COPY_PATH} != /* ]]; then
+    COPY_PATH="$HOME/$COPY_PATH"
+  fi
+
+  mkdir -p $(dirname "$COPY_PATH")
+
+  if [ ! -f "$COPY_PATH" ]; then
+    echo -e "\033[0;33mCopying \033[1;34m$ORIG_PATH\033[0;33m to \033[1;34m$COPY_PATH\033[0m"
+    cp "$DOTFILES_DIR/$ORIG_PATH" "$COPY_PATH"
+  elif diff -q "$DOTFILES_DIR/$ORIG_PATH" "$COPY_PATH" > /dev/null ; then
+    echo -e "\033[0;32mFile \033[1;34m$ORIG_PATH\033[0;32m already exists at \033[1;34m$COPY_PATH\033[0m"
+  else
+    echo -e "\033[0;31mFile with wrong content exists at \033[1;34m$COPY_PATH\033[0;31m. Nothing is copied, remove it manually\033[0m" >&2
+  fi
+}
+
 # Generate .minttyrc, .wezterm and .Xresources with specified color scheme
 "${DOTFILES_DIR}/templates/create_config_files" mywombat
 
@@ -79,9 +102,11 @@ else
   VS_CODE_KEY_BINDING_FILE="linux-keybindings.json"
 fi
 
-if [ -d "${HOME}/${VS_CODE_CONFIG_DIR_PATH}" ]; then
+if [ -n ${VS_CODE_CONFIG_DIR_PATH+x} ] && [ -d "${HOME}/${VS_CODE_CONFIG_DIR_PATH}" ]; then
   createlink "vscode/config/settings.json" "${VS_CODE_CONFIG_DIR_PATH}/settings.json"
   createlink "vscode/config/${VS_CODE_KEY_BINDING_FILE}" "${VS_CODE_CONFIG_DIR_PATH}/keybindings.json"
+else
+  echo -e "\033[0;31mVS Code config folder was not found\033[0m" >&2
 fi
 
 if [ -x "$(command -v dconf)" ]; then
@@ -112,9 +137,10 @@ fi
 # Create this empty directory because emacs won't do it automatically
 mkdir -p "${DOTFILES_DIR}/.emacs.d/autosaves"
 
-if [ -d "/usr/share/highlight/themes" ] && [ ! -f "/usr/share/highlight/themes/mywombat2.theme" ]; then
-  sudo ln -s "${DOTFILES_DIR}/resources/mywombat2.theme" "/usr/share/highlight/themes/mywombat2.theme"
-fi
 if [ -d "/opt/homebrew/share/highlight/themes" ] && [ ! -f "/opt/homebrew/share/highlight/themes/mywombat2.theme" ]; then
   sudo ln -s "${DOTFILES_DIR}/resources/mywombat2.theme" "/opt/homebrew/share/highlight/themes/mywombat2.theme"
+elif [ -d "/usr/share/highlight/themes" ] && [ ! -f "/usr/share/highlight/themes/mywombat2.theme" ]; then
+  sudo ln -s "${DOTFILES_DIR}/resources/mywombat2.theme" "/usr/share/highlight/themes/mywombat2.theme"
+else
+  echo -e "\033[0;31mhighlight command isn't installed and the theme could not be installed\033[0m" >&2
 fi
