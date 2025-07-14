@@ -77,7 +77,11 @@ fi
 
 if [ -f ~/.kube/config ] && command -v docker &> /dev/null; then
   # --network host is necessary if you are using an ssh tunnel to communicate with the cluster
-  alias dk9s='docker run --network host --rm -it -v ~/.kube/config:/root/.kube/config:ro quay.io/derailed/k9s'
+  alias dk9s='docker run --network host --rm -it \
+    -v ~/.kube/config:/root/.kube/config:ro \
+    -v ~/.dockervolumes/k9s/config/:/root/.config/ \
+    -v ~/.dockervolumes/k9s/local/:/root/.local/ \
+    quay.io/derailed/k9s'
 fi
 
 # Functions
