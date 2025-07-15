@@ -41,7 +41,21 @@ createlink()
 createcopy()
 {
   ORIG_PATH="$1"
+  if [[ "${ORIG_PATH}" != /* ]]; then
+    ORIG_PATH="$DOTFILES_DIR/$ORIG_PATH"
+  fi
   COPY_PATH="$2"
+
+  if [ -d "$ORIG_PATH" ]; then
+    for file in "$ORIG_PATH"/*; do
+      if [ -z "$COPY_PATH" ]; then
+        createcopy "$file" "$(basename "$file")"
+      else
+        createcopy "$file" "${COPY_PATH}/$(basename "$file")"
+      fi
+    done
+    return
+  fi
 
   if [ -z ${COPY_PATH} ]; then
     COPY_PATH="$HOME/$ORIG_PATH"
@@ -53,8 +67,8 @@ createcopy()
 
   if [ ! -f "$COPY_PATH" ]; then
     echo -e "\033[0;33mCopying \033[1;34m$ORIG_PATH\033[0;33m to \033[1;34m$COPY_PATH\033[0m"
-    cp "$DOTFILES_DIR/$ORIG_PATH" "$COPY_PATH"
-  elif diff -q "$DOTFILES_DIR/$ORIG_PATH" "$COPY_PATH" > /dev/null ; then
+    cp "$ORIG_PATH" "$COPY_PATH"
+  elif diff -q "$ORIG_PATH" "$COPY_PATH" > /dev/null ; then
     echo -e "\033[0;32mFile \033[1;34m$ORIG_PATH\033[0;32m already exists at \033[1;34m$COPY_PATH\033[0m"
   else
     echo -e "\033[0;31mFile with wrong content exists at \033[1;34m$COPY_PATH\033[0;31m. Nothing is copied, remove it manually\033[0m" >&2
@@ -87,8 +101,8 @@ if grep -q "microsoft" /proc/sys/kernel/osrelease; then
   # Looks like as if you can't create a link from windows to wsl so we copy the
   # files instead
   mkdir -p "$WINHOME/.config/wezterm/colors"
-  cp "$DOTFILES_DIR/.wezterm.lua" "$WINHOME/.config/wezterm/wezterm.lua"
-  cp "$DOTFILES_DIR/.config/wezterm/colors/"* "$WINHOME/.config/wezterm/colors"
+  createcopy ".wezterm.lua" "$WINHOME/.config/wezterm/wezterm.lua"
+  createcopy ".config/wezterm/colors" "$WINHOME/.config/wezterm/colors"
 elif [[ "$OSTYPE" == "darwin"* ]]; then
   # MacOS
   createlink ".bash_profile"
@@ -102,7 +116,7 @@ else
   VS_CODE_KEY_BINDING_FILE="linux-keybindings.json"
 fi
 
-if [ -n ${VS_CODE_CONFIG_DIR_PATH+x} ] && [ -d "${HOME}/${VS_CODE_CONFIG_DIR_PATH}" ]; then
+if [ ! -z ${VS_CODE_CONFIG_DIR_PATH+x} ] && [ -d "${HOME}/${VS_CODE_CONFIG_DIR_PATH}" ]; then
   createlink "vscode/config/settings.json" "${VS_CODE_CONFIG_DIR_PATH}/settings.json"
   createlink "vscode/config/${VS_CODE_KEY_BINDING_FILE}" "${VS_CODE_CONFIG_DIR_PATH}/keybindings.json"
 else
@@ -137,10 +151,14 @@ fi
 # Create this empty directory because emacs won't do it automatically
 mkdir -p "${DOTFILES_DIR}/.emacs.d/autosaves"
 
-if [ -d "/opt/homebrew/share/highlight/themes" ] && [ ! -f "/opt/homebrew/share/highlight/themes/mywombat2.theme" ]; then
-  sudo ln -s "${DOTFILES_DIR}/resources/mywombat2.theme" "/opt/homebrew/share/highlight/themes/mywombat2.theme"
-elif [ -d "/usr/share/highlight/themes" ] && [ ! -f "/usr/share/highlight/themes/mywombat2.theme" ]; then
-  sudo ln -s "${DOTFILES_DIR}/resources/mywombat2.theme" "/usr/share/highlight/themes/mywombat2.theme"
+if [ -d "/opt/homebrew/share/highlight/themes" ]; then
+  if [ ! -f "/opt/homebrew/share/highlight/themes/mywombat2.theme" ]; then
+    sudo ln -s "${DOTFILES_DIR}/resources/mywombat2.theme" "/opt/homebrew/share/highlight/themes/mywombat2.theme"
+  fi
+elif [ -d "/usr/share/highlight/themes" ]; then
+  if [ ! -f "/usr/share/highlight/themes/mywombat2.theme" ]; then
+    sudo ln -s "${DOTFILES_DIR}/resources/mywombat2.theme" "/usr/share/highlight/themes/mywombat2.theme"
+  fi
 else
   echo -e "\033[0;31mhighlight command isn't installed and the theme could not be installed\033[0m" >&2
 fi
