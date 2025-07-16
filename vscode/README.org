@@ -1,3 +1,11 @@
+* Install extensions
+
+#+BEGIN_SRC bash :noeval
+code --install-extension rust-lang.rust-analyzer
+code --install-extension k--kato.intellij-idea-keybindings # Then also install locally in the interface if using wsl
+code --install-extension eamodio.gitlens
+#+END_SRC
+
 * Keybindings
 
 ** Appearance
@@ -32,7 +40,7 @@
 |------------------------+-------------------------+---------------------+-----------------------|
 |                        | ~Shift~ + ~F6~          | ~Rename Symbol~     | Rename a symbol       |
 |                        | ~Ctrl~ + ~T~            |                     | Open refactoring menu |
-| ~Ctrl~ + ~Shift~ + ~+~ | ~Shift~ + ~⌥~ + ~A~     |                     | Toggle block comment  |
+| ~Ctrl~ + ~Shift~ + ~/~ | ~Shift~ + ~⌥~ + ~A~     |                     | Toggle block comment  |
 |                        | ~⌥~ + ~Shift~ + ~Arrow~ | ~Move Line Up/Down~ | Move Line Up/Down     |
 
 ** Autocompletion

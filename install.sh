@@ -107,6 +107,10 @@ if grep -q "microsoft" /proc/sys/kernel/osrelease; then
   # In powershell install 1passowrd-cli
   #winget install 1password-cli
   #powershell.exe -c "Get-Command op | Select-Object -ExpandProperty Source" | tr '\\' '/' | sed -r 's#^C:#/mnt/c#'
+
+  #VS_CODE_CONFIG_DIR_PATH=".vscode-server/data/Machine"
+  #VS_CODE_CONFIG_DIR_PATH=".vscode-server/data/User"
+  #VS_CODE_KEY_BINDING_FILE="linux-keybindings.json"
 elif [[ "$OSTYPE" == "darwin"* ]]; then
   # MacOS
   createlink ".bash_profile"
