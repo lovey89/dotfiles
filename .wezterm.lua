@@ -63,6 +63,7 @@ config.font_rules = {
 -- Only for windows
 if wezterm.target_triple:find("windows") ~= nil then
    config.default_domain = 'WSL:Ubuntu'
+
    -- In Windows, wezterm seems to send enter when clicking ctrl+_ (undo in emacs).
    -- Change that to 0x1f (this can be verified with the 'showkey -a' command)
    table.insert(
@@ -73,6 +74,12 @@ if wezterm.target_triple:find("windows") ~= nil then
        action = wezterm.action.SendString("\x1f"),
      }
    )
+
+   -- Override the default 'wslhost.exe' title
+   wezterm.on('format-window-title', function()
+       local title = 'WezTerm'
+       return title
+   end)
 end
 
 -- and finally, return the configuration to wezterm
