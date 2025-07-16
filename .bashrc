@@ -75,7 +75,7 @@ export BASH_SILENCE_DEPRECATION_WARNING=1
 # Variables
 export VISUAL=vim
 
-export PATH="$PATH":"$DOTFILES_DIR"/scripts:"$DOTFILES_DIR"/configscripts
+export PATH="$PATH":"$DOTFILES_DIR"/scripts:"$DOTFILES_DIR"/configscripts:~/local/bin
 if [ -f "$HOME/.cargo/env" ]; then
   . "$HOME/.cargo/env"
 fi
@@ -106,6 +106,11 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
   export LSCOLORS="exGxcxdxCxegedabagacad"
 else
   export TERM='xterm-color'
+fi
+
+if grep -q "microsoft" /proc/sys/kernel/osrelease; then
+  # https://github.com/casey/just/issues/1611
+  export JUST_TEMPDIR=/tmp
 fi
 
 # Load less settings

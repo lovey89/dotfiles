@@ -4,11 +4,6 @@ local wezterm = require 'wezterm'
 -- This will hold the configuration.
 local config = wezterm.config_builder()
 
--- Only for windows
-if wezterm.target_triple:find("windows") ~= nil then
-   config.default_domain = 'WSL:Ubuntu'
-end
-
 -- This is where you actually apply your config choices
 config.enable_tab_bar = false
 
@@ -64,6 +59,21 @@ config.font_rules = {
 		font = wezterm.font("JetBrains Mono", { weight = "Bold", stretch = "Normal", style = "Italic", foreground="#ffffff" }),
 	},
 }
+
+-- Only for windows
+if wezterm.target_triple:find("windows") ~= nil then
+   config.default_domain = 'WSL:Ubuntu'
+   -- In Windows, wezterm seems to send enter when clicking ctrl+_ (undo in emacs).
+   -- Change that to 0x1f (this can be verified with the 'showkey -a' command)
+   table.insert(
+     config.keys,
+     {
+       key = "_",
+       mods = "CTRL|SHIFT",
+       action = wezterm.action.SendString("\x1f"),
+     }
+   )
+end
 
 -- and finally, return the configuration to wezterm
 return config

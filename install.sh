@@ -103,6 +103,10 @@ if grep -q "microsoft" /proc/sys/kernel/osrelease; then
   mkdir -p "$WINHOME/.config/wezterm/colors"
   createcopy ".wezterm.lua" "$WINHOME/.config/wezterm/wezterm.lua"
   createcopy ".config/wezterm/colors" "$WINHOME/.config/wezterm/colors"
+  # Find path to 1password command on windows
+  # In powershell install 1passowrd-cli
+  #winget install 1password-cli
+  #powershell.exe -c "Get-Command op | Select-Object -ExpandProperty Source" | tr '\\' '/' | sed -r 's#^C:#/mnt/c#'
 elif [[ "$OSTYPE" == "darwin"* ]]; then
   # MacOS
   createlink ".bash_profile"
