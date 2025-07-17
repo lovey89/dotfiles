@@ -61,6 +61,9 @@ config.font_rules = {
 }
 
 -- Only for windows
+-- To check the value of a variable in WezTerm you can open the debug overlay (ctrl+shift+L)
+-- Then you will get a terminal and you can just type the variable (e.g. wezterm.target_triple)
+-- and it will return the value. Press esc to return to the normal terminal
 if wezterm.target_triple:find("windows") ~= nil then
    config.default_domain = 'WSL:Ubuntu'
 
