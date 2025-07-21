@@ -29,8 +29,11 @@
   (custom-theme-set-faces
    'mywombat2
 
+   ;To identify ext properties for the character at the point 'M-x describe-char'
+   ;https://stackoverflow.com/questions/25336053/emacs-find-face-definition-color-other-styles-etc-at-point
    ;; Basic colors
-   `(default             ((,class (:background ,loved-gray     :foreground ,loved-white)))) ; BG and FG
+   ;`(default             ((,class (:background ,loved-gray     :foreground ,loved-white)))) ; BG and FG
+   `(default             ((,class (:foreground ,loved-white)))) ; BG and FG
    `(mode-line           ((,class (:background ,loved-white    :foreground ,loved-gray+1))))
    `(mode-line-inactive  ((,class (:background ,loved-gray+1   :foreground ,loved-white))))
    `(region              ((,class (:background ,loved-pink     :foreground ,loved-gray)))) ; Text selection
@@ -83,6 +86,9 @@
    `(git-gutter:modified  ((,class (:background ,loved-gray :foreground ,loved-blue))))
    `(git-gutter:unchanged ((,class (:background ,loved-gray :foreground ,loved-gray))))
    `(git-gutter:separator ((,class (:background ,loved-gray :foreground ,loved-gray+2))))
+
+   ;; Shell
+   `(sh-quoted-exec           ((,class (:foreground "salmon"))))
    )
   )
 
