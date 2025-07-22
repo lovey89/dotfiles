@@ -93,7 +93,8 @@ if command -v docker &> /dev/null; then
       -v ~/.dockervolumes/k9s/config/:/root/.config/ \
       -v ~/.dockervolumes/k9s/local/:/root/.local/ \
       --network host \
-      quay.io/derailed/k9s'
+      -e K9S_SKIN="transparent" \
+      derailed/k9s'
   fi
 fi
 
