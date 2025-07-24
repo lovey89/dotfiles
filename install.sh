@@ -86,6 +86,7 @@ createlink ".bash_aliases"
 createlink ".gitconfig"
 createlink ".vimrc"
 createlink ".tmux.conf"
+createlink ".tmux-floating.conf"
 createlink ".wezterm.lua"
 createlink ".pg_format"
 
