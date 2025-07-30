@@ -12,6 +12,12 @@ sudo dnf config-manager --set-enabled google-chrome
 sudo dnf install google-chrome-stable
 #+END_SRC
 
+** Just
+
+#+BEGIN_SRC bash :noeval
+just --completions bash | sudo tee /etc/bash_completion.d/just > /dev/null
+#+END_SRC
+
 ** Docker
 
 For new versions if Fedora (>= 32): https://docs.docker.com/engine/install/fedora/
