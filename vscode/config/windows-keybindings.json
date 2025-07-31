@@ -10,18 +10,8 @@
     "when": "textInputFocus"
   },
   {
-    "key": "end",
-    "command": "-cursorEnd",
-    "when": "textInputFocus"
-  },
-  {
     "key": "ctrl+a",
     "command": "cursorHome",
-    "when": "textInputFocus"
-  },
-  {
-    "key": "home",
-    "command": "-cursorHome",
     "when": "textInputFocus"
   },
   {
@@ -31,5 +21,15 @@
   {
     "key": "ctrl+a",
     "command": "-editor.action.selectAll"
+  },
+  {
+    "key": "home",
+    "command": "cursorHome",
+    "when": "textInputFocus"
+  },
+  {
+    "key": "end",
+    "command": "cursorEnd",
+    "when": "textInputFocus"
   }
 ]

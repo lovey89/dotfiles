@@ -30,18 +30,18 @@ code --install-extension eamodio.gitlens
 
 ** Documentation
 
-| Keybinding Linux            | Keybinding Mac | Command               | Description             |
-|-----------------------------+----------------+-----------------------+-------------------------|
-| ~Ctrl~ + ~k~ - ~Ctrl~ + ~i~ | (~Fn~ +) ~F1~  | ~Show or Focus Hover~ | Show documentation peek |
+| Keybinding Linux                           | Keybinding Mac | Command               | Description                                        |
+|--------------------------------------------+----------------+-----------------------+----------------------------------------------------|
+| ~Ctrl~ + ~k~ - ~Ctrl~ + ~i~ / ~Ctrl~ + ~q~ | (~Fn~ +) ~F1~  | ~Show or Focus Hover~ | Show documentation peek. Double to focus on window |
 
 ** Refactoring
 
-| Keybinding Linux       | Keybinding Mac          | Command             | Description           |
-|------------------------+-------------------------+---------------------+-----------------------|
-|                        | ~Shift~ + ~F6~          | ~Rename Symbol~     | Rename a symbol       |
-|                        | ~Ctrl~ + ~T~            |                     | Open refactoring menu |
-| ~Ctrl~ + ~Shift~ + ~/~ | ~Shift~ + ~⌥~ + ~A~     |                     | Toggle block comment  |
-|                        | ~⌥~ + ~Shift~ + ~Arrow~ | ~Move Line Up/Down~ | Move Line Up/Down     |
+| Keybinding Linux               | Keybinding Mac          | Command             | Description           |
+|--------------------------------+-------------------------+---------------------+-----------------------|
+| ~Shift~ + ~F6~                 | ~Shift~ + ~F6~          | ~Rename Symbol~     | Rename a symbol       |
+| ~Ctrl~ + ~Shift~ + ~Alt~ + ~T~ | ~Ctrl~ + ~T~            |                     | Open refactoring menu |
+| ~Ctrl~ + ~Shift~ + ~/~         | ~Shift~ + ~⌥~ + ~A~     |                     | Toggle block comment  |
+|                                | ~⌥~ + ~Shift~ + ~Arrow~ | ~Move Line Up/Down~ | Move Line Up/Down     |
 
 ** Autocompletion
 

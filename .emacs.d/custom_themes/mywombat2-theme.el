@@ -32,7 +32,7 @@
    ;To identify ext properties for the character at the point 'M-x describe-char'
    ;https://stackoverflow.com/questions/25336053/emacs-find-face-definition-color-other-styles-etc-at-point
    ;; Basic colors
-   ;`(default             ((,class (:background ,loved-gray     :foreground ,loved-white)))) ; BG and FG
+   ;;`(default             ((,class (:background ,loved-gray     :foreground ,loved-white)))) ; BG and FG
    `(default             ((,class (:foreground ,loved-white)))) ; BG and FG
    `(mode-line           ((,class (:background ,loved-white    :foreground ,loved-gray+1))))
    `(mode-line-inactive  ((,class (:background ,loved-gray+1   :foreground ,loved-white))))
@@ -71,6 +71,8 @@
    `(org-block            ((,class (:background ,loved-gray-1))))
    `(org-block-begin-line ((,class (:background ,loved-green :foreground ,loved-gray))))
    `(org-block-end-line   ((,class (:inherit (org-block-begin-line)))))
+   `(org-table            ((,class (:foreground "LightSkyBlue"))))
+   `(org-hide             ((,class (:foreground ,loved-gray))))
 
    ;; Company
    `(company-tooltip                      ((,class (:inherit (mode-line-inactive)))))
