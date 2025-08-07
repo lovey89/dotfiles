@@ -46,8 +46,7 @@ https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/
 To activate bash auto completion
 
 #+BEGIN_SRC bash
-sudo su -
-kubectl completion bash >/etc/bash_completion.d/kubectl
+kubectl completion bash | sudo tee /etc/bash_completion.d/kubectl > /dev/null
 #+END_SRC
 
 *** Minikube

@@ -94,6 +94,7 @@ createlink ".pg_format"
 createlink ".emacs.d"
 createlink ".vim"
 createlink ".config/wezterm" ".config/wezterm"
+createlink ".gnupg/gpg-agent.conf" ".gnupg/gpg-agent.conf"
 
 if grep -q "microsoft" /proc/sys/kernel/osrelease; then
   # WSL
