@@ -1,8 +1,10 @@
-#define T_BACKGROUND #fbf1c7
-#define T_FOREGROUND #282828
-#define T_FORE_H     #ffffff
+! https://github.com/morhetz/gruvbox gruvbox light hard
+
+#define T_BACKGROUND #f9f5d7
+#define T_FOREGROUND #3c3836
+#define T_FORE_H     #282828
 #define T_BLACK      #fbf1c7
-#define T_BLACK_H    #9d8374
+#define T_BLACK_H    #928374
 #define T_RED        #9d0006
 #define T_RED_H      #cc241d
 #define T_GREEN      #79740e
@@ -12,9 +14,9 @@
 #define T_BLUE       #076678
 #define T_BLUE_H     #458588
 #define T_MAGENTA    #8f3f71
-#define T_MAGENTA_H  #b16186
+#define T_MAGENTA_H  #b16286
 #define T_CYAN       #427b58
-#define T_CYAN_H     #689d69
+#define T_CYAN_H     #689d6a
 #define T_WHITE      #3c3836
 #define T_WHITE_H    #7c6f64
 

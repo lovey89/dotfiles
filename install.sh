@@ -76,6 +76,7 @@ createcopy()
 }
 
 # Generate .minttyrc, .wezterm and .Xresources with specified color scheme
+"${DOTFILES_DIR}/templates/create_config_files" mygruvboxdark
 "${DOTFILES_DIR}/templates/create_config_files" mygruvboxlight
 "${DOTFILES_DIR}/templates/create_config_files" mywombat
 
@@ -101,7 +102,7 @@ createlink ".gnupg/gpg-agent.conf" ".gnupg/gpg-agent.conf"
 if grep -q "microsoft" /proc/sys/kernel/osrelease; then
   # WSL
   #sudo apt install --no-install-recommends wslu
-  WINHOME=$(wslpath "$(wslvar USERPROFILE)")
+  WINHOME=$(wslpath "$(wslvar USERPROFILE)") # "
   # Looks like as if you can't create a link from windows to wsl so we copy the
   # files instead
   mkdir -p "$WINHOME/.config/wezterm/colors"
@@ -172,10 +173,12 @@ mkdir -p "${DOTFILES_DIR}/.emacs.d/autosaves"
 if [ -d "/opt/homebrew/share/highlight/themes" ]; then
   if [ ! -f "/opt/homebrew/share/highlight/themes/mywombat2.theme" ]; then
     sudo ln -s "${DOTFILES_DIR}/resources/mywombat2.theme" "/opt/homebrew/share/highlight/themes/mywombat2.theme"
+    sudo ln -fs "mywombat2.theme" "/opt/homebrew/share/highlight/themes/linked_theme.theme"
   fi
 elif [ -d "/usr/share/highlight/themes" ]; then
   if [ ! -f "/usr/share/highlight/themes/mywombat2.theme" ]; then
     sudo ln -s "${DOTFILES_DIR}/resources/mywombat2.theme" "/usr/share/highlight/themes/mywombat2.theme"
+    sudo ln -fs "mywombat2.theme" "/usr/share/highlight/themes/linked_theme.theme"
   fi
 else
   echo -e "\033[0;31mhighlight command isn't installed and the theme could not be installed\033[0m" >&2

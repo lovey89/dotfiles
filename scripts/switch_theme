@@ -10,10 +10,28 @@ fi
 CURRENT_THEME=$(sed -rn "s/^config.color_scheme = '([^']*)'.*/\1/p" "$WEZTERM_CONFIG_PATH")
 if [ "$CURRENT_THEME" == "mygruvboxlight" ]; then
   NEW_THEME="mywombat"
+  HL_THEME=mywombat2.theme
+elif [ "$CURRENT_THEME" == "mywombat" ]; then
+  NEW_THEME="mygruvboxdark"
+  HL_THEME=base16/gruvbox-dark-medium.theme
 else
   NEW_THEME="mygruvboxlight"
+  HL_THEME=base16/gruvbox-light-hard.theme
 fi
+
+echo "Update WezTerm colors to '$NEW_THEME'"
 sed -r -i'' --follow-symlinks "s/^config.color_scheme = '[^']*'(.*)/config.color_scheme = '$NEW_THEME'\1/" "$WEZTERM_CONFIG_PATH"
 
+if [ -d "/opt/homebrew/share/highlight/themes" ]; then
+  echo "Update highlight colors to '$HL_THEME'"
+  sudo ln -fs "$HL_THEME" "/opt/homebrew/share/highlight/themes/linked_theme.theme"
+elif [ -d "/usr/share/highlight/themes" ]; then
+  echo "Update highlight colors to '$HL_THEME'"
+  sudo ln -fs "$HL_THEME" "/usr/share/highlight/themes/linked_theme.theme"
+fi
+
 # Check if tmux session
-tmux source-file ~/.tmux.conf
+if [ -n "$TMUX" ]; then
+  echo "Reloading tmux config"
+  tmux source-file ~/.tmux.conf
+fi

@@ -42,21 +42,30 @@ config.harfbuzz_features = { 'calt=0', 'clig=0', 'liga=0' }
 config.default_cursor_style = 'SteadyBar'
 config.selection_word_boundary = " \t\n{}[]()<>\"'`│|="
 
-config.colors = {
-  selection_bg = "rgba(238, 169, 184, 70%)"
+--config.colors = {
+  --selection_bg = "rgba(214, 211, 202, 50%)"
 --  selection_bg = "#eea9b8"
-}
+--}
 
+if config.color_scheme == "mywombat" then
+  hl_color="#ffffff"
+elseif config.color_scheme == "mygruvboxlight" then
+  hl_color="#282828"
+elseif config.color_scheme == "mygruvboxdark" then
+  hl_color="#fbf1c7"
+end
+
+-- Foreground highlight doesn't work properly
 config.font_rules = {
 	{
 		intensity = "Bold",
 		italic = false,
-		font = wezterm.font("JetBrains Mono", { weight = "Bold", stretch = "Normal", style = "Normal", foreground="#ffffff" }),
+		font = wezterm.font("JetBrains Mono", { weight = "Bold", stretch = "Normal", style = "Normal", foreground=hl_color }),
 	},
 	{
 		intensity = "Bold",
 		italic = true,
-		font = wezterm.font("JetBrains Mono", { weight = "Bold", stretch = "Normal", style = "Italic", foreground="#ffffff" }),
+		font = wezterm.font("JetBrains Mono", { weight = "Bold", stretch = "Normal", style = "Italic", foreground=hl_color }),
 	},
 }
 

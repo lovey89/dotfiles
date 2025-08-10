@@ -1,0 +1,42 @@
+! https://github.com/morhetz/gruvbox gruvbox dark medium
+
+#define T_BACKGROUND #282828
+#define T_FOREGROUND #ebdbb2
+#define T_FORE_H     #fbf1c7
+#define T_BLACK      #3c3836
+#define T_BLACK_H    #928374
+#define T_RED        #cc241d
+#define T_RED_H      #fb4934
+#define T_GREEN      #98971a
+#define T_GREEN_H    #b8bb26
+#define T_YELLOW     #d79921
+#define T_YELLOW_H   #fabd2f
+#define T_BLUE       #458588
+#define T_BLUE_H     #83a598
+#define T_MAGENTA    #b16286
+#define T_MAGENTA_H  #d3869b
+#define T_CYAN       #689d6a
+#define T_CYAN_H     #8ec07c
+#define T_WHITE      #a89984
+#define T_WHITE_H    #ebdbb2
+
+*.background:  T_BACKGROUND
+*.foreground:  T_FOREGROUND
+*.cursorColor: T_FOREGROUND
+*.colorBD:     T_FORE_H
+*.color0:      T_BLACK
+*.color1:      T_RED
+*.color2:      T_GREEN
+*.color3:      T_YELLOW
+*.color4:      T_BLUE
+*.color5:      T_MAGENTA
+*.color6:      T_CYAN
+*.color7:      T_WHITE
+*.color8:      T_BLACK_H
+*.color9:      T_RED_H
+*.color10:     T_GREEN_H
+*.color11:     T_YELLOW_H
+*.color12:     T_BLUE_H
+*.color13:     T_MAGENTA_H
+*.color14:     T_CYAN_H
+*.color15:     T_WHITE_H

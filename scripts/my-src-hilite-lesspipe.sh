@@ -6,8 +6,7 @@
 #     and "*" as an error when performing parameter expansion.
 set -eu
 
-highlight_command='highlight -s mywombat2 -O truecolor --force'
-
+highlight_command='highlight -s linked_theme -O truecolor --force'
 guess_language() {
   if echo -e "${1:-}" | grep -q $'\033'; then
     echo "colorized"
