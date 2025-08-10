@@ -76,6 +76,7 @@ createcopy()
 }
 
 # Generate .minttyrc, .wezterm and .Xresources with specified color scheme
+"${DOTFILES_DIR}/templates/create_config_files" mygruvboxlight
 "${DOTFILES_DIR}/templates/create_config_files" mywombat
 
 mkdir -p "$BACKUP_DIR"
@@ -94,6 +95,7 @@ createlink ".pg_format"
 createlink ".emacs.d"
 createlink ".vim"
 createlink ".config/wezterm" ".config/wezterm"
+createlink ".config/tmux" ".config/tmux"
 createlink ".gnupg/gpg-agent.conf" ".gnupg/gpg-agent.conf"
 
 if grep -q "microsoft" /proc/sys/kernel/osrelease; then

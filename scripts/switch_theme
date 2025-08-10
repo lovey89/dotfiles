@@ -1,0 +1,19 @@
+#!/bin/bash
+
+if grep -q "microsoft" /proc/sys/kernel/osrelease; then
+  WINHOME=$(wslpath "$(wslvar USERPROFILE)")
+  WEZTERM_CONFIG_PATH="$WINHOME/.config/wezterm/wezterm.lua"
+else
+  WEZTERM_CONFIG_PATH="$HOME/.wezterm.lua"
+fi
+
+CURRENT_THEME=$(sed -rn "s/^config.color_scheme = '([^']*)'.*/\1/p" "$WEZTERM_CONFIG_PATH")
+if [ "$CURRENT_THEME" == "mygruvboxlight" ]; then
+  NEW_THEME="mywombat"
+else
+  NEW_THEME="mygruvboxlight"
+fi
+sed -r -i'' --follow-symlinks "s/^config.color_scheme = '[^']*'(.*)/config.color_scheme = '$NEW_THEME'\1/" "$WEZTERM_CONFIG_PATH"
+
+# Check if tmux session
+tmux source-file ~/.tmux.conf
