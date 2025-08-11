@@ -40,11 +40,11 @@ createlink()
 
 createcopy()
 {
-  ORIG_PATH="$1"
+  local ORIG_PATH="$1"
   if [[ "${ORIG_PATH}" != /* ]]; then
     ORIG_PATH="$DOTFILES_DIR/$ORIG_PATH"
   fi
-  COPY_PATH="$2"
+  local COPY_PATH="$2"
 
   if [ -d "$ORIG_PATH" ]; then
     for file in "$ORIG_PATH"/*; do
