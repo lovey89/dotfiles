@@ -12,6 +12,8 @@ config.enable_wayland = false
 
 config.audible_bell = 'Disabled'
 
+config.selection_word_boundary = " \t\n{}[]()\"'`:"
+
 config.keys = {
   {
     key = 'w',

@@ -4,3 +4,4 @@ SCRIPT_DIR=$(readlink -f `dirname $0`)
 WINHOME=$(wslpath "$(wslvar USERPROFILE)")
 
 cp "$WINHOME/AppData/Roaming/Code/User/keybindings.json" "$SCRIPT_DIR/windows-keybindings.json"
+cp "$WINHOME/AppData/Roaming/Code/User/settings.json" "$SCRIPT_DIR/settings.json"

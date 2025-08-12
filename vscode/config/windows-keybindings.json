@@ -31,5 +31,10 @@
     "key": "end",
     "command": "cursorEnd",
     "when": "textInputFocus"
+  },
+  {
+    "key": "alt+d e",
+    "command": "workbench.files.action.showActiveFileInExplorer",
+    "when": "editorFocus"
   }
 ]
