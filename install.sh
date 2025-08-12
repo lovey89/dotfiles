@@ -88,7 +88,6 @@ createlink ".bash_aliases"
 createlink ".gitconfig"
 createlink ".vimrc"
 createlink ".tmux.conf"
-createlink ".tmux-floating.conf"
 createlink ".wezterm.lua"
 createlink ".pg_format"
 
@@ -113,10 +112,10 @@ if grep -q "microsoft" /proc/sys/kernel/osrelease; then
   #winget install 1password-cli
   #powershell.exe -c "Get-Command op | Select-Object -ExpandProperty Source" | tr '\\' '/' | sed -r 's#^C:#/mnt/c#'
 
-  #VS_CODE_CONFIG_DIR_PATH=".vscode-server/data/User"
-  VS_CODE_CONFIG_DIR_PATH="$WINHOME/AppData/Roaming/Code/User/"
+  VS_CODE_CONFIG_DIR_PATH=".vscode-server/data/User"
+  VS_CODE_CONFIG_COPY_DIR_PATH="$WINHOME/AppData/Roaming/Code/User"
+
   VS_CODE_KEY_BINDING_FILE="windows-keybindings.json"
-  VS_CODE_FILES_COPY="true"
 elif [[ "$OSTYPE" == "darwin"* ]]; then
   # MacOS
   createlink ".bash_profile"
@@ -131,15 +130,15 @@ else
 fi
 
 if [ ! -z ${VS_CODE_CONFIG_DIR_PATH+x} ] && [ -d "${HOME}/${VS_CODE_CONFIG_DIR_PATH}" ]; then
-  if [ "$VS_CODE_FILES_COPY" == "true" ]; then
-    createcopy "vscode/config/settings.json" "${VS_CODE_CONFIG_DIR_PATH}/settings.json"
-    createcopy "vscode/config/${VS_CODE_KEY_BINDING_FILE}" "${VS_CODE_CONFIG_DIR_PATH}/keybindings.json"
-  else
-    createlink "vscode/config/settings.json" "${VS_CODE_CONFIG_DIR_PATH}/settings.json"
-    createlink "vscode/config/${VS_CODE_KEY_BINDING_FILE}" "${VS_CODE_CONFIG_DIR_PATH}/keybindings.json"
-  fi
+  createlink "vscode/config/settings.json" "${VS_CODE_CONFIG_DIR_PATH}/settings.json"
+  createlink "vscode/config/${VS_CODE_KEY_BINDING_FILE}" "${VS_CODE_CONFIG_DIR_PATH}/keybindings.json"
 else
   echo -e "\033[0;31mVS Code config folder was not found\033[0m" >&2
+fi
+
+if [ ! -z ${VS_CODE_CONFIG_COPY_DIR_PATH+x} ] && [ -d "${VS_CODE_CONFIG_COPY_DIR_PATH}" ]; then
+  createcopy "vscode/config/settings.json" "${VS_CODE_CONFIG_COPY_DIR_PATH}/settings.json"
+  createcopy "vscode/config/${VS_CODE_KEY_BINDING_FILE}" "${VS_CODE_CONFIG_COPY_DIR_PATH}/keybindings.json"
 fi
 
 if [ -x "$(command -v dconf)" ]; then
