@@ -1,3 +1,9 @@
+-- To view the current config:
+--  - Enter debug terminal (Ctrl + Shift + L)
+--  - Type 'myconfig = window:effective_config()'
+--  - Type 'myconfig' to check all config
+--  - Type 'myconfig["font"]' to only check a single setting
+
 -- Pull in the wezterm API
 local wezterm = require 'wezterm'
 
@@ -11,8 +17,6 @@ config.enable_tab_bar = false
 config.enable_wayland = false
 
 config.audible_bell = 'Disabled'
-
-config.selection_word_boundary = " \t\n{}[]()\"'`:"
 
 config.keys = {
   {
@@ -42,7 +46,7 @@ config.font_size = 9.0
 -- Disable ligatures
 config.harfbuzz_features = { 'calt=0', 'clig=0', 'liga=0' }
 config.default_cursor_style = 'SteadyBar'
-config.selection_word_boundary = " \t\n{}[]()<>\"'`│|="
+config.selection_word_boundary = " \t\n{}[]()<>\"'`│|=:"
 
 --config.colors = {
   --selection_bg = "rgba(214, 211, 202, 50%)"
