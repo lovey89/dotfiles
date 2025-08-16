@@ -1,0 +1,42 @@
+! https://github.com/mbadolato/iTerm2-Color-Schemes/blob/master/wezterm/catppuccin-frappe.toml
+
+#define T_BACKGROUND #303446
+#define T_FOREGROUND #c6d0f5
+#define T_FORE_H     #c6d0f5
+#define T_BLACK      #51576d
+#define T_BLACK_H    #626880
+#define T_RED        #e78284
+#define T_RED_H      #e67172
+#define T_GREEN      #a6d189
+#define T_GREEN_H    #8ec772
+#define T_YELLOW     #e5c890
+#define T_YELLOW_H   #d9ba73
+#define T_BLUE       #8caaee
+#define T_BLUE_H     #7b9ef0
+#define T_MAGENTA    #f4b8e4
+#define T_MAGENTA_H  #f2a4db
+#define T_CYAN       #81c8be
+#define T_CYAN_H     #5abfb5
+#define T_WHITE      #a5adce
+#define T_WHITE_H    #b5bfe2
+
+*.background:  T_BACKGROUND
+*.foreground:  T_FOREGROUND
+*.cursorColor: T_FOREGROUND
+*.colorBD:     T_FORE_H
+*.color0:      T_BLACK
+*.color1:      T_RED
+*.color2:      T_GREEN
+*.color3:      T_YELLOW
+*.color4:      T_BLUE
+*.color5:      T_MAGENTA
+*.color6:      T_CYAN
+*.color7:      T_WHITE
+*.color8:      T_BLACK_H
+*.color9:      T_RED_H
+*.color10:     T_GREEN_H
+*.color11:     T_YELLOW_H
+*.color12:     T_BLUE_H
+*.color13:     T_MAGENTA_H
+*.color14:     T_CYAN_H
+*.color15:     T_WHITE_H

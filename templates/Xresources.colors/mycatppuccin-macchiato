@@ -1,0 +1,42 @@
+! https://github.com/mbadolato/iTerm2-Color-Schemes/blob/master/wezterm/catppuccin-macchiato.toml
+
+#define T_BACKGROUND #24273a
+#define T_FOREGROUND #cad3f5
+#define T_FORE_H     #cad3f5
+#define T_BLACK      #494d64
+#define T_BLACK_H    #5b6078
+#define T_RED        #ed8796
+#define T_RED_H      #ec7486
+#define T_GREEN      #a6da95
+#define T_GREEN_H    #8ccf7f
+#define T_YELLOW     #eed49f
+#define T_YELLOW_H   #e1c682
+#define T_BLUE       #8aadf4
+#define T_BLUE_H     #78a1f6
+#define T_MAGENTA    #f5bde6
+#define T_MAGENTA_H  #f2a9dd
+#define T_CYAN       #8bd5ca
+#define T_CYAN_H     #63cbc0
+#define T_WHITE      #a5adcb
+#define T_WHITE_H    #b8c0e0
+
+*.background:  T_BACKGROUND
+*.foreground:  T_FOREGROUND
+*.cursorColor: T_FOREGROUND
+*.colorBD:     T_FORE_H
+*.color0:      T_BLACK
+*.color1:      T_RED
+*.color2:      T_GREEN
+*.color3:      T_YELLOW
+*.color4:      T_BLUE
+*.color5:      T_MAGENTA
+*.color6:      T_CYAN
+*.color7:      T_WHITE
+*.color8:      T_BLACK_H
+*.color9:      T_RED_H
+*.color10:     T_GREEN_H
+*.color11:     T_YELLOW_H
+*.color12:     T_BLUE_H
+*.color13:     T_MAGENTA_H
+*.color14:     T_CYAN_H
+*.color15:     T_WHITE_H

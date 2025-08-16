@@ -1,0 +1,52 @@
+#!/usr/bin/env bash
+
+WEZTERM_THEME="$1"
+
+BACKGROUND=$(sed -rn 's/background = "(.*)"/\1/p' "$WEZTERM_THEME")
+FOREGROUND=$(sed -rn 's/foreground = "(.*)"/\1/p' "$WEZTERM_THEME")
+read T_BLACK T_RED T_GREEN T_YELLOW T_BLUE T_MAGENTA T_CYAN T_WHITE <<< $(sed -rn 's/ansi = \["(.*)","(.*)","(.*)","(.*)","(.*)","(.*)","(.*)","(.*)"\]/\1 \2 \3 \4 \5 \6 \7 \8/p' "$WEZTERM_THEME")
+read T_BLACK_H T_RED_H T_GREEN_H T_YELLOW_H T_BLUE_H T_MAGENTA_H T_CYAN_H T_WHITE_H <<< $(sed -rn 's/brights = \["(.*)","(.*)","(.*)","(.*)","(.*)","(.*)","(.*)","(.*)"\]/\1 \2 \3 \4 \5 \6 \7 \8/p' "$WEZTERM_THEME")
+
+
+echo "#define T_BACKGROUND $BACKGROUND"
+echo "#define T_FOREGROUND $FOREGROUND"
+echo "#define T_FORE_H     $FOREGROUND"
+echo "#define T_BLACK      $T_BLACK"
+echo "#define T_BLACK_H    $T_BLACK_H"
+echo "#define T_RED        $T_RED"
+echo "#define T_RED_H      $T_RED_H"
+echo "#define T_GREEN      $T_GREEN"
+echo "#define T_GREEN_H    $T_GREEN_H"
+echo "#define T_YELLOW     $T_YELLOW"
+echo "#define T_YELLOW_H   $T_YELLOW_H"
+echo "#define T_BLUE       $T_BLUE"
+echo "#define T_BLUE_H     $T_BLUE_H"
+echo "#define T_MAGENTA    $T_MAGENTA"
+echo "#define T_MAGENTA_H  $T_MAGENTA_H"
+echo "#define T_CYAN       $T_CYAN"
+echo "#define T_CYAN_H     $T_CYAN_H"
+echo "#define T_WHITE      $T_WHITE"
+echo "#define T_WHITE_H    $T_WHITE_H"
+echo ""
+cat << END_HEREDOC
+*.background:  T_BACKGROUND
+*.foreground:  T_FOREGROUND
+*.cursorColor: T_FOREGROUND
+*.colorBD:     T_FORE_H
+*.color0:      T_BLACK
+*.color1:      T_RED
+*.color2:      T_GREEN
+*.color3:      T_YELLOW
+*.color4:      T_BLUE
+*.color5:      T_MAGENTA
+*.color6:      T_CYAN
+*.color7:      T_WHITE
+*.color8:      T_BLACK_H
+*.color9:      T_RED_H
+*.color10:     T_GREEN_H
+*.color11:     T_YELLOW_H
+*.color12:     T_BLUE_H
+*.color13:     T_MAGENTA_H
+*.color14:     T_CYAN_H
+*.color15:     T_WHITE_H
+END_HEREDOC

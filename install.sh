@@ -76,6 +76,12 @@ createcopy()
 }
 
 # Generate .minttyrc, .wezterm and .Xresources with specified color scheme
+"${DOTFILES_DIR}/templates/create_config_files" solarized-light
+"${DOTFILES_DIR}/templates/create_config_files" solarized-dark
+"${DOTFILES_DIR}/templates/create_config_files" mycatppuccin-frappe
+"${DOTFILES_DIR}/templates/create_config_files" mycatppuccin-latte
+"${DOTFILES_DIR}/templates/create_config_files" mycatppuccin-mocha
+"${DOTFILES_DIR}/templates/create_config_files" mycatppuccin-macchiato
 "${DOTFILES_DIR}/templates/create_config_files" mygruvboxdark
 "${DOTFILES_DIR}/templates/create_config_files" mygruvboxlight
 "${DOTFILES_DIR}/templates/create_config_files" mywombat
