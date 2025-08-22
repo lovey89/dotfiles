@@ -36,5 +36,10 @@
     "key": "alt+d e",
     "command": "workbench.files.action.showActiveFileInExplorer",
     "when": "editorFocus"
+  },
+  {
+    "key": "alt+d r",
+    "command": "rust-analyzer.run",
+    "when": "editorTextFocus && editorLangId == 'rust'"
   }
 ]
