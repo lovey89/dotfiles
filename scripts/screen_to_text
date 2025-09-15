@@ -99,12 +99,18 @@ produce_text() {
          s/\blf/If/g
          s/Il/I/g
          s/\|/I/g
+         s/\b(AVVS|AVS)\b/AWS/g
+         s/\bEC\\?/EC2/g
+         s/\bIs\b/is/g
+         s/\b1n\b/In/g
+         # I followed by a number should be treated as a 1
+         s/I([0-9]+)/1\1/g
          # Removes form feed character that tesseract sometimes adds
          s/\x0c//
          s/—/-/g
          s/[“”]/\"/g
          s/[‘’]/'/g
-         s/^[-e>«»\*¢©]+ /- /"\
+         s/^[-e>«»\*¢©°]+ /- /"\
          "${name}.txt"
 
     if [ "$BULLETS" = "TRUE" ]; then
