@@ -95,9 +95,11 @@ produce_text() {
     tesseract $TES_LANG_OPT "${name}.png" "${name}" &> /dev/null
 
     sed -r -i\
-        "s/\$3/S3/g
+        "s/\\\$3/S3/g
          s/\blf/If/g
          s/Il/I/g
+         s/lA/IA/g
+         s/VV/W/g
          s/\|/I/g
          s/\b(AVVS|AVS)\b/AWS/g
          s/\bEC\\?/EC2/g
