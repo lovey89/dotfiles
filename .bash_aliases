@@ -71,8 +71,11 @@ if command -v cargo &> /dev/null; then
   alias rust_lint_crate='cargo clippy --workspace --all-targets -- -D warnings -W clippy::all -W clippy::correctness -W clippy::complexity -W clippy::style -W clippy::suspicious -W clippy::perf' # -W clippy::pedantic
   alias rust_lint_crate_fix='cargo clippy --workspace --all-targets --fix --allow-staged -- -D warnings -W clippy::all -W clippy::correctness -W clippy::complexity -W clippy::style -W clippy::suspicious -W clippy::perf' # -W clippy::pedantic
   alias rust_lint_crate_fix_dirty='cargo clippy --workspace --all-targets --fix --allow-staged --allow-dirty -- -D warnings -W clippy::all -W clippy::correctness -W clippy::complexity -W clippy::style -W clippy::suspicious -W clippy::perf' # -W clippy::pedantic
-  alias rust_fmt_crate='cargo fmt --check -- --config comment_width=100 --config format_code_in_doc_comments=true --config group_imports=StdExternalCrate --config imports_granularity=Module --config imports_layout=Vertical --config wrap_comments=true'
-  alias rust_fmt_crate_fix='cargo fmt -- --config comment_width=100 --config format_code_in_doc_comments=true --config group_imports=StdExternalCrate --config imports_granularity=Module --config imports_layout=Vertical --config wrap_comments=true'
+  #alias rust_fmt_crate='cargo fmt --check -- --config comment_width=100 --config format_code_in_doc_comments=true --config group_imports=StdExternalCrate --config imports_granularity=Module --config imports_layout=Vertical --config wrap_comments=true'
+  #alias rust_fmt_crate_fix='cargo fmt -- --config comment_width=100 --config format_code_in_doc_comments=true --config group_imports=StdExternalCrate --config imports_granularity=Module --config imports_layout=Vertical --config wrap_comments=true'
+  # I do prefer the formatting from above but right now we are going with "vanilla formatting"
+  alias rust_fmt_crate='cargo fmt --check --all'
+  alias rust_fmt_crate_fix='cargo fmt --all'
 fi
 
 if command -v op.exe &> /dev/null; then
