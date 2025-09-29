@@ -10,6 +10,7 @@
     "files.trimTrailingWhitespace": true,
     "files.trimFinalNewlines": true,
     "editor.wrappingIndent": "indent",
-    "rust-analyzer.procMacro.enable": false,
-    "explorer.autoReveal": "focusNoScroll"
+    "rust-analyzer.procMacro.enable": true,
+    "explorer.autoReveal": "focusNoScroll",
+    "remote.autoForwardPortsSource": "hybrid"
 }
