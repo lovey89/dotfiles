@@ -41,7 +41,7 @@ config.keys = {
   },
 }
 
-config.color_scheme = 'mywombat'
+config.color_scheme = 'mycatppuccin-mocha'
 config.font_size = 9.0
 -- Disable ligatures
 config.harfbuzz_features = { 'calt=0', 'clig=0', 'liga=0' }

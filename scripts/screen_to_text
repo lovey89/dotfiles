@@ -70,7 +70,7 @@ increase_detection_rate() {
     # To increase the detection rate we will first make the image bigger
     mogrify -modulate 100,0 -resize 400% "$name"
     # And then make it sharper
-    convert "$name" -sharpen 0x3 "$name"
+    magick "$name" -sharpen 0x3 "$name" # convert "$name" -sharpen 0x3 "$name"
     ((i++))
   done
 }
@@ -101,6 +101,10 @@ produce_text() {
          s/lA/IA/g
          s/VV/W/g
          s/\|/I/g
+         s/IOO/100/g
+         s/IQQ/100/g
+         s/IQ/10/g
+         s/\[AM/IAM/g
          s/\b(AVVS|AVS)\b/AWS/g
          s/\bEC\\?/EC2/g
          s/\bIs\b/is/g

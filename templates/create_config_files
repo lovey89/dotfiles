@@ -4,7 +4,6 @@ SCRIPT_DIR=$(readlink -f `dirname $0`)
 DOTFILES_DIR="${SCRIPT_DIR}/.."
 MINTTYRC_FILE="${DOTFILES_DIR}/.minttyrc"
 XRESOURCES_FILE="${DOTFILES_DIR}/.Xresources"
-DCONF_FILE="${DOTFILES_DIR}/.terminaldconf"
 COLOR_DIR="${SCRIPT_DIR}/Xresources.colors"
 
 if [ "$#" != 1 ]; then
@@ -16,11 +15,13 @@ elif [ ! -r "${COLOR_DIR}/$1" ]; then
 fi
 
 WEZTERM_FILE="${DOTFILES_DIR}/.config/wezterm/colors/$1.toml"
+DCONF_FILE="${DOTFILES_DIR}/.terminaldconf_colors/$1"
 
 # ------
 # .terminaldconf file
 # Remove it if it exists
 rm -f "$DCONF_FILE"
+mkdir -p "$(dirname $DCONF_FILE)"
 
 cat << DCONF_COMMENTS > "$DCONF_FILE"
 # Don't update this file directly. Update dotfiles/templates/.terminaldconf and run

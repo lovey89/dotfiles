@@ -196,6 +196,7 @@ installed. To ensure we install missing packages if they are missing.
           ;ivy
           ;councel
           ;swiper
+          catppuccin-theme     ; The catpuccin theme: https://github.com/catppuccin/emacs
           company              ; Modular text completion framework
           company-anaconda     ; Anaconda (python) backend for company
           company-shell        ; Shell script backend for company
@@ -433,18 +434,32 @@ theme. The function below is from [[https://stackoverflow.com/questions/9900232/
 between them.
 
 #+BEGIN_SRC emacs-lisp
-(setq my-themes '(mywombat2 leuven))
+;(setq my-themes '(mywombat2 leuven))
 
-(setq my-cur-theme nil)
+;(setq my-cur-theme nil)
+;(defun cycle-themes ()
+;  "Cycle through a list of themes, my-themes"
+;  (interactive)
+;  (when my-cur-theme
+;    (disable-theme my-cur-theme)
+;    (setq my-themes (append my-themes (list my-cur-theme))))
+;  (setq my-cur-theme (pop my-themes))
+;  ;; The t is added because we don't want to be prompted if the theme is safe
+;  (load-theme my-cur-theme t))
+
+(setq my-catppuccin-flavors '(mocha latte))
+
+(setq my-cur-flavor nil)
 (defun cycle-themes ()
-  "Cycle through a list of themes, my-themes"
+  "Cycle through a list of catppuccin flavors, my-catppuccin-flavors"
   (interactive)
-  (when my-cur-theme
-    (disable-theme my-cur-theme)
-    (setq my-themes (append my-themes (list my-cur-theme))))
-  (setq my-cur-theme (pop my-themes))
+  (when my-cur-flavor
+    (disable-theme 'catppuccin)
+    (setq my-catppuccin-flavors (append my-catppuccin-flavors (list my-cur-flavor))))
+  (setq my-cur-flavor (pop my-catppuccin-flavors))
+  (setq catppuccin-flavor my-cur-flavor)
   ;; The t is added because we don't want to be prompted if the theme is safe
-  (load-theme my-cur-theme t))
+  (load-theme 'catppuccin t))
 
 ;; Switch to the first theme in the list above
 (cycle-themes)

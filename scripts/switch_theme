@@ -1,5 +1,8 @@
 #!/bin/bash
 
+SCRIPT_DIR=$(readlink -f `dirname $0`)
+DOTFILES_DIR="${SCRIPT_DIR}/.."
+
 if grep -q "microsoft" /proc/sys/kernel/osrelease; then
   WINHOME=$(wslpath "$(wslvar USERPROFILE)")
   WEZTERM_CONFIG_PATH="$WINHOME/.config/wezterm/wezterm.lua"
@@ -12,11 +15,26 @@ if [ "$CURRENT_THEME" == "mygruvboxlight" ]; then
   NEW_THEME="mywombat"
   HL_THEME=mywombat2.theme
 elif [ "$CURRENT_THEME" == "mywombat" ]; then
+  NEW_THEME="mycatppuccin-mocha"
+  HL_THEME=mywombat2.theme
+elif [ "$CURRENT_THEME" == "mycatppuccin-mocha" ]; then
+  NEW_THEME="mycatppuccin-latte"
+  HL_THEME=base16/mexico-light.theme
+  # atelier-sulphurpool-light.theme
+  # atelier-forest-light.theme
+  # atelier-estuary-light.theme
+  # atelier-dune-light.theme
+  # atelier-cave-light.theme
+elif [ "$CURRENT_THEME" == "mycatppuccin-latte" ]; then
   NEW_THEME="mygruvboxdark"
   HL_THEME=base16/gruvbox-dark-medium.theme
 else
   NEW_THEME="mygruvboxlight"
   HL_THEME=base16/gruvbox-light-hard.theme
+fi
+
+if [ -x "$(command -v dconf)" ]; then
+  dconf load /org/gnome/terminal/legacy/profiles:/:3aa6ea65-20c8-456a-a98b-9f3b1c4b583c/ < "${DOTFILES_DIR}/.terminaldconf_colors/$NEW_THEME"
 fi
 
 echo "Update WezTerm colors to '$NEW_THEME'"

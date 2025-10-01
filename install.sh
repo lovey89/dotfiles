@@ -153,7 +153,7 @@ if [ -x "$(command -v dconf)" ]; then
   # dconf dump /org/gnome/terminal/legacy/profiles:/
   # or
   # dconf dump /org/gnome/terminal/legacy/profiles:/:3aa6ea65-20c8-456a-a98b-9f3b1c4b583c/
-  dconf load /org/gnome/terminal/legacy/profiles:/:3aa6ea65-20c8-456a-a98b-9f3b1c4b583c/ < "${DOTFILES_DIR}/.terminaldconf"
+  dconf load /org/gnome/terminal/legacy/profiles:/:3aa6ea65-20c8-456a-a98b-9f3b1c4b583c/ < "${DOTFILES_DIR}/.terminaldconf_colors/mywombat"
   # dconf read /org/gnome/terminal/legacy/profiles:/list  # Lists available profiles. Add here
   dconf write /org/gnome/terminal/legacy/profiles:/list "['3aa6ea65-20c8-456a-a98b-9f3b1c4b583c']"
   dconf write /org/gnome/terminal/legacy/profiles:/default "'3aa6ea65-20c8-456a-a98b-9f3b1c4b583c'"

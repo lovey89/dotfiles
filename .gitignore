@@ -19,5 +19,8 @@
 # Generated files
 /.Xresources
 /.minttyrc
-/.terminaldconf
+/.terminaldconf_colors
 /.config/wezterm/colors
+
+# Deprecated
+/.terminaldconf
