@@ -4,7 +4,11 @@ SCRIPT_DIR=$(readlink -f `dirname $0`)
 DOTFILES_DIR="${SCRIPT_DIR}/.."
 
 if grep -q "microsoft" /proc/sys/kernel/osrelease; then
-  WINHOME=$(wslpath "$(wslvar USERPROFILE)")
+  WINHOME=$(wslpath "$(wslvar USERPROFILE | tail -n1)") # "
+  if [ ! -d "$WINHOME" ]; then
+    echo "Something went wrong as WINHOME '$WINHOME' was does not exist.." 1>&2
+    exit 1
+  fi
   WEZTERM_CONFIG_PATH="$WINHOME/.config/wezterm/wezterm.lua"
 else
   WEZTERM_CONFIG_PATH="$HOME/.wezterm.lua"

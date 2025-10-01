@@ -107,7 +107,11 @@ createlink ".gnupg/gpg-agent.conf" ".gnupg/gpg-agent.conf"
 if grep -q "microsoft" /proc/sys/kernel/osrelease; then
   # WSL
   #sudo apt install --no-install-recommends wslu
-  WINHOME=$(wslpath "$(wslvar USERPROFILE)") # "
+  WINHOME=$(wslpath "$(wslvar USERPROFILE | tail -n1)") # "
+  if [ ! -d "$WINHOME" ]; then
+    echo "Something went wrong as WINHOME '$WINHOME' was does not exist.." 1>&2
+    exit 1
+  fi
   # Looks like as if you can't create a link from windows to wsl so we copy the
   # files instead
   mkdir -p "$WINHOME/.config/wezterm/colors"
