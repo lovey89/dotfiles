@@ -459,8 +459,15 @@ between them.
   (setq my-cur-flavor (pop my-catppuccin-flavors))
   (setq catppuccin-flavor my-cur-flavor)
   ;; The t is added because we don't want to be prompted if the theme is safe
-  (load-theme 'catppuccin t))
-
+  (load-theme 'catppuccin t)
+  ; Override colors
+  (cond ((equal my-cur-flavor 'mocha)
+         ; If mocha
+         (set-face-foreground 'vertical-border "#cdd6f4"))
+        ((equal my-cur-flavor 'latte)
+         ; If latte
+         (set-face-foreground 'vertical-border "#4c4f69")))
+)
 ;; Switch to the first theme in the list above
 (cycle-themes)
 #+END_SRC
