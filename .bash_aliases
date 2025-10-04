@@ -332,6 +332,10 @@ secondstodate()
   date --date "@${1:0:10}"
 }
 
+if grep -q "microsoft" /proc/sys/kernel/osrelease; then
+  alias xclip='(clip.exe <(cat -))'
+fi
+
 if [ "$OSTYPE" == "cygwin" ]; then
   # Output of mvn is broken unless you run with TERM=cygwin
   # http://cygwin.1069669.n5.nabble.com/3-1-x-Mangled-input-output-when-calling-non-cygwin-programs-td149577.html
