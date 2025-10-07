@@ -333,7 +333,7 @@ secondstodate()
 }
 
 if grep -q "microsoft" /proc/sys/kernel/osrelease; then
-  alias xclip='(clip.exe <(cat -))'
+  alias xclip="clip.exe"
 fi
 
 if [ "$OSTYPE" == "cygwin" ]; then
