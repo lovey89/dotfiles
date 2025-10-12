@@ -33,4 +33,4 @@
 	path = ~/.gitconfig.local
 [user]
 	name = Love Yregård
-	email = xlove.github@yregard.se
+	#email = xlove.github@yregard.se

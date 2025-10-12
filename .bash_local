@@ -14,3 +14,7 @@
 
 # Set the path to your password store (for gnu pass)
 #export PASSWORD_STORE_DIR=""
+
+# Set an email to use for git repositories. 0 is already used
+#CUSTOM_GIT_PATH_1="example.com/sub/path/" # Use a trailing slash
+#CUSTOM_GIT_EMAIL_1="my@email.com"

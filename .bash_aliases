@@ -103,6 +103,60 @@ fi
 
 # Functions
 
+CUSTOM_GIT_PATH_0="github.com/lovey89/"
+CUSTOM_GIT_EMAIL_0="xlove.github@yregard.se"
+git() {
+  if [[ "$1" == "clone" && "$@" != *"--help"* ]]; then
+    local repo_url=""
+
+    # Loop through arguments to find the repository URL
+    for arg in "$@"; do
+      if [[ "$arg" =~ ^https?:// ]] || [[ "$arg" =~ ^[a-zA-Z0-9_-]+@[a-zA-Z0-9_.-]+: ]]; then
+        repo_url="$arg"
+        break
+      fi
+    done
+
+    if [[ -z "$repo_url" ]]; then
+      echo "No repository URL found in arguments." >&2
+      command git "$@"
+      return
+    fi
+
+    # Extract repo_url for HTTPS URLs
+    if [[ "$repo_url" =~ ^https?:// ]]; then
+      repo_url=$(echo "$repo_url" | sed -E 's|^https?://([^@]*@)?||')
+    elif [[ "$repo_url" =~ ^[a-zA-Z0-9_-]+@[a-zA-Z0-9_.-]+: ]]; then
+      repo_url=$(echo "$repo_url" | sed -E 's|^[a-zA-Z0-9_-]+@||' | tr ":" "/")
+    else
+      echo "Unsupported repository URL format: $repo_url" >&2
+      return
+    fi
+
+    local i=0
+    local extra_config=""
+    # Check for a url that matches in CUSTOM_GIT_PATH_x
+    while true; do
+      path_var="CUSTOM_GIT_PATH_$i"
+      email_var="CUSTOM_GIT_EMAIL_$i"
+      if [[ -z "${!path_var:-}" ]]; then
+        break
+      fi
+      if [[ "$repo_url" == "${!path_var}"* ]]; then
+        echo "Repo url matched '${!path_var}'. Set email to '${!email_var}'"
+        extra_config="--config user.email=\"${!email_var}\""
+        break
+      fi
+      i=$((i + 1))
+    done
+    echo "$repo_url"
+    shift 1
+    command git clone $extra_config "$@"
+  else
+    command git "$@"
+  fi
+}
+
 decode_base64_url() {
   local len=$((${#1} % 4))
   local result="$1"
