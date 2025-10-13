@@ -41,6 +41,8 @@ createlink()
 createcopy()
 {
   local ORIG_PATH="$1"
+  local ORIG_PATH_RELATIVE_DOTFILES="$1"
+
   if [[ "${ORIG_PATH}" != /* ]]; then
     ORIG_PATH="$DOTFILES_DIR/$ORIG_PATH"
   fi
@@ -58,7 +60,7 @@ createcopy()
   fi
 
   if [ -z ${COPY_PATH} ]; then
-    COPY_PATH="$HOME/$ORIG_PATH"
+    COPY_PATH="$HOME/$ORIG_PATH_RELATIVE_DOTFILES"
   elif [[ ${COPY_PATH} != /* ]]; then
     COPY_PATH="$HOME/$COPY_PATH"
   fi
@@ -96,6 +98,10 @@ createlink ".vimrc"
 createlink ".tmux.conf"
 createlink ".wezterm.lua"
 createlink ".pg_format"
+
+# Local config files
+createcopy ".gitconfig.local"
+createcopy ".bash_logout"
 
 # directories
 createlink ".emacs.d"
