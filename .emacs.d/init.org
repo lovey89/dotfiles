@@ -446,7 +446,9 @@ between them.
 ;  (setq my-cur-theme (pop my-themes))
 ;  ;; The t is added because we don't want to be prompted if the theme is safe
 ;  (load-theme my-cur-theme t))
+#+END_SRC
 
+#+BEGIN_SRC emacs-lisp
 (setq my-catppuccin-flavors '(mocha latte))
 
 (setq my-cur-flavor nil)
@@ -463,14 +465,24 @@ between them.
   ; Override colors
   (cond ((equal my-cur-flavor 'mocha)
          ; If mocha
+         (set-face-background 'default "undefined")
+         (set-face-background 'org-block "#111116")
+         (set-face-attribute 'org-block-begin-line nil :background "#b4befe" :foreground "#000000")
+         (set-face-attribute 'org-block-end-line nil :background 'unspecified)
          (set-face-foreground 'vertical-border "#cdd6f4"))
         ((equal my-cur-flavor 'latte)
          ; If latte
+         (set-face-background 'default "undefined")
          (set-face-foreground 'vertical-border "#4c4f69")))
 )
 ;; Switch to the first theme in the list above
 (cycle-themes)
 #+END_SRC
+
+To identify ext properties for the character at the point ~M-x describe-char~:
+https://stackoverflow.com/questions/25336053/emacs-find-face-definition-color-other-styles-etc-at-point
+
+Then to get the colors you can run ~M-x describe-face~.
 
 I want a horizontal line where the cursor currently is and always have some
 margin to top and bottom
