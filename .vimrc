@@ -2,7 +2,7 @@ source $VIMRUNTIME/defaults.vim
 
 " The color scheme can be manually edited by typing:
 " :colorscheme <tab to see alternatives>
-colorscheme mywombat
+colorscheme catppuccin_mocha
 syntax on
 set cursorline
 
