@@ -18,3 +18,6 @@
 # Set an email to use for git repositories. 0 is already used
 #CUSTOM_GIT_PATH_1="example.com/sub/path/" # Use a trailing slash
 #CUSTOM_GIT_EMAIL_1="my@email.com"
+
+# Configure extra git remotes
+#alias add-git-qa-remote="git remote add qa $(git ls-remote --get-url | sed 's/git./git-qa./')"
