@@ -465,14 +465,14 @@ between them.
   ; Override colors
   (cond ((equal my-cur-flavor 'mocha)
          ; If mocha
-         (set-face-background 'default "undefined")
+         (set-face-background 'default 'unspecified)
          (set-face-background 'org-block "#111116")
          (set-face-attribute 'org-block-begin-line nil :background "#b4befe" :foreground "#000000")
          (set-face-attribute 'org-block-end-line nil :background 'unspecified)
          (set-face-foreground 'vertical-border "#cdd6f4"))
         ((equal my-cur-flavor 'latte)
          ; If latte
-         (set-face-background 'default "undefined")
+         (set-face-background 'default 'unspecified)
          (set-face-foreground 'vertical-border "#4c4f69")))
 )
 ;; Switch to the first theme in the list above
