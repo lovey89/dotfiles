@@ -158,12 +158,12 @@ git() {
 }
 
 mssh() {
-  usernames=()
+  local usernames=()
 
   local i=0
   while true; do
-    username_var="MSSH_USERNAME_$i"
-    username="${!username_var:-}"
+    local username_var="MSSH_USERNAME_$i"
+    local username="${!username_var:-}"
     if [[ -z "${username}" ]]; then
       break
     fi
@@ -172,14 +172,13 @@ mssh() {
     i=$((i + 1))
   done
 
+  local username_index=0
   if [ "${#usernames[@]}" == 0 ]; then
     echo "No user has been defined for mssh. Define the following variables:" >&2
     echo "MSSH_USERNAME_x: The username for an ssh server" >&2
     echo "MSSH_OP_PATH_x:  The path is 1password for the ssh password for the given user" >&2
     return 1
-  elif [ "${#usernames[@]}" == 1 ]; then
-    username_index=0
-  else
+  elif [ "${#usernames[@]}" > 1 ]; then
     local PS3="Choose a username for the user you want to use: "
     select username in "${usernames[@]}"
     do
@@ -190,10 +189,23 @@ mssh() {
     username_index=$((REPLY - 1))
   fi
 
-  op_path_var="MSSH_OP_PATH_$username_index"
-  op_path="${!op_path_var}"
-  echo $op_path
-  op read "$op_path"
+  local pw_var="MSSH_PW_$username_index"
+  local pw=""
+  if [ -n "${!pw_var+x}" ]; then
+    pw="${!pw_var}"
+  else
+    local op_path_var="MSSH_OP_PATH_$username_index"
+    local op_path="${!op_path_var}"
+    local pw=$(op read "$op_path")
+    readonly $pw_var="$pw"
+  fi
+
+  if grep -q "microsoft" /proc/sys/kernel/osrelease; then
+    echo -n "$pw" | clip.exe
+  else
+    echo -n "$pw" | xclip
+  fi
+  sshpass -p "$pw" ssh -l "$username" "$@"
 }
 
 decode_base64_url() {

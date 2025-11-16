@@ -20,4 +20,4 @@
 #CUSTOM_GIT_EMAIL_1="my@email.com"
 
 # Configure extra git remotes
-#alias add-git-qa-remote="git remote add qa $(git ls-remote --get-url | sed 's/git./git-qa./')"
+#alias add-git-qa-remote='git remote add qa $(git ls-remote --get-url | sed "s/git\./git-qa\./")'
