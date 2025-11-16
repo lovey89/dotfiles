@@ -157,6 +157,45 @@ git() {
   fi
 }
 
+mssh() {
+  usernames=()
+
+  local i=0
+  while true; do
+    username_var="MSSH_USERNAME_$i"
+    username="${!username_var:-}"
+    if [[ -z "${username}" ]]; then
+      break
+    fi
+    usernames+=("$username")
+
+    i=$((i + 1))
+  done
+
+  if [ "${#usernames[@]}" == 0 ]; then
+    echo "No user has been defined for mssh. Define the following variables:" >&2
+    echo "MSSH_USERNAME_x: The username for an ssh server" >&2
+    echo "MSSH_OP_PATH_x:  The path is 1password for the ssh password for the given user" >&2
+    return 1
+  elif [ "${#usernames[@]}" == 1 ]; then
+    username_index=0
+  else
+    local PS3="Choose a username for the user you want to use: "
+    select username in "${usernames[@]}"
+    do
+      if [ -n "$username" ]; then
+        break
+      fi
+    done
+    username_index=$((REPLY - 1))
+  fi
+
+  op_path_var="MSSH_OP_PATH_$username_index"
+  op_path="${!op_path_var}"
+  echo $op_path
+  op read "$op_path"
+}
+
 decode_base64_url() {
   local len=$((${#1} % 4))
   local result="$1"
