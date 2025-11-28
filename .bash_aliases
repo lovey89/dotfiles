@@ -178,7 +178,7 @@ mssh() {
     echo "MSSH_USERNAME_x: The username for an ssh server" >&2
     echo "MSSH_OP_PATH_x:  The path is 1password for the ssh password for the given user" >&2
     return 1
-  elif [ "${#usernames[@]}" > 1 ]; then
+  elif [ "${#usernames[@]}" -gt 1 ]; then
     local PS3="Choose a username for the user you want to use: "
     select username in "${usernames[@]}"
     do
@@ -205,7 +205,7 @@ mssh() {
   else
     echo -n "$pw" | xclip
   fi
-  sshpass -p "$pw" ssh -l "$username" "$@"
+  sshpass -p "$pw" ssh -oStrictHostKeyChecking=accept-new -l "$username" "$@"
 }
 
 decode_base64_url() {

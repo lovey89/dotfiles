@@ -11,5 +11,10 @@
     "files.trimFinalNewlines": true,
     "editor.wrappingIndent": "indent",
     "rust-analyzer.procMacro.enable": false,
-    "explorer.autoReveal": "focusNoScroll"
+    "explorer.autoReveal": "focusNoScroll",
+    "security.allowedUNCHosts": [
+        "wsl$",
+        "wsl.localhost"
+    ],
+    "editor.inlineSuggest.enabled": false,
 }
