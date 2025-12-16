@@ -157,7 +157,7 @@ git() {
   fi
 }
 
-mssh() {
+setup_mssh() {
   local usernames=()
 
   local i=0
@@ -180,8 +180,7 @@ mssh() {
     return 1
   elif [ "${#usernames[@]}" -gt 1 ]; then
     local PS3="Choose a username for the user you want to use: "
-    select username in "${usernames[@]}"
-    do
+    select username in "${usernames[@]}"; do
       if [ -n "$username" ]; then
         break
       fi
@@ -191,14 +190,21 @@ mssh() {
 
   local pw_var="MSSH_PW_$username_index"
   local pw=""
+
   if [ -n "${!pw_var+x}" ]; then
-    pw="${!pw_var}"
+    echo "local pw='${!pw_var}'"
   else
     local op_path_var="MSSH_OP_PATH_$username_index"
     local op_path="${!op_path_var}"
     local pw=$(op read "$op_path")
-    readonly $pw_var="$pw"
+    echo "readonly $pw_var='$pw'"
+    echo "local pw='$pw'"
   fi
+  echo "local username='$username'"
+}
+
+mssh() {
+  eval "$(setup_mssh)"
 
   if grep -q "microsoft" /proc/sys/kernel/osrelease; then
     echo -n "$pw" | clip.exe
@@ -206,6 +212,19 @@ mssh() {
     echo -n "$pw" | xclip
   fi
   sshpass -p "$pw" ssh -oStrictHostKeyChecking=accept-new -l "$username" "$@"
+}
+
+mrdp() {
+  eval "$(setup_mssh)"
+
+  if grep -q "microsoft" /proc/sys/kernel/osrelease; then
+    echo -n "$pw" | clip.exe
+  else
+    echo -n "$pw" | xclip
+  fi
+  cmdkey.exe /generic:"$1" /user:"$username" # /pass:"$pw"
+  mstsc.exe /v:"$1"
+  cmdkey.exe /delete:"$1"
 }
 
 decode_base64_url() {
