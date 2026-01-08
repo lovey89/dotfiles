@@ -111,7 +111,7 @@ git() {
 
     # Loop through arguments to find the repository URL
     for arg in "$@"; do
-      if [[ "$arg" =~ ^https?:// ]] || [[ "$arg" =~ ^[a-zA-Z0-9_-]+@[a-zA-Z0-9_.-]+: ]]; then
+      if [[ "$arg" =~ ^https?:// ]] || [[ "$arg" =~ ^(ssh://)?[a-zA-Z0-9_-]+@[a-zA-Z0-9_.-]+: ]]; then
         repo_url="$arg"
         break
       fi
@@ -126,8 +126,8 @@ git() {
     # Extract repo_url for HTTPS URLs
     if [[ "$repo_url" =~ ^https?:// ]]; then
       repo_url=$(echo "$repo_url" | sed -E 's|^https?://([^@]*@)?||')
-    elif [[ "$repo_url" =~ ^[a-zA-Z0-9_-]+@[a-zA-Z0-9_.-]+: ]]; then
-      repo_url=$(echo "$repo_url" | sed -E 's|^[a-zA-Z0-9_-]+@||' | tr ":" "/")
+    elif [[ "$repo_url" =~ ^(ssh://)?[a-zA-Z0-9_-]+@[a-zA-Z0-9_.-]+: ]]; then
+      repo_url=$(echo "$repo_url" | sed -E 's|^(ssh://)?[a-zA-Z0-9_-]+@||' | tr ":" "/")
     else
       echo "Unsupported repository URL format: $repo_url" >&2
       return
