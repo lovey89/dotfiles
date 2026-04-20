@@ -89,6 +89,22 @@ if command -v docker &> /dev/null; then
     -v ~/.dockervolumes/spotify/cache/:/app/cache/ \
     --network host \
     aome510/spotify_player:latest'
+
+  alias dopencode='mkdir -p \
+      $HOME/.config/opencode \
+      $HOME/.local/share/opencode \
+      $HOME/.local/state/opencode && \
+    docker run \
+      --rm \
+      -it \
+      -v "$HOME/.config/opencode:$HOME/.config/opencode" \
+      -v "$HOME/.local/share/opencode:$HOME/.local/share/opencode" \
+      -v "$HOME/.local/state/opencode:$HOME/.local/state/opencode" \
+      -v "$PWD:/workspace" \
+      -v "$HOME/.gitconfig:$HOME/.gitconfig:ro" \
+      -v "$HOME/.gitconfig.local:$HOME/.gitconfig.local:ro" \
+      -w /workspace \
+      opencode:local bash'
   if [ -f ~/.kube/config ] && command -v docker &> /dev/null; then
     # '--network host' is necessary if you are using an ssh tunnel to communicate with the cluster
     alias dk9s='docker run --rm -it \
