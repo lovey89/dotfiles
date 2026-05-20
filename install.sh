@@ -108,6 +108,7 @@ createlink ".emacs.d"
 createlink ".vim"
 createlink ".config/wezterm" ".config/wezterm"
 createlink ".config/tmux" ".config/tmux"
+createlink ".config/opencode" ".config/opencode"
 createlink ".gnupg/gpg-agent.conf" ".gnupg/gpg-agent.conf"
 
 if grep -q "microsoft" /proc/sys/kernel/osrelease; then

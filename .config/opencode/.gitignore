@@ -1,0 +1,17 @@
+# Create a whitelist of files instead of a blacklist
+# Ignore everything
+/*
+
+# Add back certain files again located directly in this dir
+!/.gitignore
+!/opencode.json
+!/tui.json
+
+# Add back certain directories (and all contents)
+!/agents/
+!/commands/
+!/modes/
+!/plugins/
+!/skills/
+!/tools/
+!/themes/
