@@ -6,6 +6,7 @@
 !/.gitignore
 !/opencode.json
 !/tui.json
+!/README.md
 
 # Add back certain directories (and all contents)
 !/agents/
